@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ArrayChallenge from "./Array";
 import Counter from "./Counter";
 
 function App() {
@@ -6,7 +7,7 @@ function App() {
 
   return (
     <>
-      <Counter count={count} setCount={setCount} />
+      <ArrayChallenge />
     </>
   );
 }

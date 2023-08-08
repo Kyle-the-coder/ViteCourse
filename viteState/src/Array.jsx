@@ -17,8 +17,13 @@ const ArrayChallenge = () => {
   const handleAddNewLetterBeg = (letter) => {
     setLetterArr([letter, ...letterArr]);
   };
+
   const handleAddNewLetterEnd = (letter) => {
     setLetterArr([...letterArr, letter]);
+  };
+
+  const handleClearLetterArr = () => {
+    setLetterArr([]);
   };
 
   return (
@@ -40,6 +45,7 @@ const ArrayChallenge = () => {
         <button onClick={() => handleAddNewLetterEnd(newLetter)}>
           Click to add your letter to the End
         </button>
+        <button onClick={handleClearLetterArr}>Click to clear</button>
       </div>
       {letterArr.join(", ")}
     </div>

@@ -6,14 +6,24 @@ const NameAge = () => {
   const [userAge, setUserAge] = useState(0);
 
   useEffect(() => {
+    console.log("re-render");
+  });
+  useEffect(() => {
     console.log("Hi");
+    return () => {
+      console.log("bye");
+    };
   }, []);
 
   useEffect(() => {
     console.log("my name is", userName, "my age is", userAge);
     document.title = userName;
+    const timeOut = setTimeout(() => {
+      console.log("My name is", userName);
+    }, 1000);
+
     return () => {
-      console.log("Render");
+      clearTimeout(timeOut);
     };
   }, [userName, userAge]);
 

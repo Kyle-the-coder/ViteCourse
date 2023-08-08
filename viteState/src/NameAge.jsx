@@ -1,15 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./buttons.css";
 
 const NameAge = () => {
   const [userName, setUserName] = useState("");
   const [userAge, setUserAge] = useState(0);
+
+  useEffect(() => {
+    console.log("Hi");
+  }, []);
+
+  useEffect(() => {
+    console.log("my name is", userName, "my age is", userAge);
+    document.title = userName;
+    return () => {
+      console.log("Render");
+    };
+  }, [userName, userAge]);
+
   const handleIncreaseAge = () => {
     setUserAge(userAge + 1);
   };
   const handleDecreaseAge = () => {
     setUserAge(userAge - 1);
   };
+
   return (
     <div>
       <div>

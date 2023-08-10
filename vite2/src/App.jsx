@@ -1,11 +1,15 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import TodoFunction from "./ToDo";
+import TodoList from "./ToDoList";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return <></>;
+  const [todoList, setTodoList] = useState([]);
+  return (
+    <>
+      <TodoList todoList={todoList} setTodoList={setTodoList} />
+      <TodoFunction setTodoList={setTodoList} />
+    </>
+  );
 }
 
 export default App;

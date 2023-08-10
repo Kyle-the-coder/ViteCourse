@@ -1,7 +1,12 @@
 import { useState } from "react";
+import FetchList from "./FetchList";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <FetchList />
+    </>
+  );
 }
 
 export default App;

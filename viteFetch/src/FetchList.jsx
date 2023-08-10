@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 const FetchList = () => {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState("");
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
+    const controller = new AbortController();
+    fetch("https://jsonplaceholder.typicode.com/users", {
+      signal: controller.signal,
+    })
       .then((res) => {
         if (res.status === 200) {
           return res.json();
@@ -17,7 +20,10 @@ const FetchList = () => {
       .then((data) => {
         setUsers(data);
       })
-      .finally(setLoading(false));
+      .finally(() => setLoading(false));
+    return () => {
+      controller.abort();
+    };
   }, []);
   console.log(users);
   return (

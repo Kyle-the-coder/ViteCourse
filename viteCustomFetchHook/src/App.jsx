@@ -28,7 +28,6 @@ function App() {
   const { data, isLoading, isError } = useFetch(url);
   // BONUS:
   // const { data, isLoading, isError } = useFetch(url, OPTIONS)
-
   return (
     <>
       <div>

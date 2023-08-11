@@ -36,7 +36,7 @@ export function useArray(INITIAL_ARRAY) {
     replace,
     filter,
     remove,
-    clear,
     reset,
+    clear,
   };
 }

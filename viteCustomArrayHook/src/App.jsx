@@ -1,3 +1,4 @@
+import { useArray } from "./useArray";
 const INITIAL_ARRAY = [1, 2, 3];
 // const INITIAL_ARRAY = () => [1, 2, 3]
 

@@ -1,7 +1,6 @@
-import { json } from "express";
 import { useState } from "react";
 
-function useFetch(initialValue) {
+export function useFetch(initialValue) {
   const [urlResults, setUrlResults] = useState(initialValue);
 
   fetch(initialValue)
@@ -11,9 +10,9 @@ function useFetch(initialValue) {
       }
     })
     .then((data) => {
-      setUrlResults(data);
+      console.log(data);
     })
     .catch((err) => console.log(err));
-}
 
-export default useFetch;
+  return urlResults;
+}

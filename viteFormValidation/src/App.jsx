@@ -1,34 +1,62 @@
+import e from "cors";
 import { useState } from "react";
+import "./style.css";
 
 function App() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState(null);
+  const [isErr, setIsErr] = useState(false);
+
+  const handleForm = (e) => {
+    e.preventDefault();
+    const lowercaseRegex = /[a-z]/;
+    if (!email.includes("@webdevsimplified.com")) {
+      setIsErr(true);
+    } else {
+      setIsErr(false);
+    }
+    if (
+      password === "" ||
+      password.length < 10 ||
+      !lowercaseRegex.test(password)
+    ) {
+    }
+  };
+
   return (
     <>
       <div>
-        <form class="form">
-          <div class="form-group error">
-            <label class="label" for="email">
+        <form className="form" onSubmit={handleForm}>
+          <div className="form-group error">
+            <label className="label" htmlFor="email">
               Email
             </label>
             <input
-              class="input"
+              className="input"
               type="email"
               id="email"
-              value="test@test.com"
+              placeholder="test@testmail.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
-            <div class="msg">Must end in @webdevsimplified.com</div>
+            {isErr && (
+              <div className="msg">Must end in @webdevsimplified.com</div>
+            )}
           </div>
-          <div class="form-group">
-            <label class="label" for="password">
+          <div className="form-group">
+            <label className="label" htmlFor="password">
               Password
             </label>
             <input
-              class="input"
+              className="input"
               value="Password123!"
               type="password"
               id="password"
+              onChange={(e) => setPassword(e.target.value)}
             />
+            {isErr && <h1 className="msg">Password must be</h1>}
           </div>
-          <button class="btn" type="submit">
+          <button className="btn" type="submit">
             Submit
           </button>
         </form>

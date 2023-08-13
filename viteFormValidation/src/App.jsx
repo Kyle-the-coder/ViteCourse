@@ -5,21 +5,29 @@ import "./style.css";
 function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(null);
-  const [isErr, setIsErr] = useState(false);
+  const [isEmailErr, setIsEmailErr] = useState(false);
+  const [isPasswordErr, setIsPasswordErr] = useState(false);
 
   const handleForm = (e) => {
     e.preventDefault();
     const lowercaseRegex = /[a-z]/;
+    const uppercaseRegex = /[A-Z]/;
+    const numberRegex = /\d/;
     if (!email.includes("@webdevsimplified.com")) {
-      setIsErr(true);
+      setIsEmailErr(true);
     } else {
-      setIsErr(false);
+      setIsEmailErr(false);
     }
     if (
       password === "" ||
       password.length < 10 ||
-      !lowercaseRegex.test(password)
+      !lowercaseRegex.test(password) ||
+      !uppercaseRegex.test(password) ||
+      !numberRegex.test(password)
     ) {
+      setIsPasswordErr(true);
+    } else {
+      setIsPasswordErr(false);
     }
   };
 
@@ -39,7 +47,7 @@ function App() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {isErr && (
+            {isEmailErr && (
               <div className="msg">Must end in @webdevsimplified.com</div>
             )}
           </div>
@@ -54,7 +62,7 @@ function App() {
               id="password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            {isErr && <h1 className="msg">Password must be</h1>}
+            {isPasswordErr && <h1 className="msg">Password must be</h1>}
           </div>
           <button className="btn" type="submit">
             Submit

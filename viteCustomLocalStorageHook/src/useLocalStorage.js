@@ -4,13 +4,21 @@ export function useLocalStorage(key, initialValue) {
   const [value, setValue] = useState(() => {
     const localValue = localStorage.getItem(key);
     if (localValue == null) {
-      return initialValue;
+      if (typeof initialValue === "function") {
+        return initialValue();
+      } else {
+        return initialValue;
+      }
     } else {
-      return localValue;
+      return JSON.parse(localValue);
     }
   });
   useEffect(() => {
-    localStorage.setItem(key, value);
+    if (value === undefined) {
+      localStorage.removeItem(key);
+    } else {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
   }, [value]);
 
   return [value, setValue];

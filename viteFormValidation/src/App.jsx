@@ -1,12 +1,13 @@
 import e from "cors";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./style.css";
 
 function App() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(null);
+  const email = useRef();
+  const password = useRef();
   const [isEmailErr, setIsEmailErr] = useState(false);
   const [isPasswordErr, setIsPasswordErr] = useState(false);
+  const [passwordErrMsg, setPasswordErrMsg] = useState("");
 
   const handleForm = (e) => {
     e.preventDefault();
@@ -18,19 +19,25 @@ function App() {
     } else {
       setIsEmailErr(false);
     }
-    if (
-      password === "" ||
-      password.length < 10 ||
-      !lowercaseRegex.test(password) ||
-      !uppercaseRegex.test(password) ||
-      !numberRegex.test(password)
-    ) {
+    if (password === "") {
       setIsPasswordErr(true);
+      setPasswordErrMsg("not be blank");
+    } else if (password.length < 10) {
+      setIsPasswordErr(true);
+      setPasswordErrMsg("be at least 10 characters");
+    } else if (!lowercaseRegex.test(password)) {
+      setIsPasswordErr(true);
+      setPasswordErrMsg("contain a lowercase letter");
+    } else if (!uppercaseRegex.test(password)) {
+      setIsPasswordErr(true);
+      setPasswordErrMsg("contain an uppercase letter");
+    } else if (!numberRegex.test(password)) {
+      setIsPasswordErr(true);
+      setPasswordErrMsg("contain a number");
     } else {
       setIsPasswordErr(false);
     }
   };
-
   return (
     <>
       <div>
@@ -45,7 +52,7 @@ function App() {
               id="email"
               placeholder="test@testmail.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              ref={email}
             />
             {isEmailErr && (
               <div className="msg">Must end in @webdevsimplified.com</div>
@@ -57,12 +64,15 @@ function App() {
             </label>
             <input
               className="input"
-              value="Password123!"
+              placeholder="password"
+              value={password}
               type="password"
               id="password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            {isPasswordErr && <h1 className="msg">Password must be</h1>}
+            {isPasswordErr && (
+              <div className="msg">password must {passwordErrMsg} </div>
+            )}
           </div>
           <button className="btn" type="submit">
             Submit

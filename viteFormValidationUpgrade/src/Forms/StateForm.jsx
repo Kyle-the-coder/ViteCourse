@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { checkEmail } from "../validators";
 import { checkPassword } from "../validators";
 import "../styles/styles.css";
@@ -8,14 +8,19 @@ const StateForm = () => {
   const [password, setPassword] = useState("");
   const [afterFirstSubmit, setAfterFirstSubmit] = useState(false);
 
-  const emailErrors = afterFirstSubmit ? checkEmail(email) : [];
-  const passwordErrors = afterFirstSubmit ? checkPassword(password) : [];
+  const emailErrors = useMemo(() => {
+    return afterFirstSubmit ? checkEmail(email) : [];
+  }, [afterFirstSubmit, email]);
+
+  const passwordErrors = useMemo(() => {
+    return afterFirstSubmit ? checkPassword(password) : [];
+  }, [afterFirstSubmit, password]);
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    setAfterFirstSubmit(true);
     const emailValidation = checkEmail(email);
     const passwordValidation = checkPassword(password);
-    setEmailErrors(emailValidation);
-    setPasswordErrors(passwordValidation);
     if (emailValidation.length === 0 && passwordValidation.length === 0) {
       alert("success");
     }

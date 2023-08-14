@@ -1,13 +1,20 @@
+import e from "cors";
 import { useState } from "react";
 import "../styles/styles.css";
 const StateForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailErrors, setEmailErrors] = useState([]);
+  const [passwordErrors, setPasswordErrors] = useState([]);
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <div>
-      <form className="form">
-        <div className="form-group error">
-          <label className="label" for="email">
+      <form className="form" onSubmit={handleOnSubmit}>
+        <div className={`form-group ${emailErrors.length > 0 && "error"}`}>
+          <label className="label" htmlFor="email">
             Email
           </label>
           <input
@@ -17,10 +24,12 @@ const StateForm = () => {
             value="test@test.com"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <div className="msg">Must end in @webdevsimplified.com</div>
+          {emailErrors.length > 0 && (
+            <div className="msg">Must end in @webdevsimplified.com</div>
+          )}
         </div>
-        <div className="form-group">
-          <label className="label" for="password">
+        <div className={`form-group ${passwordErrors.length > 0 && "error"}`}>
+          <label className="label" htmlFor="password">
             Password
           </label>
           <input
@@ -30,6 +39,9 @@ const StateForm = () => {
             id="password"
             onChange={(e) => setPassword(e.target.value)}
           />
+          {passwordErrors.length > 0 && (
+            <div className="msg">{passwordErrors}</div>
+          )}
         </div>
         <button className="btn" type="submit">
           Submit

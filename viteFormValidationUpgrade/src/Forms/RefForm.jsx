@@ -8,9 +8,11 @@ const RefForm = () => {
   const passwordRef = useRef();
   const [emailErrors, setEmailErrors] = useState([]);
   const [passwordErrors, setPasswordErrors] = useState([]);
+  const [afterFirstSubmit, setAfterFirstSubmit] = useState(false);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    setAfterFirstSubmit(true);
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     const emailValidation = checkEmail(email);
@@ -35,6 +37,10 @@ const RefForm = () => {
             id="email"
             placeholder="test@test.com"
             ref={emailRef}
+            onChange={
+              afterFirstSubmit &&
+              ((e) => setEmailErrors(checkEmail(e.target.value)))
+            }
           />
           {emailErrors.length > 0 && (
             <div className="msg">Must end in @webdevsimplified.com</div>
@@ -50,6 +56,10 @@ const RefForm = () => {
             type="password"
             id="password"
             ref={passwordRef}
+            onChange={
+              afterFirstSubmit &&
+              ((e) => setPasswordErrors(checkPassword(e.target.value)))
+            }
           />
           {passwordErrors.length > 0 && (
             <div className="msg">{passwordErrors.join(", ")}</div>

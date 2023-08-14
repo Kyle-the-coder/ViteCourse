@@ -1,6 +1,8 @@
-import e from "cors";
 import { useState } from "react";
+import { checkEmail } from "../validators";
+import { checkPassword } from "../validators";
 import "../styles/styles.css";
+
 const StateForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -9,6 +11,13 @@ const StateForm = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    const emailValidation = checkEmail(email);
+    const passwordValidation = checkPassword(password);
+    setEmailErrors(emailValidation);
+    setPasswordErrors(passwordValidation);
+    if (emailValidation.length === 0 && passwordValidation.length === 0) {
+      alert("success");
+    }
   };
   return (
     <div>
@@ -21,7 +30,8 @@ const StateForm = () => {
             className="input"
             type="email"
             id="email"
-            value="test@test.com"
+            placeholder="test@test.com"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           {emailErrors.length > 0 && (
@@ -34,13 +44,14 @@ const StateForm = () => {
           </label>
           <input
             className="input"
-            value="Password123!"
+            placeholder="Password123!"
+            value={password}
             type="password"
             id="password"
             onChange={(e) => setPassword(e.target.value)}
           />
           {passwordErrors.length > 0 && (
-            <div className="msg">{passwordErrors}</div>
+            <div className="msg">{passwordErrors.join(", ")}</div>
           )}
         </div>
         <button className="btn" type="submit">

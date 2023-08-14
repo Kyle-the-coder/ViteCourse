@@ -6,9 +6,10 @@ import "../styles/styles.css";
 const StateForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [emailErrors, setEmailErrors] = useState([]);
-  const [passwordErrors, setPasswordErrors] = useState([]);
+  const [afterFirstSubmit, setAfterFirstSubmit] = useState(false);
 
+  const emailErrors = afterFirstSubmit ? checkEmail(email) : [];
+  const passwordErrors = afterFirstSubmit ? checkPassword(password) : [];
   const handleOnSubmit = (e) => {
     e.preventDefault();
     const emailValidation = checkEmail(email);

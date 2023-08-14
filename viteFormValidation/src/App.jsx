@@ -1,16 +1,17 @@
-import e from "cors";
 import { useState, useRef } from "react";
 import "./style.css";
 
 function App() {
-  const email = useRef();
-  const password = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
   const [isEmailErr, setIsEmailErr] = useState(false);
   const [isPasswordErr, setIsPasswordErr] = useState(false);
   const [passwordErrMsg, setPasswordErrMsg] = useState("");
 
   const handleForm = (e) => {
     e.preventDefault();
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
     const lowercaseRegex = /[a-z]/;
     const uppercaseRegex = /[A-Z]/;
     const numberRegex = /\d/;
@@ -51,8 +52,7 @@ function App() {
               type="email"
               id="email"
               placeholder="test@testmail.com"
-              value={email}
-              ref={email}
+              ref={emailRef}
             />
             {isEmailErr && (
               <div className="msg">Must end in @webdevsimplified.com</div>
@@ -65,10 +65,9 @@ function App() {
             <input
               className="input"
               placeholder="password"
-              value={password}
               type="password"
               id="password"
-              onChange={(e) => setPassword(e.target.value)}
+              ref={passwordRef}
             />
             {isPasswordErr && (
               <div className="msg">password must {passwordErrMsg} </div>

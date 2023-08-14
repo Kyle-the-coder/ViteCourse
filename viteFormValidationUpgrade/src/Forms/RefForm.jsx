@@ -38,8 +38,9 @@ const RefForm = () => {
             placeholder="test@test.com"
             ref={emailRef}
             onChange={
-              afterFirstSubmit &&
-              ((e) => setEmailErrors(checkEmail(e.target.value)))
+              afterFirstSubmit
+                ? (e) => setEmailErrors(checkEmail(e.target.value))
+                : undefined
             }
           />
           {emailErrors.length > 0 && (
@@ -57,8 +58,9 @@ const RefForm = () => {
             id="password"
             ref={passwordRef}
             onChange={
-              afterFirstSubmit &&
-              ((e) => setPasswordErrors(checkPassword(e.target.value)))
+              afterFirstSubmit
+                ? (e) => setPasswordErrors(checkPassword(e.target.value))
+                : undefined
             }
           />
           {passwordErrors.length > 0 && (

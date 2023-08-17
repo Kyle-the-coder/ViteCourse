@@ -51,7 +51,7 @@ function App() {
             );
           })
         ) : (
-          <div>loading</div>
+          <div>Add a new todo</div>
         )}
       </ul>
 

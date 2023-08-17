@@ -2,6 +2,7 @@ import { useEffect, useState, useReducer, createContext } from "react";
 import { TodoList } from "./components/TodoList";
 import NewTodoForm from "./components/NewTodoForm";
 import "./styles/styles.css";
+import { TodoFilterForm } from "./components/TodoFilterForm";
 
 const ACTIONS = {
   ADD: "ADD",
@@ -35,10 +36,15 @@ function reducer(todos, { type, payload }) {
 export const TodoContext = createContext();
 
 function App() {
+  const [filteredName, setFilteredName] = useState("");
   const [todos, dispatch] = useReducer(reducer, [], (intialValue) => {
     const value = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (value == null) return intialValue;
     return JSON.parse(value);
+  });
+
+  const filteredTodos = todos.filter((todo) => {
+    return todo.name.includes(filteredName);
   });
 
   useEffect(() => {
@@ -61,7 +67,10 @@ function App() {
   }
 
   return (
-    <TodoContext.Provider value={{ todos, addNewTodo, toggleTodo, deleteTodo }}>
+    <TodoContext.Provider
+      value={{ todos: filteredTodos, addNewTodo, toggleTodo, deleteTodo }}
+    >
+      <TodoFilterForm name={filteredName} setName={setFilteredName} />
       <TodoList />
       <NewTodoForm />
     </TodoContext.Provider>

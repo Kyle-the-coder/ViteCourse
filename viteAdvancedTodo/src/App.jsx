@@ -37,6 +37,7 @@ export const TodoContext = createContext();
 
 function App() {
   const [filteredName, setFilteredName] = useState("");
+  const [hideCompleted, setHideCompleted] = useState(false);
   const [todos, dispatch] = useReducer(reducer, [], (intialValue) => {
     const value = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (value == null) return intialValue;
@@ -44,6 +45,7 @@ function App() {
   });
 
   const filteredTodos = todos.filter((todo) => {
+    if (hideCompleted && todo.completed) return false;
     return todo.name.includes(filteredName);
   });
 
@@ -70,7 +72,12 @@ function App() {
     <TodoContext.Provider
       value={{ todos: filteredTodos, addNewTodo, toggleTodo, deleteTodo }}
     >
-      <TodoFilterForm name={filteredName} setName={setFilteredName} />
+      <TodoFilterForm
+        name={filteredName}
+        setName={setFilteredName}
+        hideCompleted={hideCompleted}
+        setHideCompleted={setHideCompleted}
+      />
       <TodoList />
       <NewTodoForm />
     </TodoContext.Provider>

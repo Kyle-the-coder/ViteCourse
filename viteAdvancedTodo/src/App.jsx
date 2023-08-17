@@ -1,9 +1,7 @@
 import { useEffect, useState, useReducer, createContext } from "react";
-import { useLocalStorage } from "./hooks/useLocalStorage";
-import "./styles/styles.css";
-import { TodoItem } from "./components/TodoItem";
-import NewTodoForm from "./components/NewTodoForm";
 import { TodoList } from "./components/TodoList";
+import NewTodoForm from "./components/NewTodoForm";
+import "./styles/styles.css";
 
 const ACTIONS = {
   ADD: "ADD",

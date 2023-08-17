@@ -1,5 +1,6 @@
+import "../styles/Todo.css";
 const Todo = () => {
-  return <div>welcome to the to do</div>;
+  return <div className="todo">Welcome to the to do</div>;
 };
 
 export default Todo;

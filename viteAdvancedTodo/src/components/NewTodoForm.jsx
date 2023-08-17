@@ -1,6 +1,9 @@
-import { useRef } from "react";
-const NewTodoForm = ({ addNewTodo }) => {
+import { useContext, useRef } from "react";
+import { TodoContext } from "../App";
+
+const NewTodoForm = () => {
   const nameRef = useRef();
+  const { addNewTodo } = useContext(TodoContext);
   function handleSubmit(e) {
     if (nameRef.current.value === "") return;
     e.preventDefault();

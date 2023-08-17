@@ -1,8 +1,9 @@
-import { useEffect, useState, useReducer } from "react";
+import { useEffect, useState, useReducer, createContext } from "react";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import "./styles/styles.css";
 import { TodoItem } from "./components/TodoItem";
 import NewTodoForm from "./components/NewTodoForm";
+import { TodoList } from "./components/TodoList";
 
 const ACTIONS = {
   ADD: "ADD",
@@ -33,6 +34,8 @@ function reducer(todos, { type, payload }) {
   return state;
 }
 
+export const TodoContext = createContext();
+
 function App() {
   const [todos, dispatch] = useReducer(reducer, [], (intialValue) => {
     const value = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -60,25 +63,10 @@ function App() {
   }
 
   return (
-    <>
-      <ul id="list">
-        {todos.length > 0 ? (
-          todos.map((todo) => {
-            return (
-              <TodoItem
-                key={todo.id}
-                {...todo}
-                toggleTodo={toggleTodo}
-                deleteTodo={deleteTodo}
-              />
-            );
-          })
-        ) : (
-          <div>Add a new todo</div>
-        )}
-      </ul>
-      <NewTodoForm addNewTodo={addNewTodo} />
-    </>
+    <TodoContext.Provider value={{ todos, addNewTodo, toggleTodo, deleteTodo }}>
+      <TodoList />
+      <NewTodoForm />
+    </TodoContext.Provider>
   );
 }
 

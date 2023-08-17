@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 import "./styles/styles.css";
 import { TodoItem } from "./components/TodoItem";
 
 function App() {
   const [newTodoName, setNewTodoName] = useState("");
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useLocalStorage("todoItems", []);
 
   function addNewTodo() {
     if (newTodoName === "") return;
@@ -15,6 +16,7 @@ function App() {
         { name: newTodoName, completed: false, id: crypto.randomUUID() },
       ];
     });
+
     setNewTodoName("");
   }
 
@@ -37,16 +39,20 @@ function App() {
   return (
     <>
       <ul id="list">
-        {todos.map((todo) => {
-          return (
-            <TodoItem
-              key={todo.id}
-              {...todo}
-              toggleTodo={toggleTodo}
-              deleteTodo={deleteTodo}
-            />
-          );
-        })}
+        {todos.length > 0 ? (
+          todos.map((todo) => {
+            return (
+              <TodoItem
+                key={todo.id}
+                {...todo}
+                toggleTodo={toggleTodo}
+                deleteTodo={deleteTodo}
+              />
+            );
+          })
+        ) : (
+          <div>loading</div>
+        )}
       </ul>
 
       <div id="new-todo-form">

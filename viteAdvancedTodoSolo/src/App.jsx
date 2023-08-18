@@ -1,9 +1,12 @@
-import { useEffect, useState, useReducer } from "react";
+import { useEffect, useState, useReducer, createContext } from "react";
 import { NewTodoForm } from "./components/NewTodoForm";
 import { TodoItem } from "./components/TodoItem";
+import { TodoList } from "./components/TodoList";
 import "./styles/styles.css";
 
 const STORAGE_KEY = "TODOS";
+
+export const TodoContext = createContext();
 
 const ACTIONS = {
   ADD: "ADD",
@@ -56,22 +59,11 @@ function App() {
   }
 
   return (
-    <>
-      <ul id="list">
-        {todos.map((todo) => {
-          return (
-            <TodoItem
-              key={todo.id}
-              {...todo}
-              toggleTodo={toggleTodo}
-              deleteTodo={deleteTodo}
-            />
-          );
-        })}
-      </ul>
+    <TodoContext.Provider value={{ todos, addNewTodo, deleteTodo, toggleTodo }}>
+      <TodoList />
 
       <NewTodoForm addNewTodo={addNewTodo} />
-    </>
+    </TodoContext.Provider>
   );
 }
 

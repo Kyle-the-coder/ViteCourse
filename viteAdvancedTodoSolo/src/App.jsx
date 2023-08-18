@@ -50,6 +50,11 @@ function App() {
     return JSON.parse(getStorage);
   });
 
+  const filteredTodos = todos.filter((todo) => {
+    if (hideCompleted && todo.completed) return false;
+    return todo.name.includes(filteredName);
+  });
+
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
   }, [todos]);
@@ -74,7 +79,13 @@ function App() {
 
   return (
     <TodoContext.Provider
-      value={{ todos, addNewTodo, deleteTodo, toggleTodo, updateTodoName }}
+      value={{
+        todos: filteredTodos,
+        addNewTodo,
+        deleteTodo,
+        toggleTodo,
+        updateTodoName,
+      }}
     >
       <FilterForm
         filteredName={filteredName}

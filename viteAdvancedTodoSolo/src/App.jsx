@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles.css";
 import { TodoItem } from "./TodoItem";
 import "./styles/styles.css";
 
+const STORAGE_KEY = "TODOS";
+
 function App() {
   const [newTodoName, setNewTodoName] = useState("");
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    const getStorage = localStorage.getItem(STORAGE_KEY);
+    if (getStorage === null) return [];
+    return getStorage;
+  });
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, todos);
+  }, []);
 
   function addNewTodo() {
     if (newTodoName === "") return;

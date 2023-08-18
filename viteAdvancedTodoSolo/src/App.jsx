@@ -30,6 +30,13 @@ function reducer(todos, { type, payload }) {
           return { ...todo, completed: payload.completed };
         return todo;
       });
+    case ACTIONS.UPDATE:
+      return todos.map((todo) => {
+        if (todo.id === payload.id) {
+          return { ...todo, name: payload.name };
+        }
+        return todo;
+      });
   }
 }
 
@@ -58,13 +65,16 @@ function App() {
     dispatch({ type: ACTIONS.DELETE, payload: { id: todoId } });
   }
 
-  function updateTodo(todo) {}
+  function updateTodoName(id, name) {
+    dispatch({ type: ACTIONS.UPDATE, payload: { id, name } });
+  }
 
   return (
-    <TodoContext.Provider value={{ todos, addNewTodo, deleteTodo, toggleTodo }}>
+    <TodoContext.Provider
+      value={{ todos, addNewTodo, deleteTodo, toggleTodo, updateTodoName }}
+    >
       <TodoList />
-
-      <NewTodoForm addNewTodo={addNewTodo} />
+      <NewTodoForm />
     </TodoContext.Provider>
   );
 }

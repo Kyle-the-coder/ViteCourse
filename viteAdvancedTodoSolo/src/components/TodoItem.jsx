@@ -2,9 +2,17 @@ import { useContext, useRef, useState } from "react";
 import { TodoContext } from "../App";
 
 export function TodoItem({ id, name, completed }) {
-  const { todos, toggleTodo, deleteTodo } = useContext(TodoContext);
+  const { todos, toggleTodo, deleteTodo, updateTodoName } =
+    useContext(TodoContext);
   const nameRef = useRef();
   const [isEditing, setIsEditing] = useState(false);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (nameRef.current.value === "") return;
+    updateTodoName(id, nameRef.current.value);
+    setIsEditing(false);
+  }
   return (
     <li className="list-item">
       {isEditing ? (

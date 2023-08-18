@@ -19,11 +19,18 @@ function reducer(todos, { type, payload }) {
         ...todos,
         { name: payload.name, completed: false, id: crypto.randomUUID() },
       ];
+    case ACTIONS.DELETE:
+      return todos.filter((todo) => todo.id !== payload.id);
+    case ACTIONS.TOGGLE:
+      return todos.map((todo) => {
+        if (todo.id === payload.id)
+          return { ...todo, completed: payload.completed };
+        return todo;
+      });
   }
 }
 
 function App() {
-  const [newTodoName, setNewTodoName] = useState("");
   const [todos, dispatch] = useReducer(reducer, [], (initialValue) => {
     const getStorage = localStorage.getItem(STORAGE_KEY);
     if (getStorage === null) return initialValue;
@@ -35,25 +42,17 @@ function App() {
   }, [todos]);
 
   function addNewTodo(name) {
-    if (name === "") return;
-    dispatch({ type: ACTIONS.ADD, payload: name });
-    setNewTodoName("");
+    console.log(name);
+    dispatch({ type: ACTIONS.ADD, payload: { name } });
   }
 
   function toggleTodo(todoId, completed) {
-    setTodos((currentTodos) => {
-      return currentTodos.map((todo) => {
-        if (todo.id === todoId) return { ...todo, completed };
-
-        return todo;
-      });
-    });
+    console.log(completed);
+    dispatch({ type: ACTIONS.TOGGLE, payload: { id: todoId, completed } });
   }
 
   function deleteTodo(todoId) {
-    setTodos((currentTodos) => {
-      return currentTodos.filter((todo) => todo.id !== todoId);
-    });
+    dispatch({ type: ACTIONS.DELETE, payload: { id: todoId } });
   }
 
   return (
@@ -71,7 +70,7 @@ function App() {
         })}
       </ul>
 
-      <NewTodoForm newTodoName={newTodoName} setNewTodoName={setNewTodoName} />
+      <NewTodoForm addNewTodo={addNewTodo} />
     </>
   );
 }

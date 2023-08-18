@@ -1,22 +1,36 @@
-import { useContext } from "react";
+import { useContext, useRef, useState } from "react";
 import { TodoContext } from "../App";
 
-export function TodoItem() {
+export function TodoItem({ id, name, completed }) {
   const { todos, toggleTodo, deleteTodo } = useContext(TodoContext);
+  const nameRef = useRef();
+  const [isEditing, setIsEditing] = useState(false);
   return (
     <li className="list-item">
-      <label className="list-item-label">
-        <input
-          checked={todos.completed}
-          type="checkbox"
-          data-list-item-checkbox
-          onChange={(e) => toggleTodo(todos.id, e.target.checked)}
-        />
-        <span data-list-item-text>{todos.name}</span>
-      </label>
-      <button onClick={() => deleteTodo(todos.id)} data-button-delete>
-        Delete
-      </button>
+      {isEditing ? (
+        <form onSubmit={handleSubmit}>
+          <input autoFocus type="text" defaultValue={name} ref={nameRef} />
+          <button data-button-save>Save</button>
+        </form>
+      ) : (
+        <>
+          <label className="list-item-label">
+            <input
+              checked={completed}
+              type="checkbox"
+              data-list-item-checkbox
+              onChange={(e) => toggleTodo(todos.id, e.target.checked)}
+            />
+            <span data-list-item-text>{name}</span>
+          </label>
+          <button data-button-edit onClick={() => setIsEditing(true)}>
+            Edit
+          </button>
+          <button onClick={() => deleteTodo(id)} data-button-delete>
+            Delete
+          </button>
+        </>
+      )}
     </li>
   );
 }

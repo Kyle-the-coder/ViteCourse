@@ -58,6 +58,8 @@ function App() {
     dispatch({ type: ACTIONS.DELETE, payload: { id: todoId } });
   }
 
+  function updateTodo(todo) {}
+
   return (
     <TodoContext.Provider value={{ todos, addNewTodo, deleteTodo, toggleTodo }}>
       <TodoList />

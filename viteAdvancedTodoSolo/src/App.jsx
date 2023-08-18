@@ -1,15 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
+import { NewTodoForm } from "./components/NewTodoForm";
 import { TodoItem } from "./components/TodoItem";
 import "./styles/styles.css";
 
 const STORAGE_KEY = "TODOS";
 
+const ACTIONS = {
+  ADD: "ADD",
+  UPDATE: "UPDATE",
+  DELETE: "DELETE",
+  TOGGLE: "TOGGLE",
+};
+
+function reducer(todos, { type, payload }) {
+  switch (type) {
+    case ACTIONS.ADD:
+      return [
+        ...todos,
+        { name: payload.name, completed: false, id: crypto.randomUUID() },
+      ];
+  }
+}
+
 function App() {
   const [newTodoName, setNewTodoName] = useState("");
-  const [todos, setTodos] = useState(() => {
+  const [todos, dispatch] = useReducer(reducer, [], (initialValue) => {
     const getStorage = localStorage.getItem(STORAGE_KEY);
-    console.log(getStorage.length);
-    if (getStorage.length === 0) return [];
+    if (getStorage === null) return initialValue;
     return JSON.parse(getStorage);
   });
 
@@ -17,15 +34,9 @@ function App() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
   }, [todos]);
 
-  function addNewTodo() {
-    if (newTodoName === "") return;
-
-    setTodos((currentTodos) => {
-      return [
-        ...currentTodos,
-        { name: newTodoName, completed: false, id: crypto.randomUUID() },
-      ];
-    });
+  function addNewTodo(name) {
+    if (name === "") return;
+    dispatch({ type: ACTIONS.ADD, payload: name });
     setNewTodoName("");
   }
 
@@ -60,16 +71,7 @@ function App() {
         })}
       </ul>
 
-      <div id="new-todo-form">
-        <label htmlFor="todo-input">New Todo</label>
-        <input
-          type="text"
-          id="todo-input"
-          value={newTodoName}
-          onChange={(e) => setNewTodoName(e.target.value)}
-        />
-        <button onClick={addNewTodo}>Add Todo</button>
-      </div>
+      <NewTodoForm newTodoName={newTodoName} setNewTodoName={setNewTodoName} />
     </>
   );
 }

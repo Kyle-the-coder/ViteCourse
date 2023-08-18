@@ -1,4 +1,5 @@
 import { useEffect, useState, useReducer, createContext } from "react";
+import { FilterForm } from "./components/FilterForm";
 import { NewTodoForm } from "./components/NewTodoForm";
 import { TodoItem } from "./components/TodoItem";
 import { TodoList } from "./components/TodoList";
@@ -41,6 +42,8 @@ function reducer(todos, { type, payload }) {
 }
 
 function App() {
+  const [filteredName, setFilteredName] = useState("");
+  const [hideCompleted, setHideCompleted] = useState(false);
   const [todos, dispatch] = useReducer(reducer, [], (initialValue) => {
     const getStorage = localStorage.getItem(STORAGE_KEY);
     if (getStorage === null) return initialValue;
@@ -73,6 +76,12 @@ function App() {
     <TodoContext.Provider
       value={{ todos, addNewTodo, deleteTodo, toggleTodo, updateTodoName }}
     >
+      <FilterForm
+        filteredName={filteredName}
+        setFilteredName={setFilteredName}
+        hideCompleted={hideCompleted}
+        setHideCompleted={setHideCompleted}
+      />
       <TodoList />
       <NewTodoForm />
     </TodoContext.Provider>

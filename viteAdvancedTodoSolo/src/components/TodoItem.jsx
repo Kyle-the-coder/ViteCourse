@@ -27,7 +27,7 @@ export function TodoItem({ id, name, completed }) {
               checked={completed}
               type="checkbox"
               data-list-item-checkbox
-              onChange={(e) => toggleTodo(todos.id, e.target.checked)}
+              onChange={(e) => toggleTodo(id, e.target.checked)}
             />
             <span data-list-item-text>{name}</span>
           </label>

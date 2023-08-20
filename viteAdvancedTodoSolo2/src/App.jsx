@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import { NewTodoForm } from "./components/NewTodoForm";
 import { TodoList } from "./components/TodoList";
 import "./styles/styles.css";
@@ -43,7 +43,6 @@ function reducer(todos, { type, payload }) {
 function App() {
   const [todos, dispatch] = useReducer(reducer, [], (initialValue) => {
     const getStorage = localStorage.getItem(STORAGE_KEY);
-
     if (getStorage === null) return initialValue;
     return JSON.parse(getStorage);
   });
@@ -51,7 +50,6 @@ function App() {
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
   }, [todos]);
-  console.log(todos);
 
   function addNewTodo(name) {
     dispatch({ type: ACTIONS.ADD, payload: { name } });

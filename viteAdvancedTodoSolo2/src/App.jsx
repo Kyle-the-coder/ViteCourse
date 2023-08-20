@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useReducer } from "react";
+import { NewTodoForm } from "./components/NewTodoForm";
 import { TodoList } from "./components/TodoList";
+import "./styles/styles.css";
 
 const STORAGE_KEY = "TODOS";
 
@@ -35,17 +37,20 @@ function reducer(todos, { type, payload }) {
 }
 
 function App() {
-  const [todos, dispatch] = useRef((reducer, [], { initialValue }) => {
+  const [todos, dispatch] = useReducer(reducer, [], (initialValue) => {
     const getStorage = localStorage.getItem(STORAGE_KEY);
-    if (getStorage === null) return [];
+
+    if (getStorage === null) return initialValue;
     return JSON.parse(getStorage);
   });
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, { ...todos });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
   }, [todos]);
+  console.log(todos);
   return (
     <>
+      <NewTodoForm />
       <TodoList />
     </>
   );

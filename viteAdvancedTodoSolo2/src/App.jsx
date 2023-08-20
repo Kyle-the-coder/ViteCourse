@@ -26,12 +26,14 @@ function reducer(todos, { type, payload }) {
         if (todo.id === payload.id) {
           return { ...todo, completed: payload.completed };
         }
+        return todo;
       });
     case ACTIONS.UPDATE:
       return todos.map((todo) => {
         if (todo.id === payload.id) {
           return { ...todo, name: payload.name };
         }
+        return todo;
       });
     case ACTIONS.DELETE:
       return todos.filter((todo) => todo.id !== payload.id);

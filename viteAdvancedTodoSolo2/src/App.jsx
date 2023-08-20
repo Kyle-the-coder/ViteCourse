@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { NewTodoForm } from "./components/NewTodoForm";
 import { TodoList } from "./components/TodoList";
 import "./styles/styles.css";
@@ -11,6 +11,8 @@ const ACTIONS = {
   UPDATE: "UPDATE",
   DELETE: "DELETE",
 };
+
+const TodoContext = createContext();
 
 function reducer(todos, { type, payload }) {
   switch (type) {
@@ -48,11 +50,24 @@ function App() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
   }, [todos]);
   console.log(todos);
+
+  function addNewTodo(name) {
+    dispatch({ type: ACTIONS.ADD, payload: name });
+  }
+
+  function toggleTodo(todoId, completed) {
+    dispatch({ type: ACTIONS.TOGGLE, payload: { id: todoId, completed } });
+  }
+
+  function updateTodo(todoId, name) {
+    dispatch({ type: ACTIONS.UPDATE, payload: { id: todoId }, name });
+  }
+
   return (
-    <>
+    <TodoContext.Provider value={{ todos, addNewTodo, toggleTodo }}>
       <NewTodoForm />
       <TodoList />
-    </>
+    </TodoContext.Provider>
   );
 }
 

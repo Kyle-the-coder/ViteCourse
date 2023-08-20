@@ -52,7 +52,7 @@ function App() {
   console.log(todos);
 
   function addNewTodo(name) {
-    dispatch({ type: ACTIONS.ADD, payload: name });
+    dispatch({ type: ACTIONS.ADD, payload: { name } });
   }
 
   function toggleTodo(todoId, completed) {

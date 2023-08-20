@@ -12,14 +12,14 @@ const ACTIONS = {
   DELETE: "DELETE",
 };
 
-const TodoContext = createContext();
+export const TodoContext = createContext();
 
 function reducer(todos, { type, payload }) {
   switch (type) {
     case ACTIONS.ADD:
       return [
         ...todos,
-        { name: payload.name, completed, id: crypto.randomUUID() },
+        { name: payload.name, completed: false, id: crypto.randomUUID() },
       ];
     case ACTIONS.TOGGLE:
       return todos.map((todo) => {
@@ -59,12 +59,18 @@ function App() {
     dispatch({ type: ACTIONS.TOGGLE, payload: { id: todoId, completed } });
   }
 
-  function updateTodo(todoId, name) {
-    dispatch({ type: ACTIONS.UPDATE, payload: { id: todoId }, name });
+  function updateTodo(id, name) {
+    dispatch({ type: ACTIONS.UPDATE, payload: { id, name } });
+  }
+
+  function deleteTodo(todoId) {
+    dispatch({ type: ACTIONS.DELETE, payload: { id: todoId } });
   }
 
   return (
-    <TodoContext.Provider value={{ todos, addNewTodo, toggleTodo }}>
+    <TodoContext.Provider
+      value={{ todos, addNewTodo, toggleTodo, updateTodo, deleteTodo }}
+    >
       <NewTodoForm />
       <TodoList />
     </TodoContext.Provider>

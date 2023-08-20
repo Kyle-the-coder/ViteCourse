@@ -1,0 +1,13 @@
+body {
+  background-color: rgb(44, 44, 44);
+}
+.newFormLabel {
+  display: flex;
+  color: white;
+  justify-content: center;
+}
+.newFormInput {
+  display: flex;
+  color: white;
+  justify-content: center;
+}

@@ -14,7 +14,7 @@ export function TodoItem({ id, name, completed }) {
         />
         <span className={`${completed && "line"}`}>{name}</span>
       </label>
-      <button>Delete</button>
+      <button onClick={() => deleteTodo(id)}>Delete</button>
     </li>
   );
 }

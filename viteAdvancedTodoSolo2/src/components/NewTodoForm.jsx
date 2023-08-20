@@ -1,11 +1,14 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
+import { TodoContext } from "../App";
 import "../styles/styles.css";
 
 export function NewTodoForm() {
   const nameRef = useRef();
+  const { addNewTodo } = useContext(TodoContext);
   function handleSubmit(e) {
     e.preventDefault();
     console.log(nameRef.current.value);
+    addNewTodo(nameRef.current.value);
     nameRef.current.value === "";
   }
   return (

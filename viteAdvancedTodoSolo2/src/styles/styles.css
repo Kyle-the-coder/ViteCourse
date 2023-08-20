@@ -29,21 +29,18 @@ body {
   padding: 3px 8px 3px 8px;
   color: white;
 }
-
-.todoListContainer {
+.todoListParentContainer {
   background-color: rgb(196, 232, 205);
   width: 190px;
   display: flex;
-  flex-direction: column;
-  margin-top: 10px;
   padding: 10px;
-  align-items: center;
-  justify-content: left;
+  flex-direction: column;
 }
 
 .listItemContainer {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
   list-style: none;
+}
+
+.line {
+  text-decoration: line-through;
 }

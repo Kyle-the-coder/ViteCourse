@@ -1,4 +1,4 @@
-function Navbar() {
+export function Navbar() {
   return (
     <ul>
       <li>

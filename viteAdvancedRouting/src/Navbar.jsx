@@ -15,12 +15,6 @@ export function Navbar() {
       <li>
         <Link to="/team">Team</Link>
       </li>
-      <li>
-        <Link to="/team/joe">Team Joe</Link>
-      </li>
-      <li>
-        <Link to="/team/sally">Team Sally</Link>
-      </li>
     </ul>
   );
 }

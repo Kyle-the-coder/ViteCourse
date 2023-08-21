@@ -4,6 +4,7 @@ import { Store } from "../pages/Store";
 import { About } from "../pages/About";
 import { NavLayout } from "./layouts/NavLayout";
 import { Team } from "../pages/Team";
+import { TeamMember } from "../pages/TeamMember";
 
 export const router = createBrowserRouter([
   {
@@ -12,9 +13,14 @@ export const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/store", element: <Store /> },
       { path: "/about", element: <About /> },
-      { path: "/team", element: <Team /> },
-      { path: "/team/joe", element: <TeamMember name="joe" /> },
-      { path: "/team/sally", element: <TeamMember name="sally" /> },
+      {
+        path: "/team",
+        children: [
+          { index: true, element: <Team /> },
+          { path: "joe", element: <TeamMember name="joe" /> },
+          { path: "sally", element: <TeamMember name="sally" /> },
+        ],
+      },
     ],
   },
 ]);

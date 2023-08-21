@@ -12,6 +12,9 @@ export function Navbar() {
       <li>
         <Link to="/store">Store</Link>
       </li>
+      <li>
+        <Link to="/team">Team</Link>
+      </li>
     </ul>
   );
 }

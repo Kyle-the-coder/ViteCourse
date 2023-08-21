@@ -5,6 +5,7 @@ import { About } from "../pages/About";
 import { NavLayout } from "./layouts/NavLayout";
 import { Team } from "../pages/Team";
 import { TeamMember } from "../pages/TeamMember";
+import { TeamNavLayout } from "./layouts/TeamNavLayout";
 
 export const router = createBrowserRouter([
   {
@@ -14,11 +15,16 @@ export const router = createBrowserRouter([
       { path: "/store", element: <Store /> },
       { path: "/about", element: <About /> },
       {
-        path: "/team",
+        element: <TeamNavLayout />,
         children: [
-          { index: true, element: <Team /> },
-          { path: "joe", element: <TeamMember name="joe" /> },
-          { path: "sally", element: <TeamMember name="sally" /> },
+          {
+            path: "/team",
+            children: [
+              { index: true, element: <Team /> },
+              { path: "joe", element: <TeamMember name="joe" /> },
+              { path: "sally", element: <TeamMember name="sally" /> },
+            ],
+          },
         ],
       },
     ],

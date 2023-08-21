@@ -5,7 +5,7 @@ export function TeamNavLayout() {
   return (
     <>
       <TeamNav />
-      <Outlet />
+      <Outlet context="Hi from outlet" />
     </>
   );
 }

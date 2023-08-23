@@ -1,10 +1,11 @@
 import { Navbar } from "../../navbars/Navbar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
 export function NavLayout() {
+  const { state } = useNavigation();
   return (
     <>
       <Navbar />
-      <Outlet />
+      {state === "loading" ? "loading..." : <Outlet />}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate, redirect } from "react-router-dom";
 import { Home } from "../pages/Home";
 import { Store } from "../pages/Store";
 import { About } from "../pages/About";
@@ -35,7 +35,11 @@ export const router = createBrowserRouter([
                 {
                   signal,
                 }
-              );
+              ).then((res) => {
+                if (res.status === 200) return res.json();
+
+                throw redirect("/team");
+              });
             },
             element: <TeamMember />,
           },

@@ -1,14 +1,23 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import { Posts } from "../pages/Posts";
+import { Todos } from "../pages/Todos";
+import { Users } from "../pages/Users";
 import { NavLayout } from "./layouts/NavLayout";
 
 export const router = createBrowserRouter([
   {
     element: <NavLayout />,
-    errorElement: <h1>error</h1>,
+    loader: ({ params }) => {
+      if (Object.keys(params).length <= 0) {
+        console.log("yes");
+        return <Navigate to="/posts" />;
+      }
+      return null;
+    },
     children: [
-      { path: "/posts", element: <PostPage /> },
-      { path: "/users", element: <UsersPage /> },
-      { path: "/todos", element: <TodosPage /> },
+      { path: "/posts", element: <Posts /> },
+      { path: "/users", element: <Users /> },
+      { path: "/todos", element: <Todos /> },
     ],
   },
 ]);

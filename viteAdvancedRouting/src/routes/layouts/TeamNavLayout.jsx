@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { TeamNav } from "../../TeamNav";
+import { TeamNav } from "../../navbars/TeamNav";
 
 export function TeamNavLayout() {
   return (

@@ -1,31 +1,36 @@
+import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 export function Post() {
+  const postInfo = useLoaderData();
+  const [userInfo, setUserInfo] = useState("");
+  console.log(postInfo.userId);
+  useEffect(() => {
+    const getUserInfo = fetch(
+      `http://127.0.0.1:3000/users/${postInfo.userId}`
+    ).then((res) => res.json());
+    setUserInfo(getUserInfo);
+  });
   return (
-    <div class="container">
-      <h1 class="page-title">
-        sunt aut facere repellat provident occaecati excepturi optio
-        reprehenderit
-      </h1>
-      <span class="page-subtitle">
-        By: <a href="user.html">Leanne Graham</a>
+    <div className="container">
+      <h1 className="page-title">{}</h1>
+      <span className="page-subtitle">
+        By: <a href="user.html">{}</a>
       </span>
-      <div>
-        quia et suscipit suscipit recusandae consequuntur expedita et cum
-        reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt
-        rem eveniet architecto
-      </div>
-      <h3 class="mt-4 mb-2">Comments</h3>
-      <div class="card-stack">
-        <div class="card">
-          <div class="card-body">
-            <div class="text-sm mb-1">Eliseo@gardner.biz</div>
+      <div>{}</div>
+      <h3 className="mt-4 mb-2">Comments</h3>
+      <div className="card-stack">
+        <div className="card">
+          <div className="card-body">
+            <div className="text-sm mb-1">Eliseo@gardner.biz</div>
             laudantium enim quasi est quidem magnam voluptate ipsam eos tempora
             quo necessitatibus dolor quam autem quasi reiciendis et nam sapiente
             accusantium
           </div>
         </div>
-        <div class="card">
-          <div class="card-body">
-            <div class="text-sm mb-1">Jayne_Kuhic@sydney.com</div>
+        <div className="card">
+          <div className="card-body">
+            <div className="text-sm mb-1">Jayne_Kuhic@sydney.com</div>
             est natus enim nihil est dolore omnis voluptatem numquam et omnis
             occaecati quod ullam at voluptatem error expedita pariatur nihil
             sint nostrum voluptatem reiciendis et

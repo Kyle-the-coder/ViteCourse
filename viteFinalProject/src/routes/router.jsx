@@ -18,6 +18,9 @@ export const router = createBrowserRouter([
       {
         path: "/posts",
         element: <Posts />,
+        loader: () => {
+          return fetch("http://127.0.0.1:3000/posts");
+        },
         children: [{ path: ":postId", element: <Post /> }],
       },
       { path: "/users", element: <Users /> },

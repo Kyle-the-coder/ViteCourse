@@ -9,7 +9,6 @@ export const router = createBrowserRouter([
     element: <NavLayout />,
     loader: ({ params }) => {
       if (Object.keys(params).length <= 0) {
-        console.log("yes");
         return <Navigate to="/posts" />;
       }
       return null;

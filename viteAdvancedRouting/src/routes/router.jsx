@@ -20,9 +20,25 @@ export const router = createBrowserRouter([
       {
         path: "/team",
         element: <TeamNavLayout />,
+        loader: ({ request: { signal } }) => {
+          return fetch("https://jsonplaceholder.typicode.com/users", {
+            signal,
+          });
+        },
         children: [
           { index: true, element: <Team /> },
-          { path: ":memberId", element: <TeamMember /> },
+          {
+            path: ":memberId",
+            loader: ({ params, request: { signal } }) => {
+              return fetch(
+                `https://jsonplaceholder.typicode.com/users/${params.memberId}`,
+                {
+                  signal,
+                }
+              );
+            },
+            element: <TeamMember />,
+          },
           { path: "new", element: <NewTeamMember /> },
         ],
       },

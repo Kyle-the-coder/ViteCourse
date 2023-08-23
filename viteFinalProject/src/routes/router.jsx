@@ -4,6 +4,7 @@ import { Posts } from "../pages/Posts";
 import { Todos } from "../pages/Todos";
 import { Users } from "../pages/Users";
 import { NavLayout } from "./layouts/NavLayout";
+import { PostNavLayout } from "./layouts/PostNavLayout";
 
 export const router = createBrowserRouter([
   {
@@ -21,7 +22,13 @@ export const router = createBrowserRouter([
         loader: () => {
           return fetch("http://127.0.0.1:3000/posts");
         },
-        children: [{ path: ":postId", element: <Post /> }],
+      },
+      {
+        path: "/post/:postId",
+        element: <Post />,
+        loader: ({ params }) => {
+          return fetch(`http://127.0.0.1:3000/posts/${params.postId}`);
+        },
       },
       { path: "/users", element: <Users /> },
       { path: "/todos", element: <Todos /> },

@@ -2,9 +2,10 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Post } from "../pages/Post";
 import { Posts } from "../pages/Posts";
 import { Todos } from "../pages/Todos";
+import { User } from "../pages/User";
 import { Users } from "../pages/Users";
 import { NavLayout } from "./layouts/NavLayout";
-import { PostNavLayout } from "./layouts/PostNavLayout";
+import { UsersLayout } from "./layouts/UsersLayout";
 
 export const router = createBrowserRouter([
   {
@@ -32,11 +33,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/users",
-        element: <Users />,
-        loader: () => {
-          return fetch("http://127.0.0.1:3000/users");
-        },
+        element: <UsersLayout />,
+        children: [
+          {
+            index: true,
+            element: <Users />,
+            loader: () => {
+              return fetch("http://127.0.0.1:3000/users");
+            },
+          },
+          { path: ":userId", element: <User /> },
+        ],
       },
+
       { path: "/todos", element: <Todos /> },
     ],
   },

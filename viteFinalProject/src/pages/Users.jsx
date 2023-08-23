@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 export function Users() {
   const usersInfo = useLoaderData();
-  console.log(usersInfo);
   return (
     <div className="container">
       <h1 className="page-title">Users</h1>

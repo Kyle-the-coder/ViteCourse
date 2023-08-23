@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import { Post } from "../pages/Post";
 import { Posts } from "../pages/Posts";
 import { Todos } from "../pages/Todos";
 import { Users } from "../pages/Users";
@@ -14,7 +15,11 @@ export const router = createBrowserRouter([
       return null;
     },
     children: [
-      { path: "/posts", element: <Posts /> },
+      {
+        path: "/posts",
+        element: <Posts />,
+        children: [{ path: ":postId", element: <Post /> }],
+      },
       { path: "/users", element: <Users /> },
       { path: "/todos", element: <Todos /> },
     ],

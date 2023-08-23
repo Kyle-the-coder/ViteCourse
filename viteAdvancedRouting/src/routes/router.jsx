@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Home } from "../pages/Home";
 import { Store } from "../pages/Store";
 import { About } from "../pages/About";
@@ -14,6 +14,7 @@ export const router = createBrowserRouter([
     errorElement: <h1>Error</h1>,
     children: [
       { path: "/", element: <Home /> },
+      { path: "/test/*", element: <Navigate to="/" /> },
       { path: "/store", element: <Store /> },
       { path: "/about", element: <About /> },
       {

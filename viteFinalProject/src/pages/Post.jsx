@@ -9,8 +9,7 @@ export function Post() {
     const getUserInfo = fetch(
       `http://127.0.0.1:3000/users/${postInfo.userId}`
     ).then((res) => res.json());
-    setUserInfo(getUserInfo);
-  });
+  }, []);
   return (
     <div className="container">
       <h1 className="page-title">{}</h1>

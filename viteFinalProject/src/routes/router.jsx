@@ -30,7 +30,13 @@ export const router = createBrowserRouter([
           return fetch(`http://127.0.0.1:3000/posts/${params.postId}`);
         },
       },
-      { path: "/users", element: <Users /> },
+      {
+        path: "/users",
+        element: <Users />,
+        loader: () => {
+          return fetch("http://127.0.0.1:3000/users");
+        },
+      },
       { path: "/todos", element: <Todos /> },
     ],
   },

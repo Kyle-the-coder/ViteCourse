@@ -4,19 +4,18 @@ import { useEffect, useState } from "react";
 export function Post() {
   const postInfo = useLoaderData();
   const [userInfo, setUserInfo] = useState("");
-  console.log(postInfo.userId);
   useEffect(() => {
-    const getUserInfo = fetch(
-      `http://127.0.0.1:3000/users/${postInfo.userId}`
-    ).then((res) => res.json());
-  }, []);
+    fetch(`http://127.0.0.1:3000/users/${postInfo.userId}`)
+      .then((res) => res.json())
+      .then((data) => setUserInfo(data));
+  }, [postInfo.userId]);
   return (
     <div className="container">
-      <h1 className="page-title">{}</h1>
+      <h1 className="page-title">{postInfo.title}</h1>
       <span className="page-subtitle">
-        By: <a href="user.html">{}</a>
+        By: <a href="user.html">{userInfo.name}</a>
       </span>
-      <div>{}</div>
+      <div>{postInfo.body}</div>
       <h3 className="mt-4 mb-2">Comments</h3>
       <div className="card-stack">
         <div className="card">

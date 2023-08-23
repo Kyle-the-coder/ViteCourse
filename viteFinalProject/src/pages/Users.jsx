@@ -1,4 +1,8 @@
+import { useLoaderData } from "react-router-dom";
+
 export function Users() {
+  const usersInfo = useLoaderData();
+
   return (
     <div className="container">
       <h1 className="page-title">Users</h1>

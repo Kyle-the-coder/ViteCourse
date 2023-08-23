@@ -1,3 +1,3 @@
 export function NewTeamMember() {
-  return <>new</>;
+  return <h1>new</h1>;
 }

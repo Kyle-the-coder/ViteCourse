@@ -1,5 +1,4 @@
 import { Link, Outlet, ScrollRestoration } from "react-router-dom";
-import { MainNavbar } from "../../components/MainNavbar";
 
 export function RootLayout() {
   return (
@@ -19,7 +18,7 @@ export function RootLayout() {
         </ul>
       </nav>
       <ScrollRestoration />
-      <div class="container">
+      <div className="container">
         <Outlet />
       </div>
     </>

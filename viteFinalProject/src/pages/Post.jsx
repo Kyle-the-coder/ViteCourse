@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export function Post() {
@@ -18,7 +18,7 @@ export function Post() {
     <div className="container">
       <h1 className="page-title">{postInfo.title}</h1>
       <span className="page-subtitle">
-        By: <a href="user.html">{userInfo.name}</a>
+        By: <Link to={`/users/${userInfo.id}`}>{userInfo.name}</Link>
       </span>
       <div>{postInfo.body}</div>
       <h3 className="mt-4 mb-2">Comments</h3>

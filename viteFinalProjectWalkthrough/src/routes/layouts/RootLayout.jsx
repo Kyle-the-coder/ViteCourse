@@ -1,6 +1,12 @@
-import { Link, Outlet, ScrollRestoration } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  ScrollRestoration,
+  useNavigation,
+} from "react-router-dom";
 
 export function RootLayout() {
+  const { state } = useNavigation();
   return (
     <>
       <nav className="top-nav">
@@ -19,7 +25,16 @@ export function RootLayout() {
       </nav>
       <ScrollRestoration />
       <div className="container">
-        <Outlet />
+        {state === "loading" ? (
+          <>
+            <div className="loading-spinner"></div>
+            <div className="container loading">
+              <Outlet />
+            </div>
+          </>
+        ) : (
+          <Outlet />
+        )}
       </div>
     </>
   );

@@ -16,7 +16,7 @@ function PostList() {
                 <div className="card-preview-text">{post.body}</div>
               </div>
               <div className="card-footer">
-                <Link className="btn" to="">
+                <Link className="btn" to={`/posts/${post.id}`}>
                   View
                 </Link>
               </div>

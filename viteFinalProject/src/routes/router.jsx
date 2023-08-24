@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import { ErrorPage } from "../pages/ErrorPage";
 import { Post } from "../pages/Post";
 import { Posts } from "../pages/Posts";
 import { Todos } from "../pages/Todos";
@@ -10,6 +11,7 @@ import { UsersLayout } from "./layouts/UsersLayout";
 export const router = createBrowserRouter([
   {
     element: <NavLayout />,
+    errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Navigate to="/posts" /> },
       {

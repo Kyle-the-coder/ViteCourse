@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate, useRouteError } from "react-router-dom";
 import { postRoute } from "../pages/Post";
 import { postListRoute } from "../pages/PostList";
 import { todoListRoute } from "../pages/TodoList";
@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        errorElement: <h1>Error</h1>,
+        errorElement: <ErrorPage />,
         children: [
           { index: true, element: <Navigate to="posts" /> },
           {
@@ -41,3 +41,19 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+
+function ErrorPage() {
+  const error = useRouteError();
+
+  return (
+    <>
+      <h1>error- something went Wrong</h1>
+      {import.meta.env.MODE !== "production" && (
+        <>
+          <pre>{error.message}</pre>
+          <pre>{error.stack}</pre>
+        </>
+      )}
+    </>
+  );
+}

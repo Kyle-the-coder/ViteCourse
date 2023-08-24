@@ -16,7 +16,7 @@ export function Post() {
         setCommentData(data);
       });
   }, [postInfo.userId, postInfo.id]);
-  console.log(postInfo);
+  console.log(commentData);
 
   return (
     <div className="container">

@@ -1,7 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { postListRoute } from "../pages/PostList";
 import { TodoList } from "../pages/TodoList";
-import { UserList, userListRoute, userListRoutes } from "../pages/UserList";
+import { userListRoute } from "../pages/UserList";
 import { RootLayout } from "./layouts/RootLayout";
 export const router = createBrowserRouter([
   {

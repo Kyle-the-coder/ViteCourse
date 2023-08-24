@@ -3,7 +3,6 @@ import { useLoaderData } from "react-router-dom";
 
 function Post() {
   const post = useLoaderData();
-  console.log(post);
   return (
     <>
       {" "}
@@ -15,8 +14,8 @@ function Post() {
       <h3 className="mt-4 mb-2">Comments</h3>
       <div className="card-stack">
         <div className="card">
-          <div class="card-body">
-            <div class="text-sm mb-1">Eliseo@gardner.biz</div>
+          <div className="card-body">
+            <div className="text-sm mb-1">Eliseo@gardner.biz</div>
             laudantium enim quasi est quidem magnam voluptate ipsam eos tempora
             quo necessitatibus dolor quam autem quasi reiciendis et nam sapiente
             accusantium

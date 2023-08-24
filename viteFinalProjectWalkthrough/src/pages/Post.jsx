@@ -6,7 +6,7 @@ function Post() {
   return <h1>{post.title}</h1>;
 }
 
-function loader({ request: signal, params }) {
+function loader({ request: { signal }, params }) {
   return getPost(params.postId, { signal });
 }
 

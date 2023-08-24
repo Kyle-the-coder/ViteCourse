@@ -1,8 +1,14 @@
-import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLoaderData } from "react-router-dom";
 
 export function User() {
   const userInfo = useLoaderData();
-  console.log(userInfo);
+  const [userPostsData, setUserPostsData] = useState("");
+  useEffect(() => {
+    fetch(`http://127.0.0.1:3000/posts?userId=${userInfo.id}`)
+      .then((res) => res.json())
+      .then((data) => setUserPostsData(data));
+  }, [userInfo.id]);
   return (
     <div className="container">
       <h1 className="page-title">{userInfo.name}</h1>
@@ -19,24 +25,22 @@ export function User() {
       </div>
       <h3 className="mt-4 mb-2">Posts</h3>
       <div className="card-grid">
-        <div className="card">
-          <div className="card-header">
-            sunt aut facere repellat provident occaecati excepturi optio
-            reprehenderit
-          </div>
-          <div className="card-body">
-            <div className="card-preview-text">
-              quia et suscipit suscipit recusandae consequuntur expedita et cum
-              reprehenderit molestiae ut ut quas totam nostrum rerum est autem
-              sunt rem eveniet architecto
-            </div>
-          </div>
-          <div className="card-footer">
-            <a className="btn" href="posts.html">
-              View
-            </a>
-          </div>
-        </div>
+        {userPostsData !== "" &&
+          userPostsData.map((post) => {
+            return (
+              <div className="card" key={post.id}>
+                <div className="card-header">{post.title}</div>
+                <div className="card-body">
+                  <div className="card-preview-text">{post.body}</div>
+                </div>
+                <div className="card-footer">
+                  <Link className="btn" to={`/post/${post.id}`}>
+                    View
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
       </div>
       <h3 className="mt-4 mb-2">Todos</h3>
       <ul>

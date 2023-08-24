@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router-dom";
 
 function PostList() {
   const posts = useLoaderData();
-  return <div>Hello from posts</div>;
+  return <div>Hello from posts {posts.length}</div>;
 }
 
 function loader({ request: { signal } }) {

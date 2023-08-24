@@ -10,13 +10,8 @@ import { UsersLayout } from "./layouts/UsersLayout";
 export const router = createBrowserRouter([
   {
     element: <NavLayout />,
-    loader: ({ params }) => {
-      if (Object.keys(params).length <= 0) {
-        return <Navigate to="/posts" />;
-      }
-      return null;
-    },
     children: [
+      { path: "/", element: <Navigate to="/posts" /> },
       {
         path: "/posts",
         element: <Posts />,

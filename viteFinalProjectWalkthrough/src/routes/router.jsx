@@ -10,29 +10,32 @@ export const router = createBrowserRouter([
     path: "/",
     element: <RootLayout />,
     children: [
-      { index: true, element: <Navigate to="posts" /> },
       {
-        path: "posts",
+        errorElement: <h1>Error</h1>,
         children: [
+          { index: true, element: <Navigate to="posts" /> },
           {
-            index: true,
-            ...postListRoute,
+            path: "posts",
+            children: [
+              {
+                index: true,
+                ...postListRoute,
+              },
+              { path: ":postId", ...postRoute },
+            ],
           },
-          { path: ":postId", ...postRoute },
-        ],
-      },
-      {
-        path: "users",
-        children: [
-          { index: true, ...userListRoute },
-          { path: ":userId", ...userRoute },
-        ],
-      },
-      {
-        path: "todos",
-        children: [
-          { index: true, ...todoListRoute },
-          { path: ":todoId", element: <h1>hello from todo</h1> },
+          {
+            path: "users",
+            children: [
+              { index: true, ...userListRoute },
+              { path: ":userId", ...userRoute },
+            ],
+          },
+          {
+            path: "todos",
+            children: [{ index: true, ...todoListRoute }],
+          },
+          { path: "*", element: <h1>404 page not found</h1> },
         ],
       },
     ],

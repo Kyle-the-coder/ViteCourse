@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import { postRoute } from "../pages/Post";
 import { postListRoute } from "../pages/PostList";
 import { todoListRoute } from "../pages/TodoList";
 import { userListRoute } from "../pages/UserList";
@@ -16,7 +17,7 @@ export const router = createBrowserRouter([
             index: true,
             ...postListRoute,
           },
-          { path: ":postId", element: <h1>hello</h1> },
+          { path: ":postId", ...postRoute },
         ],
       },
       {

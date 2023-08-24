@@ -13,7 +13,7 @@ function UserList() {
             <div className="card" key={user.id}>
               <div className="card-header">{user.name}</div>
               <div className="card-body">
-                <div>{user.userName}</div>
+                <div>{user.company.name}</div>
                 <div>{user.website}</div>
                 <div>{user.email}</div>
               </div>

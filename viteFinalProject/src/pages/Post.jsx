@@ -25,7 +25,7 @@ export function Post() {
       <div className="card-stack">
         {commentData.map((comment) => {
           return (
-            <div className="card">
+            <div className="card" key={comment.id}>
               <div className="card-body">
                 <div className="text-sm mb-1">{comment.email}</div>
                 {comment.body}

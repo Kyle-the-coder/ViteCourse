@@ -1,3 +1,3 @@
 import { createBrowserRouter } from "react-router-dom";
 
-const router = createBrowserRouter([{ path: "/", element: <Posts /> }]);
+export const router = createBrowserRouter([{ path: "/", element: <Posts /> }]);

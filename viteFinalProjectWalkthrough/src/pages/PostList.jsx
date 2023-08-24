@@ -4,6 +4,7 @@ import { getPosts } from "../hooks/getPosts";
 
 function PostList() {
   const posts = useLoaderData();
+
   return (
     <>
       {" "}

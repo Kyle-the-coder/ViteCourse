@@ -12,9 +12,12 @@ export function Post() {
 
     fetch(`http://127.0.0.1:3000/posts/${postInfo.id}/comments`)
       .then((res) => res.json())
-      .then((data) => setCommentData(data));
+      .then((data) => {
+        setCommentData(data);
+      });
   }, [postInfo.userId, postInfo.id]);
-  console.log(commentData);
+  console.log(postInfo);
+
   return (
     <div className="container">
       <h1 className="page-title">{postInfo.title}</h1>

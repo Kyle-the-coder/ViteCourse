@@ -14,6 +14,7 @@ export function Post() {
       .then((res) => res.json())
       .then((data) => setCommentData(data));
   }, [postInfo.userId, postInfo.id]);
+  console.log(commentData);
   return (
     <div className="container">
       <h1 className="page-title">{postInfo.title}</h1>
@@ -27,6 +28,7 @@ export function Post() {
           return (
             <div className="card" key={comment.id}>
               <div className="card-body">
+                <Link to={`users/${comment.userId}`}>{comment.name}</Link>
                 <div className="text-sm mb-1">{comment.email}</div>
                 {comment.body}
               </div>

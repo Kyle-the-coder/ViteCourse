@@ -3,7 +3,6 @@ import { getTodos } from "../hooks/getTodos";
 
 function TodoList() {
   const todos = useLoaderData();
-  console.log(todos);
   return (
     <>
       <h1 className="page-title">Todos</h1>

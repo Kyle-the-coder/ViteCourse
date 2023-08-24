@@ -1,5 +1,8 @@
+import axios from "axios";
+import { useLoaderData } from "react-router-dom";
 function UserList() {
-  return <>users</>;
+  const users = useLoaderData();
+  return <>users {users.length}</>;
 }
 
 function loader({ request: { signal } }) {

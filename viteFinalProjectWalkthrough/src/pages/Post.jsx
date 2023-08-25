@@ -17,22 +17,24 @@ function Post() {
       <div>{post.body}</div>
       <h3 className="mt-4 mb-2">Comments</h3>
       <div className="card-stack">
-        <div className="card">
-          <div className="card-body">
-            <div className="text-sm mb-1">Eliseo@gardner.biz</div>
-            laudantium enim quasi est quidem magnam voluptate ipsam eos tempora
-            quo necessitatibus dolor quam autem quasi reiciendis et nam sapiente
-            accusantium
-          </div>
-        </div>
+        {comments.map((comment) => {
+          return (
+            <div className="card" key={comment.id}>
+              <div className="card-body">
+                <div className="text-sm mb-1">{comment.email}</div>
+                {comment.body}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </>
   );
 }
 
 async function loader({ request: { signal }, params }) {
-  const post = getPost(params.postId, { signal });
-  const comments = await getComments(params.postId, { signal });
+  const post = await getPost(params.postId, { signal });
+  const comments = getComments(params.postId, { signal });
   const user = getUser(post.userId, { signal });
   return { comments: await comments, post, user: await user };
 }

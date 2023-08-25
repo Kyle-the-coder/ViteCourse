@@ -1,16 +1,18 @@
 import { getPost } from "../hooks/getPosts";
 import { useLoaderData } from "react-router-dom";
 import { getComments } from "../hooks/getComments";
+import { Link } from "react-router-dom";
+import { getUser } from "../hooks/getUsers";
 
 function Post() {
-  const post = useLoaderData();
+  const { comments, user, post } = useLoaderData();
 
   return (
     <>
       {" "}
       <h1 className="page-title">{post.title}</h1>
       <span className="page-subtitle">
-        By: <a href="user.html">{post.name}</a>
+        By: <Link to={`users/${user.id}`}>{user.name}</Link>
       </span>
       <div>{post.body}</div>
       <h3 className="mt-4 mb-2">Comments</h3>

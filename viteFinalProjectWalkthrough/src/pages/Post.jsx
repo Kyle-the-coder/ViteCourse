@@ -1,5 +1,6 @@
 import { getPost } from "../hooks/getPosts";
 import { useLoaderData } from "react-router-dom";
+import { getComments } from "../hooks/getComments";
 
 function Post() {
   const post = useLoaderData();
@@ -27,8 +28,11 @@ function Post() {
   );
 }
 
-function loader({ request: { signal }, params }) {
-  return getPost(params.postId, { signal });
+async function loader({ request: { signal }, params }) {
+  const post = getPost(params.postId, { signal });
+  const comments = await getComments(params.postId, { signal });
+  const user = getUser(post.userId, { signal });
+  return { comments: await comments, post, user: await user };
 }
 
 export const postRoute = {

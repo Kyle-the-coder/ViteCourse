@@ -1,5 +1,6 @@
 import { getUser } from "../hooks/getUsers";
 import { useLoaderData } from "react-router-dom";
+import { getTodo, getTodos } from "../hooks/getTodos";
 
 function User() {
   const user = useLoaderData();
@@ -47,7 +48,8 @@ function User() {
 }
 
 function loader({ request: { signal }, params }) {
-  return getUser(params.userId, { signal });
+  const user = getUser(params.userId, { signal });
+  const todos = getTodo(params.userId, { signal });
 }
 
 export const userRoute = {

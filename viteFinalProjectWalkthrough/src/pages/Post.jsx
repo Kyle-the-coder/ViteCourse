@@ -12,7 +12,7 @@ function Post() {
       {" "}
       <h1 className="page-title">{post.title}</h1>
       <span className="page-subtitle">
-        By: <Link to={`users/${user.id}`}>{user.name}</Link>
+        By: <Link to={`/users/${user.id}`}>{user.name}</Link>
       </span>
       <div>{post.body}</div>
       <h3 className="mt-4 mb-2">Comments</h3>

@@ -1,9 +1,11 @@
 import { getUser } from "../hooks/getUsers";
-import { useLoaderData } from "react-router-dom";
-import { getTodo, getTodos } from "../hooks/getTodos";
+import { Link, useLoaderData } from "react-router-dom";
+import { getTodos } from "../hooks/getTodos";
+import { getPosts } from "../hooks/getPosts";
 
 function User() {
-  const user = useLoaderData();
+  const { user, posts, todos } = useLoaderData();
+  console.log(todos);
   return (
     <>
       <h1 className="page-title">{user.name}</h1>
@@ -20,36 +22,44 @@ function User() {
       </div>
       <h3 className="mt-4 mb-2">Posts</h3>
       <div className="card-grid">
-        <div className="card">
-          <div className="card-header">
-            sunt aut facere repellat provident occaecati excepturi optio
-            reprehenderit
-          </div>
-          <div className="card-body">
-            <div className="card-preview-text">
-              quia et suscipit suscipit recusandae consequuntur expedita et cum
-              reprehenderit molestiae ut ut quas totam nostrum rerum est autem
-              sunt rem eveniet architecto
+        {posts.map((post) => {
+          return (
+            <div className="card" key={post.id}>
+              <div className="card-header">{post.title}</div>
+              <div className="card-body">
+                <div className="card-preview-text">{post.body}</div>
+              </div>
+              <div className="card-footer">
+                <Link className="btn" to={`/posts/${post.id}`}>
+                  View
+                </Link>
+              </div>
             </div>
-          </div>
-          <div className="card-footer">
-            <a className="btn" href="posts.html">
-              View
-            </a>
-          </div>
-        </div>
+          );
+        })}
       </div>
       <h3 className="mt-4 mb-2">Todos</h3>
       <ul>
-        <li>delectus aut autem</li>
+        {todos.map((todo) => {
+          return (
+            <li
+              key={todo.id}
+              className={`${todo.completed && "strike-through"}`}
+            >
+              {todo.title}
+            </li>
+          );
+        })}
       </ul>
     </>
   );
 }
 
-function loader({ request: { signal }, params }) {
-  const user = getUser(params.userId, { signal });
-  const todos = getTodo(params.userId, { signal });
+async function loader({ request: { signal }, params: { userId } }) {
+  const user = getUser(userId, { signal });
+  const todos = getTodos({ signal, params: { userId } });
+  const posts = getPosts({ signal, params: { userId } });
+  return { posts: await posts, todos: await todos, user: await user };
 }
 
 export const userRoute = {

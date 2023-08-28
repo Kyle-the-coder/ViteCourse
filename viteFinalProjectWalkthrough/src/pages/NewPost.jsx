@@ -18,7 +18,9 @@ function NewPost() {
             <label for="userId">Author</label>
             <select name="userId" id="userId">
               {users.map((user) => (
-                <option key={user.id}>{user.name}</option>
+                <option key={user.id} value={user.id}>
+                  {user.name}
+                </option>
               ))}
             </select>
           </FormGroup>
@@ -40,11 +42,19 @@ function NewPost() {
   );
 }
 
+async function action({ request }) {
+  const formData = await request.formData();
+  const title = formData.get("title");
+  const body = formData.get("body");
+  const userId = formData.get("userId");
+}
+
 function loader({ request: { signal } }) {
   return getUsers({ signal });
 }
 
 export const newPostRoute = {
   loader,
+  action,
   element: <NewPost />,
 };

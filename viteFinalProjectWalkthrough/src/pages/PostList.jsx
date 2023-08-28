@@ -1,9 +1,18 @@
 import axios from "axios";
-import { useLoaderData, Link } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { useLoaderData, Link, Form } from "react-router-dom";
 import { getPosts } from "../hooks/getPosts";
 
 function PostList() {
-  const posts = useLoaderData();
+  const {
+    posts,
+    searchParams: { query },
+  } = useLoaderData();
+  const queryRef = useRef();
+
+  useEffect(() => {
+    queryRef.current.value = query;
+  }, [query]);
 
   return (
     <>
@@ -16,11 +25,11 @@ function PostList() {
           </Link>
         </div>
       </h1>
-      <form method="get" action="/posts" class="form mb-4">
+      <Form className="form mb-4">
         <div className="form-row">
           <div className="form-group">
             <label htmlFor="query">Query</label>
-            <input type="search" name="query" id="query" />
+            <input type="search" name="query" id="query" ref={queryRef} />
           </div>
           {/* <div className="form-group">
             <label for="userId">Author</label>
@@ -40,7 +49,7 @@ function PostList() {
           </div> */}
           <button className="btn">Filter</button>
         </div>
-      </form>
+      </Form>
       <div className="card-grid">
         {posts.map((post) => {
           return (
@@ -62,8 +71,12 @@ function PostList() {
   );
 }
 
-function loader({ request: { signal } }) {
-  return getPosts({ signal });
+async function loader({ request: { signal, url } }) {
+  const searchParams = new URL(url).searchParams;
+  const query = searchParams.get("query");
+  const filterParams = { q: query };
+  const posts = getPosts({ signal, params: filterParams });
+  return { searchParams: { query }, posts: await posts };
 }
 
 export const postListRoute = {

@@ -1,35 +1,33 @@
+import { Form, useLoaderData } from "react-router-dom";
+import { FormGroup } from "../components/FormGroup";
+import { getUsers } from "../hooks/getUsers";
+
 function NewPost() {
+  const users = useLoaderData();
   return (
     <>
       <h1 className="page-title">New Post</h1>
-      <form method="post" action="/posts/new" class="form">
+      <Form method="post" className="form">
         <div className="form-row">
-          <div className="form-group error">
-            <label for="title">Title</label>
+          <FormGroup>
+            <label htmlFor="title">Title</label>
             <input type="text" name="title" id="title" />
             <div className="error-message">Required</div>
-          </div>
-          <div className="form-group">
+          </FormGroup>
+          <FormGroup>
             <label for="userId">Author</label>
             <select name="userId" id="userId">
-              <option value="1">Leanne Graham</option>
-              <option value="2">Ervin Howell</option>
-              <option value="3">Clementine Bauch</option>
-              <option value="4">Patricia Lebsack</option>
-              <option value="5">Chelsey Dietrich</option>
-              <option value="6">Mrs. Dennis Schulist</option>
-              <option value="7">Kurtis Weissnat</option>
-              <option value="8">Nicholas Runolfsdottir V</option>
-              <option value="9">Glenna Reichert</option>
-              <option value="10">Clementina DuBuque</option>
+              {users.map((user) => (
+                <option key={user.id}>{user.name}</option>
+              ))}
             </select>
-          </div>
+          </FormGroup>
         </div>
         <div className="form-row">
-          <div className="form-group">
+          <FormGroup>
             <label for="body">Body</label>
             <textarea name="body" id="body"></textarea>
-          </div>
+          </FormGroup>
         </div>
         <div className="form-row form-btn-row">
           <a className="btn btn-outline" href="/posts">
@@ -37,11 +35,16 @@ function NewPost() {
           </a>
           <button className="btn">Save</button>
         </div>
-      </form>
+      </Form>
     </>
   );
 }
 
+function loader({ request: { signal } }) {
+  return getUsers({ signal });
+}
+
 export const newPostRoute = {
+  loader,
   element: <NewPost />,
 };

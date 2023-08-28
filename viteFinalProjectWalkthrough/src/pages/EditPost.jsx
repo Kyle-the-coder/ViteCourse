@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import { PostForm } from "../components/PostForm";
-import { getPost } from "../hooks/getPosts";
+import { editPost, getPost } from "../hooks/getPosts";
 import { getUsers } from "../hooks/getUsers";
 
 function EditPost() {
@@ -19,7 +19,18 @@ async function loader({ request: { signal }, params: { postId } }) {
   const users = getUsers({ signal });
   return { post: await post, users: await users };
 }
-function action() {}
+async function action({ request }) {
+  const formData = await request.formData();
+  const title = formData.get("title");
+  const body = formData.get("body");
+  const userId = formData.get("userId");
+
+  const post = await editPost(
+    { title, body, userId },
+    { signal: request.signal }
+  );
+  return redirect(`/posts/${post.id}`);
+}
 
 export const editPostRoute = {
   loader,

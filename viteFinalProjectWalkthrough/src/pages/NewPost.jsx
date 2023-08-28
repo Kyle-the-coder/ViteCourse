@@ -1,5 +1,6 @@
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, redirect, useLoaderData } from "react-router-dom";
 import { FormGroup } from "../components/FormGroup";
+import { createPost } from "../hooks/getPosts";
 import { getUsers } from "../hooks/getUsers";
 
 function NewPost() {
@@ -47,6 +48,12 @@ async function action({ request }) {
   const title = formData.get("title");
   const body = formData.get("body");
   const userId = formData.get("userId");
+
+  const post = await createPost(
+    { title, body, userId },
+    { signal: request.signal }
+  );
+  return redirect(`/posts/${post.id}`);
 }
 
 function loader({ request: { signal } }) {

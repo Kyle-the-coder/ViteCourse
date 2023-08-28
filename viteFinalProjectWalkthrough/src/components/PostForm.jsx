@@ -1,3 +1,6 @@
+import { Form, Link } from "react-router-dom";
+import { FormGroup } from "./FormGroup";
+
 export function PostForm({ users }) {
   return (
     <Form method="post" className="form">
@@ -5,7 +8,7 @@ export function PostForm({ users }) {
         <FormGroup>
           <label htmlFor="title">Title</label>
           <input type="text" name="title" id="title" />
-          <div className="error-message">Required</div>
+          {/* <div className="error-message">Required</div> */}
         </FormGroup>
         <FormGroup>
           <label for="userId">Author</label>
@@ -25,9 +28,9 @@ export function PostForm({ users }) {
         </FormGroup>
       </div>
       <div className="form-row form-btn-row">
-        <a className="btn btn-outline" href="/posts">
+        <Link className="btn btn-outline" to="..">
           Cancel
-        </a>
+        </Link>
         <button className="btn">Save</button>
       </div>
     </Form>

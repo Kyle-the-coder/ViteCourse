@@ -1,15 +1,15 @@
 function NewPost() {
   return (
     <>
-      <h1 class="page-title">New Post</h1>
+      <h1 className="page-title">New Post</h1>
       <form method="post" action="/posts/new" class="form">
-        <div class="form-row">
-          <div class="form-group error">
+        <div className="form-row">
+          <div className="form-group error">
             <label for="title">Title</label>
             <input type="text" name="title" id="title" />
-            <div class="error-message">Required</div>
+            <div className="error-message">Required</div>
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="userId">Author</label>
             <select name="userId" id="userId">
               <option value="1">Leanne Graham</option>
@@ -25,17 +25,17 @@ function NewPost() {
             </select>
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
+        <div className="form-row">
+          <div className="form-group">
             <label for="body">Body</label>
             <textarea name="body" id="body"></textarea>
           </div>
         </div>
-        <div class="form-row form-btn-row">
-          <a class="btn btn-outline" href="/posts">
+        <div className="form-row form-btn-row">
+          <a className="btn btn-outline" href="/posts">
             Cancel
           </a>
-          <button class="btn">Save</button>
+          <button className="btn">Save</button>
         </div>
       </form>
     </>

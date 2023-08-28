@@ -11,9 +11,9 @@ function PostList() {
       <h1 className="page-title">
         Posts
         <div className="title-btns">
-          <a className="btn btn-outline" href="/posts/new">
+          <Link className="btn btn-outline" to="new">
             New
-          </a>
+          </Link>
         </div>
       </h1>
       <div className="card-grid">

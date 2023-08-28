@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate, useRouteError } from "react-router-dom";
+import { editPostRoute } from "../pages/EditPost";
 import { newPostRoute } from "../pages/NewPost";
 import { postRoute } from "../pages/Post";
 import { postListRoute } from "../pages/PostList";

@@ -1,11 +1,15 @@
 import axios from "axios";
 import { useEffect, useRef } from "react";
 import { useLoaderData, Link, Form } from "react-router-dom";
+import { FormGroup } from "../components/FormGroup";
 import { getPosts } from "../hooks/getPosts";
+import { getUsers } from "../hooks/getUsers";
+import { userListRoute } from "./UserList";
 
 function PostList() {
   const {
     posts,
+    users,
     searchParams: { query },
   } = useLoaderData();
   const queryRef = useRef();
@@ -31,22 +35,17 @@ function PostList() {
             <label htmlFor="query">Query</label>
             <input type="search" name="query" id="query" ref={queryRef} />
           </div>
-          {/* <div className="form-group">
+          <div className="form-group">
             <label for="userId">Author</label>
-            <select type="search" name="userId" id="userId">
+            <select type="search" name="userId" id="userId" ref={userId}>
               <option value="">Any</option>
-              <option value="1">Leanne Graham</option>
-              <option value="2">Ervin Howell</option>
-              <option value="3">Clementine Bauch</option>
-              <option value="4">Patricia Lebsack</option>
-              <option value="5">Chelsey Dietrich</option>
-              <option value="6">Mrs. Dennis Schulist</option>
-              <option value="7">Kurtis Weissnat</option>
-              <option value="8">Nicholas Runolfsdottir V</option>
-              <option value="9">Glenna Reichert</option>
-              <option value="10">Clementina DuBuque</option>
+              {users.map((user) => (
+                <option key={user.id} value={user.id}>
+                  {user.name}
+                </option>
+              ))}
             </select>
-          </div> */}
+          </div>
           <button className="btn">Filter</button>
         </div>
       </Form>
@@ -76,7 +75,8 @@ async function loader({ request: { signal, url } }) {
   const query = searchParams.get("query");
   const filterParams = { q: query };
   const posts = getPosts({ signal, params: filterParams });
-  return { searchParams: { query }, posts: await posts };
+  const users = getUsers({ signal });
+  return { searchParams: { query }, posts: await posts, users: await users };
 }
 
 export const postListRoute = {

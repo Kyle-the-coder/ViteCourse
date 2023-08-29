@@ -49,3 +49,31 @@ body {
   width: 430px;
   justify-content: space-between;
 }
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  margin-bottom: 2rem;
+}
+
+.welcomeContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.welcomeTitle {
+  margin: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn {
+  padding: 5px 10px 5px 10px;
+  background-color: hsl(8, 80%, 35%);
+  color: white;
+  border-radius: 0.8rem;
+}

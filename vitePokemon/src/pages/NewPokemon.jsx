@@ -6,12 +6,18 @@ function NewPokemon() {
   const pokemon = useActionData();
   const [localOrInput, setLocalOrInput] = useState();
   const [isMounted, setIsMounted] = useState(false);
+  const [pokeList, setPokeList] = useState([]);
 
   useEffect(() => {
     if (pokemon !== undefined) {
       setIsMounted(true);
     }
     const poke = localStorage.getItem("pokemon");
+    const recentSearch = localStorage.getItem("pokeList");
+    console.log([...JSON.parse(recentSearch)]);
+    // if (recentSearch.length >= 0) {
+    //   setPokeList(JSON.parse(recentSearch));
+    // }
 
     if (pokemon === undefined && poke.length >= 0) {
       setIsMounted(true);
@@ -48,6 +54,7 @@ async function action({ request }) {
   console.log(searchName);
   const pokemon = await getPokemon(searchName);
   localStorage.setItem("pokemon", JSON.stringify(pokemon));
+  localStorage.setItem("pokeList", [...JSON.stringify(pokemon)]);
   return pokemon;
 }
 

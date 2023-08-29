@@ -1,5 +1,4 @@
-import { Form, redirect, useLoaderData, useNavigation } from "react-router-dom";
-import { FormGroup } from "../components/FormGroup";
+import { redirect, useLoaderData, useNavigation } from "react-router-dom";
 import { PostForm } from "../components/PostForm";
 import { createPost } from "../hooks/getPosts";
 import { getUsers } from "../hooks/getUsers";

@@ -1,12 +1,12 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 body {
   width: 100%;
   background-color: rgb(48, 48, 48);
   color: white;
-  margin: 0;
-  padding: 0;
 }
 
 .top-nav {
@@ -76,4 +76,11 @@ body {
   background-color: hsl(8, 80%, 35%);
   color: white;
   border-radius: 0.8rem;
+}
+
+.resultsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

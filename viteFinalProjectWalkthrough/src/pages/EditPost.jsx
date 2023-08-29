@@ -1,11 +1,17 @@
-import { redirect, useLoaderData, useNavigation } from "react-router-dom";
-import { PostForm } from "../components/PostForm";
+import {
+  redirect,
+  useActionData,
+  useLoaderData,
+  useNavigation,
+} from "react-router-dom";
+import { PostForm, PostFormValidator } from "../components/PostForm";
 import { editPost, getPost } from "../hooks/getPosts";
 import { getUsers } from "../hooks/getUsers";
 
 function EditPost() {
   const { users, post } = useLoaderData();
   const { state } = useNavigation();
+  const errors = useActionData();
   const isSubmitting = state === "submitting";
   return (
     <>
@@ -14,6 +20,7 @@ function EditPost() {
         users={users}
         defaultValues={post}
         isSubmitting={isSubmitting}
+        errors={errors}
       />
     </>
   );
@@ -29,6 +36,12 @@ async function action({ request, params: { postId } }) {
   const title = formData.get("title");
   const body = formData.get("body");
   const userId = formData.get("userId");
+
+  const errors = PostFormValidator({ title, userId, body });
+
+  if (Object.keys(errors).length > 0) {
+    return errors;
+  }
 
   const post = await editPost(
     postId,

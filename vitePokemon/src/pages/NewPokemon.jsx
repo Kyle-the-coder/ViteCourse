@@ -4,26 +4,26 @@ import { getPokemon } from "../hooks/getPokemon";
 
 function NewPokemon() {
   const pokemon = useLoaderData();
-  const pokeNameRef = useRef();
 
   return (
     <>
       <div className="container">
-        <Form>
-          <input type="text" ref={pokeNameRef} />
+        <Form method="post">
+          <input type="text" name="name" />
           <button>submit</button>
         </Form>
-        <h1>New</h1>
-        <img src={pokemon.sprites.front_default} width="500" />
       </div>
     </>
   );
 }
 
-function loader() {
-  return getPokemon();
+async function action({ request }) {
+  const formData = await request.formData();
+  const searchName = formData.get("name");
+  return getPokemon(searchName);
 }
+
 export const newPokemonRoute = {
-  loader,
+  action,
   element: <NewPokemon />,
 };

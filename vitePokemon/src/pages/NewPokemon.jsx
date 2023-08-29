@@ -3,42 +3,34 @@ import { Form, useActionData } from "react-router-dom";
 import { getPokemon } from "../hooks/getPokemon";
 
 function NewPokemon() {
-  const pokemon = useActionData();
+  const newPokemon = useActionData();
+  const [pokemon, setPokemon] = useState(() => {
+    const p = localStorage.getItem("pokemon");
+    console.log(p);
+    if (p === undefined) return [];
+    return JSON.parse(p);
+  });
   const [localOrInput, setLocalOrInput] = useState();
   const [isMounted, setIsMounted] = useState(false);
-  const [pokeList, setPokeList] = useState([]);
+  // const [pokeList, setPokeList] = useState(() => {
+  //   const list = localStorage.getItem("pokeList");
+  //   console.log(list);
+  //   if (list === undefined) return [];
+  //   return JSON.parse(list);
+  // });
 
-  useEffect(() => {
-    if (pokemon !== undefined) {
-      setIsMounted(true);
-    }
-    const poke = localStorage.getItem("pokemon");
-    const recentSearch = localStorage.getItem("pokeList");
-    console.log([...JSON.parse(recentSearch)]);
-    // if (recentSearch.length >= 0) {
-    //   setPokeList(JSON.parse(recentSearch));
-    // }
-
-    if (pokemon === undefined && poke.length >= 0) {
-      setIsMounted(true);
-      setLocalOrInput(JSON.parse(poke));
-    }
-    if (pokemon != undefined) {
-      setLocalOrInput(pokemon);
-    }
-  }, [pokemon]);
-
+  console.log(pokemon);
   return (
     <>
       <div className="container">
         <Form method="post">
-          <input type="text" name="name" defaultValue={localOrInput?.name} />
+          <input type="text" name="name" defaultValue={pokemon?.name} />
           <button>submit</button>
         </Form>
         {isMounted ? (
           <div className="resultsContainer">
-            <img src={localOrInput?.sprites?.front_default} />
-            {localOrInput?.name}
+            <img src={pokemon?.sprites?.front_default} />
+            {pokemon?.name}
           </div>
         ) : (
           <></>
@@ -51,11 +43,12 @@ function NewPokemon() {
 async function action({ request }) {
   const formData = await request.formData();
   const searchName = formData.get("name");
-  console.log(searchName);
-  const pokemon = await getPokemon(searchName);
-  localStorage.setItem("pokemon", JSON.stringify(pokemon));
-  localStorage.setItem("pokeList", [...JSON.stringify(pokemon)]);
-  return pokemon;
+  const addPokemon = await getPokemon(searchName);
+  console.log(addPokemon);
+  localStorage.setItem("pokemon", JSON.stringify(addPokemon));
+
+  localStorage.setItem("pokeList", []);
+  return addPokemon;
 }
 
 export const newPokemonRoute = {

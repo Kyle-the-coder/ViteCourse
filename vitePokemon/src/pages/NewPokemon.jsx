@@ -1,9 +1,7 @@
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 import { getPokemon } from "../hooks/getPokemon";
 
 function NewPokemon() {
-  const pokemon = useLoaderData();
-
   return (
     <>
       <div className="container">
@@ -19,7 +17,9 @@ function NewPokemon() {
 async function action({ request }) {
   const formData = await request.formData();
   const searchName = formData.get("name");
-  return getPokemon(searchName);
+  const results = getPokemon(searchName);
+  console.log();
+  return formData;
 }
 
 export const newPokemonRoute = {

@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { Form, useLoaderData } from "react-router-dom";
 import { getPokemon } from "../hooks/getPokemon";
 

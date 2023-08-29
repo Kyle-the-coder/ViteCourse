@@ -1,7 +1,46 @@
+* {
+  box-sizing: border-box;
+}
 body {
   width: 100%;
   background-color: rgb(48, 48, 48);
   color: white;
   margin: 0;
   padding: 0;
+}
+
+.top-nav {
+  color: hsl(200, 20%, 95%);
+  background: hsl(8, 93%, 29%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+}
+
+.nav-list {
+  margin: 0;
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  align-items: stretch;
+}
+
+.nav-list a {
+  text-decoration: underline;
+  color: inherit;
+}
+
+.nav-list a:hover,
+.nav-list a:focus {
+  color: aqua;
+}
+
+.nav-text-large {
+  font-size: 2rem;
 }

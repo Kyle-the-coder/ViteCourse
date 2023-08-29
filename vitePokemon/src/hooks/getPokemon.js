@@ -1,5 +1,5 @@
 import { baseApi } from "./baseApi";
 
-export function getPokemon() {
-  return baseApi.get("pokemon/pikachu").then((res) => res.data);
+export function getPokemon(input) {
+  return baseApi.get(`pokemon/${input}`).then((res) => res.data);
 }

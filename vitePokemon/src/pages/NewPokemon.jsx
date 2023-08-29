@@ -21,9 +21,9 @@ function NewPokemon() {
           <button>submit</button>
         </Form>
         {isMounted ? (
-          <div>
-            {pokemon.name}
+          <div className="resultsContainer">
             <img src={pokemon.sprites.front_default} />
+            {pokemon.name}
           </div>
         ) : (
           "loading"

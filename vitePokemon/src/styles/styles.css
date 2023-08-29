@@ -32,13 +32,12 @@ body {
 }
 
 .nav-list a {
-  text-decoration: underline;
   color: inherit;
 }
 
 .nav-list a:hover,
 .nav-list a:focus {
-  color: aqua;
+  text-decoration: underline;
 }
 
 .nav-text-large {

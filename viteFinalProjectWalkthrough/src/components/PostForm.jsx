@@ -7,7 +7,6 @@ export function PostForm({
   defaultValues = {},
   errors = {},
 }) {
-  console.log(errors);
   return (
     <Form method="post" className="form">
       <div className="form-row">
@@ -64,5 +63,6 @@ export function PostFormValidator({ title, body, userId }) {
   if (userId === "") {
     errors.userId = "Required";
   }
+  console.log("validator", errors);
   return errors;
 }

@@ -1,7 +1,7 @@
 import { Form, Link } from "react-router-dom";
 import { FormGroup } from "./FormGroup";
 
-export function PostForm({ users, defaultValues = {} }) {
+export function PostForm({ users, isSubmitting, defaultValues = {} }) {
   return (
     <Form method="post" className="form">
       <div className="form-row">
@@ -40,7 +40,9 @@ export function PostForm({ users, defaultValues = {} }) {
         <Link className="btn btn-outline" to="..">
           Cancel
         </Link>
-        <button className="btn">Save</button>
+        <button disabled={isSubmitting} className="btn">
+          {isSubmitting ? "Submiting" : "Save"}
+        </button>
       </div>
     </Form>
   );

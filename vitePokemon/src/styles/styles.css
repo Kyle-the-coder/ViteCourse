@@ -43,4 +43,8 @@ body {
 
 .nav-text-large {
   font-size: 2rem;
+  display: flex;
+  align-items: center;
+  width: 350px;
+  justify-content: space-between;
 }

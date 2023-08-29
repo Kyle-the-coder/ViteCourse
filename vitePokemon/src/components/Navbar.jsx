@@ -10,13 +10,13 @@ export function Navbar() {
       </div>
       <ul className="nav-list">
         <li>
-          <Link to="/posts">Home</Link>
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/users">Your Storage</Link>
+          <Link to="/storage">Your Storage</Link>
         </li>
         <li>
-          <Link to="/todos">New Pokemon</Link>
+          <Link to="/newpokemon">New Pokemon</Link>
         </li>
       </ul>
     </nav>

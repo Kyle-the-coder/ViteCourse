@@ -47,3 +47,17 @@ export function PostForm({ users, isSubmitting, defaultValues = {} }) {
     </Form>
   );
 }
+
+export function PostFormValidator({ title, body, userId }) {
+  const errors = {};
+  if (title === "") {
+    errors.title = "Required";
+  }
+  if (body === "") {
+    errors.body = "Required";
+  }
+  if (userId === "") {
+    errors.userId = "Required";
+  }
+  return errors;
+}

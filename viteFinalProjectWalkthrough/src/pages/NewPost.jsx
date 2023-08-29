@@ -30,6 +30,7 @@ async function action({ request }) {
   const errors = PostFormValidator({ title, userId, body });
 
   if (Object.keys(errors).length > 0) {
+    console.log(Object.keys(errors).length);
     return errors;
   }
 

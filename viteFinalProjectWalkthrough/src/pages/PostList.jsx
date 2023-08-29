@@ -10,13 +10,18 @@ function PostList() {
   const {
     posts,
     users,
-    searchParams: { query },
+    searchParams: { query = "", userId = "" },
   } = useLoaderData();
   const queryRef = useRef();
+  const userIdRef = useRef();
 
   useEffect(() => {
     queryRef.current.value = query;
   }, [query]);
+
+  useEffect(() => {
+    userIdRef.current.value = userId;
+  }, [userId]);
 
   return (
     <>
@@ -36,8 +41,8 @@ function PostList() {
             <input type="search" name="query" id="query" ref={queryRef} />
           </div>
           <div className="form-group">
-            <label for="userId">Author</label>
-            <select type="search" name="userId" id="userId" ref={userId}>
+            <label htmlFor="userId">Author</label>
+            <select type="search" name="userId" id="userId" ref={userIdRef}>
               <option value="">Any</option>
               {users.map((user) => (
                 <option key={user.id} value={user.id}>
@@ -73,10 +78,16 @@ function PostList() {
 async function loader({ request: { signal, url } }) {
   const searchParams = new URL(url).searchParams;
   const query = searchParams.get("query");
+  const userId = searchParams.get("userId");
   const filterParams = { q: query };
+  if (userId !== "") filterParams.userId = userId;
   const posts = getPosts({ signal, params: filterParams });
   const users = getUsers({ signal });
-  return { searchParams: { query }, posts: await posts, users: await users };
+  return {
+    searchParams: { query, userId: userId || "" },
+    posts: await posts,
+    users: await users,
+  };
 }
 
 export const postListRoute = {

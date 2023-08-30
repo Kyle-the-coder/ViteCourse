@@ -3,7 +3,6 @@ import { Form, useActionData } from "react-router-dom";
 import { getPokemon } from "../hooks/getPokemon";
 
 function NewPokemon() {
-  const newPokemon = localStorage.getItem("pokemon");
   const [pokemon, setPokemon] = useState(() => {
     const p = localStorage.getItem("pokemon");
     if (p === undefined) return [];

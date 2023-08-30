@@ -1,15 +1,14 @@
 import "../styles/pokemonCard.css";
 import background from "../assets/bg.webp";
-import symbol from "../assets/electricSymbol.jpeg";
+
 export function PokemonCard({ pokemon }) {
-  console.log(pokemon.stats[0].stat.name);
-  console.log(pokemon.stats[0].base_stat);
   return (
     <>
       {" "}
       <div className="cardContainer">
         <div className="titleContainer">
-          {pokemon?.name}
+          {pokemon?.name.charAt(0).toUpperCase() +
+            pokemon?.name.slice(1).toLowerCase()}
           <div>
             {pokemon.stats[0].base_stat}
 
@@ -20,7 +19,8 @@ export function PokemonCard({ pokemon }) {
         <div className="pokemonImgContainer">
           <div className="pokemonImg">
             <div className="pokemonSprite">
-              <img src={pokemon?.sprites?.front_default} />
+              <img src={pokemon?.sprites?.front_shiny} />
+              <button>shiny</button>
             </div>
             <div className="pokemonBackgroundImg">
               <img src={background} />

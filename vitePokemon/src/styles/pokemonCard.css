@@ -75,10 +75,16 @@
   justify-content: center;
   align-items: center;
   background-color: rgb(31, 61, 61);
-  padding: 6px;
+  padding: 10px;
 }
 .pokemonNameContainer {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.pokemonMovesContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }

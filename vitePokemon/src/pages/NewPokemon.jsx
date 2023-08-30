@@ -40,7 +40,7 @@ function NewPokemon() {
         {isMounted ? (
           <div className="resultsContainer">
             <h1>Search Results:</h1>
-            <PokemonCard pokemon={pokemon} />
+            <PokemonCard pokemon={pokemon} state={state} />
           </div>
         ) : (
           <></>
@@ -51,10 +51,10 @@ function NewPokemon() {
           </div>
           <div className="card-grid" key={pokemon.id}>
             {pokeList
-              ?.slice() // Create a shallow copy of the array
-              .reverse() // Reverse the order of the copied array
+              ?.slice()
+              .reverse()
               .map((pokemon) => (
-                <PokemonCard key={pokemon.id} pokemon={pokemon} /> // Don't forget to add a key to each mapped component
+                <PokemonCard key={pokemon.id} pokemon={pokemon} state={state} />
               ))}
           </div>
         </div>

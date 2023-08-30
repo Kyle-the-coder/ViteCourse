@@ -83,3 +83,16 @@ body {
   align-items: center;
   justify-content: center;
 }
+.resultsContainer > h1 {
+  margin-bottom: 20px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1rem;
+}
+
+.title {
+  margin-bottom: 20px;
+}

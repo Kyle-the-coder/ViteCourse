@@ -26,16 +26,19 @@ function NewPokemon() {
     setPokeList(JSON.parse(newPokemonList));
   }, [state]);
 
-  console.log(state);
   return (
     <>
       <div className="container">
+        <div className="title">
+          <h1>Find a pokemon:</h1>
+        </div>
         <Form method="post">
           <input type="text" name="name" defaultValue={pokemon?.name} />
           <button>submit</button>
         </Form>
         {isMounted ? (
           <div className="resultsContainer">
+            <h1>Search Results:</h1>
             <PokemonCard pokemon={pokemon} />
           </div>
         ) : (
@@ -45,9 +48,14 @@ function NewPokemon() {
           <div>
             <h1>Recent Searches:</h1>
           </div>
-          {pokeList?.map((pokemon) => (
-            <div key={pokemon.id}>{pokemon.name}</div>
-          ))}
+          <div className="card-grid" key={pokemon.id}>
+            {pokeList
+              ?.slice() // Create a shallow copy of the array
+              .reverse() // Reverse the order of the copied array
+              .map((pokemon) => (
+                <PokemonCard key={pokemon.id} pokemon={pokemon} /> // Don't forget to add a key to each mapped component
+              ))}
+          </div>
         </div>
       </div>
     </>

@@ -5,6 +5,7 @@ import { getPokemon } from "../hooks/getPokemon";
 
 function NewPokemon() {
   const { state } = useNavigation();
+
   const [pokemon, setPokemon] = useState(() => {
     const p = localStorage.getItem("pokemon");
     if (p === undefined) return [];

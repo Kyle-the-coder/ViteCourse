@@ -75,6 +75,7 @@ body {
   background-color: hsl(8, 80%, 35%);
   color: white;
   border-radius: 0.8rem;
+  text-decoration: none;
 }
 
 .resultsContainer {

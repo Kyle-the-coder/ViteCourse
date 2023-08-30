@@ -2,34 +2,66 @@
   width: 300px;
   height: 420px;
   padding: 10px;
-  background-color: rgb(248, 219, 58);
+  background-color: rgb(216, 194, 67);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   border-radius: 0.5rem;
 }
+/* POKEMON TITLE CONTAINER */
+.titleContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+/* POKEMON CARD IMG */
 .pokemonImgContainer {
   width: 100%;
   height: 59%;
   border-top-right-radius: 0.2rem;
   border-top-left-radius: 0.2rem;
-  background-color: aqua;
+  background-color: rgb(255, 238, 55);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .pokemonImg {
-  width: 90%;
-  height: 90%;
-  background-color: antiquewhite;
+  width: 95%;
+  height: 95%;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 0.2rem;
+  border-top-left-radius: 0.2rem;
 }
+.pokemonSprite {
+  z-index: 1;
+}
+.pokemonSprite > img {
+  width: 300px;
+}
+.pokemonBackgroundImg {
+  object-fit: cover;
+  position: absolute;
+}
+
+/* POKEMON CARD STATS */
 .pokemonStatsContainer {
   width: 100%;
-  height: 40%;
+  height: 32%;
   border-bottom-right-radius: 0.2rem;
   border-bottom-left-radius: 0.2rem;
   justify-content: center;
   align-items: center;
   background-color: rgb(31, 61, 61);
+  padding: 6px;
+}
+.pokemonNameContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

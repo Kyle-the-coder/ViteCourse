@@ -21,7 +21,7 @@ function NewPokemon() {
     const newInfo = localStorage.getItem("pokemon");
     console.log(newInfo);
     setPokemon(JSON.parse(newInfo));
-  }, [newPokemon]);
+  }, []);
 
   return (
     <>
@@ -42,7 +42,7 @@ function NewPokemon() {
           <div>
             <h1>Recent Searches:</h1>
           </div>
-          {pokeList.map((pokemon) => (
+          {pokeList?.map((pokemon) => (
             <div key={pokemon.id}>{pokemon.name}</div>
           ))}
         </div>
@@ -68,6 +68,7 @@ async function action({ request }) {
   }
   //HANDLE CURRENT SEARCH
   localStorage.setItem("pokemon", JSON.stringify(addPokemon));
+
   return addPokemon;
 }
 

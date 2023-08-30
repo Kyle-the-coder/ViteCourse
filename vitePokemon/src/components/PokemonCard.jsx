@@ -4,8 +4,12 @@ export function PokemonCard({ pokemon }) {
     <>
       {" "}
       <div className="cardContainer">
-        <img src={pokemon?.sprites?.front_default} />
-        {pokemon?.name}
+        <div className="pokemonImgContainer">
+          <div className="pokemonImg"></div>
+        </div>
+        <div className="pokemonStatsContainer"></div>
+        {/* <img src={pokemon?.sprites?.front_default} />
+        {pokemon?.name} */}
       </div>
     </>
   );

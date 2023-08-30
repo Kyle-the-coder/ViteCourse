@@ -8,30 +8,37 @@ export function PokemonCard({ pokemon }) {
   const [moveList, setMoveList] = useState(() => {
     return [...pokemon?.moves.map((move) => move.move)];
   });
-  const [moveDetailList, setMoveDetailList] = useState([]);
+  const [moveDetailList1, setMoveDetailList1] = useState([]);
+  const [moveDetailList2, setMoveDetailList2] = useState([]);
 
   function handleShiny() {
     return setIsShiny(!isShiny);
   }
   useEffect(() => {
-    function movesUrl() {
-      return moveList.map((url) =>
-        axios
-          .get(url.url)
-          .then((res) => {
-            if (res.status === 200) {
-              console.log("good");
-              const results = res.data;
-              setMoveDetailList([...moveDetailList, results]);
-            }
-          })
-          .catch((err) => console.log(err))
-      );
+    const moves = moveList?.splice(0, 2);
+    async function moves1Url() {
+      return await axios
+        .get(moves[0]?.url)
+        .then((res) => {
+          if (res.status === 200) {
+            setMoveDetailList1([res.data]);
+          }
+        })
+        .catch((err) => console.log(err));
     }
-    movesUrl();
-  }, []);
-
-  console.log(moveDetailList.map((move) => move.name));
+    moves1Url();
+    async function moves2Url() {
+      return await axios
+        .get(moves[1]?.url)
+        .then((res) => {
+          if (res.status === 200) {
+            setMoveDetailList2([res.data]);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+    moves2Url();
+  }, [moveList]);
 
   return (
     <>
@@ -69,18 +76,20 @@ export function PokemonCard({ pokemon }) {
 
         <div className="pokemonStatsContainer">
           <div className="pokemonNameContainer">
-            {/* {moveList.map((move, index) => (
-              <div className="pokemonMovesContainer" key={index}>
-                {move.name}
-                Power:{" "}
-              </div>
-            ))} */}
-            {moveDetailList.map((move) => (
-              <div>
-                {move.name}
-                {move.pp}
-              </div>
-            ))}
+            <div className="pokemonMovesContainer">
+              {moveDetailList1.map((move) => (
+                <div className="moves" key={move.id}>
+                  <div>{move.name}</div>
+                  PP: {move.pp}
+                </div>
+              ))}
+              {moveDetailList2.map((move) => (
+                <div className="moves" key={move.id}>
+                  <div>{move.name}</div>
+                  PP: {move.pp}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

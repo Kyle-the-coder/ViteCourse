@@ -5,21 +5,34 @@ import axios from "axios";
 
 export function PokemonCard({ pokemon }) {
   const [isShiny, setIsShiny] = useState(false);
-  const [moveList, setMoveList] = useState([]);
+  const [moveList, setMoveList] = useState(() => {
+    return [...pokemon?.moves.map((move) => move.move)];
+  });
+  const [moveDetailList, setMoveDetailList] = useState([]);
 
   function handleShiny() {
     return setIsShiny(!isShiny);
   }
   useEffect(() => {
-    const movesUrl = pokemon?.moves.map((move) => move.move.url);
-    console.log("moves", movesUrl);
-    axios
-      .get(...movesUrl)
-      .then((res) => res.data)
-      .then((data) => setMoveList([data]));
+    function movesUrl() {
+      return moveList.map((url) =>
+        axios
+          .get(url.url)
+          .then((res) => {
+            if (res.status === 200) {
+              console.log("good");
+              const results = res.data;
+              setMoveDetailList([...moveDetailList, results]);
+            }
+          })
+          .catch((err) => console.log(err))
+      );
+    }
+    movesUrl();
   }, []);
-  //   console.log(pokemon?.moves[0].move.url);
-  //   console.log(pokemon?.moves.map((move) => move.move.url));
+
+  console.log(moveDetailList.map((move) => move.name));
+
   return (
     <>
       {" "}
@@ -53,12 +66,19 @@ export function PokemonCard({ pokemon }) {
             </div>
           </div>
         </div>
+
         <div className="pokemonStatsContainer">
           <div className="pokemonNameContainer">
-            {moveList.map((move) => (
-              <div className="pokemonMovesContainer">
-                <div>{move.name}</div>
-                <div>Power: {move.power}</div>
+            {/* {moveList.map((move, index) => (
+              <div className="pokemonMovesContainer" key={index}>
+                {move.name}
+                Power:{" "}
+              </div>
+            ))} */}
+            {moveDetailList.map((move) => (
+              <div>
+                {move.name}
+                {move.pp}
               </div>
             ))}
           </div>

@@ -1,7 +1,14 @@
 import "../styles/pokemonCard.css";
 import background from "../assets/bg.webp";
+import { useState } from "react";
 
 export function PokemonCard({ pokemon }) {
+  const [isShiny, setIsShiny] = useState(false);
+
+  function handleShiny() {
+    return setIsShiny(!isShiny);
+  }
+  console.log(pokemon?.moves[0].move.url);
   return (
     <>
       {" "}
@@ -19,8 +26,16 @@ export function PokemonCard({ pokemon }) {
         <div className="pokemonImgContainer">
           <div className="pokemonImg">
             <div className="pokemonSprite">
-              <img src={pokemon?.sprites?.front_shiny} />
-              <button>shiny</button>
+              {isShiny ? (
+                <img src={pokemon?.sprites?.front_shiny} />
+              ) : (
+                <img src={pokemon?.sprites?.front_default} />
+              )}
+
+              <button className="shinyButton" onClick={() => handleShiny()}>
+                shiny: {""}
+                {isShiny ? "on" : "off"}
+              </button>
             </div>
             <div className="pokemonBackgroundImg">
               <img src={background} />
@@ -28,7 +43,9 @@ export function PokemonCard({ pokemon }) {
           </div>
         </div>
         <div className="pokemonStatsContainer">
-          <div className="pokemonNameContainer">{pokemon?.name}</div>
+          <div className="pokemonNameContainer">
+            {pokemon?.moves[0].move.name}
+          </div>
         </div>
       </div>
     </>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Form, useActionData, useNavigation } from "react-router-dom";
+import { PokemonCard } from "../components/PokemonCard";
 import { getPokemon } from "../hooks/getPokemon";
 
 function NewPokemon() {
@@ -35,8 +36,7 @@ function NewPokemon() {
         </Form>
         {isMounted ? (
           <div className="resultsContainer">
-            <img src={pokemon?.sprites?.front_default} />
-            {pokemon?.name}
+            <PokemonCard pokemon={pokemon} />
           </div>
         ) : (
           <></>

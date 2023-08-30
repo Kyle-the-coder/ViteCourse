@@ -1,14 +1,25 @@
 import "../styles/pokemonCard.css";
 import background from "../assets/bg.webp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export function PokemonCard({ pokemon }) {
   const [isShiny, setIsShiny] = useState(false);
+  const [moveList, setMoveList] = useState([]);
 
   function handleShiny() {
     return setIsShiny(!isShiny);
   }
-  console.log(pokemon?.moves[0].move.url);
+  useEffect(() => {
+    const movesUrl = pokemon?.moves.map((move) => move.move.url);
+    console.log("moves", movesUrl);
+    axios
+      .get(...movesUrl)
+      .then((res) => res.data)
+      .then((data) => setMoveList([data]));
+  }, []);
+  //   console.log(pokemon?.moves[0].move.url);
+  //   console.log(pokemon?.moves.map((move) => move.move.url));
   return (
     <>
       {" "}
@@ -44,7 +55,12 @@ export function PokemonCard({ pokemon }) {
         </div>
         <div className="pokemonStatsContainer">
           <div className="pokemonNameContainer">
-            {pokemon?.moves[0].move.name}
+            {moveList.map((move) => (
+              <div className="pokemonMovesContainer">
+                <div>{move.name}</div>
+                <div>Power: {move.power}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

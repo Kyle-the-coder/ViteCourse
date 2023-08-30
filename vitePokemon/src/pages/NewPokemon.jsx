@@ -27,6 +27,17 @@ function NewPokemon() {
     setPokeList(JSON.parse(newPokemonList));
   }, [state]);
 
+  function deletePokemon(pokeId) {
+    console.log(pokeId);
+    console.log(pokeList.filter((id) => id === pokeId));
+    const newPokeList = pokeList.filter((id) => id.id !== pokeId);
+    console.log(pokeList);
+    console.log(newPokeList);
+    localStorage.setItem("pokeList", JSON.stringify(newPokeList));
+    const newInfo = localStorage.getItem("pokeList");
+    setPokeList(JSON.parse(newInfo));
+  }
+
   return (
     <>
       <div className="container">
@@ -49,12 +60,21 @@ function NewPokemon() {
           <div>
             <h1>Recent Searches:</h1>
           </div>
-          <div className="card-grid" key={pokemon.id}>
+          <div className="card-grid">
             {pokeList
               ?.slice()
               .reverse()
               .map((pokemon) => (
-                <PokemonCard key={pokemon.id} pokemon={pokemon} state={state} />
+                <div className="gridContainer" key={pokemon.id}>
+                  <PokemonCard
+                    key={pokemon.id}
+                    pokemon={pokemon}
+                    state={state}
+                  />
+                  <button onClick={() => deletePokemon(pokemon.id)}>
+                    Delete
+                  </button>
+                </div>
               ))}
           </div>
         </div>

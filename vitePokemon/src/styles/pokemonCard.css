@@ -14,6 +14,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  color: black;
 }
 /* POKEMON CARD IMG */
 .pokemonImgContainer {
@@ -42,11 +43,22 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
+  margin-top: 30px;
 }
 .pokemonSprite > img {
   transform: scale(3);
-  width: 130px;
+  width: 100px;
   padding: 8px;
+  margin-bottom: 30px;
+}
+
+.shinyButton {
+  z-index: 5;
+  border-radius: 0.2rem;
+  padding: 2px;
+  background-color: rgb(74, 74, 74);
+  color: white;
+  margin-top: 22px;
 }
 
 .pokemonBackgroundImg {

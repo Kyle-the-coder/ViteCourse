@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Form, useActionData } from "react-router-dom";
+import { Form, useActionData, useNavigation } from "react-router-dom";
 import { getPokemon } from "../hooks/getPokemon";
 
 function NewPokemon() {
+  const { state } = useNavigation();
   const [pokemon, setPokemon] = useState(() => {
     const p = localStorage.getItem("pokemon");
     if (p === undefined) return [];
@@ -17,11 +18,14 @@ function NewPokemon() {
   });
 
   useEffect(() => {
-    const newInfo = localStorage.getItem("pokemon");
-    console.log(newInfo);
-    setPokemon(JSON.parse(newInfo));
-  }, []);
+    const newPokemonInfo = localStorage.getItem("pokemon");
+    setPokemon(JSON.parse(newPokemonInfo));
 
+    const newPokemonList = localStorage.getItem("pokeList");
+    setPokeList(JSON.parse(newPokemonList));
+  }, [state]);
+
+  console.log(state);
   return (
     <>
       <div className="container">

@@ -1,7 +1,9 @@
 import "../styles/pokemonCard.css";
 import background from "../assets/bg.webp";
+import waterB from "../assets/waterB.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export function PokemonCard({ pokemon, state }) {
   const [isShiny, setIsShiny] = useState(false);
@@ -41,6 +43,7 @@ export function PokemonCard({ pokemon, state }) {
     setIsShiny(false);
   }, [moveList, state]);
 
+  console.log(pokemon);
   return (
     <>
       {state === "loading" ? (
@@ -92,6 +95,9 @@ export function PokemonCard({ pokemon, state }) {
                     PP: {move.pp}
                   </div>
                 ))}
+              </div>
+              <div className="pokedexLink">
+                <Link>Pokedex</Link>
               </div>
             </div>
           </div>

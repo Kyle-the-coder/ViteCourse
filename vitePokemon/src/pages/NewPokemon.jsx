@@ -49,10 +49,14 @@ function NewPokemon() {
           <button>submit</button>
         </Form>
         {isMounted ? (
-          <div className="resultsContainer">
-            <h1>Search Results:</h1>
-            <PokemonCard pokemon={pokemon} state={state} />
-          </div>
+          state === "loading" ? (
+            <h1>loading</h1>
+          ) : (
+            <div className="resultsContainer">
+              <h1>Search Results:</h1>
+              <PokemonCard pokemon={pokemon} state={state} />
+            </div>
+          )
         ) : (
           <></>
         )}

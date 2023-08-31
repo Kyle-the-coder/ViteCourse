@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import background from "../assets/bg.webp";
 import pokeBallEmpty from "../assets/pokeballEmpty.png";
 import pokeBallFull from "../assets/pokeballFull.png";
-import waterB from "../assets/waterB.png";
 import "../styles/pokemonCard.css";
 
 export function PokemonCard({ pokemon, state }) {
@@ -17,10 +15,7 @@ export function PokemonCard({ pokemon, state }) {
   const [moveDetailList1, setMoveDetailList1] = useState([]);
   const [moveDetailList2, setMoveDetailList2] = useState([]);
 
-  function handleShiny() {
-    return setIsShiny(!isShiny);
-  }
-  useEffect(() => {
+  useMemo(() => {
     const moves = moveList?.splice(0, 2);
     async function moves1Url() {
       return await axios
@@ -32,7 +27,7 @@ export function PokemonCard({ pokemon, state }) {
         })
         .catch((err) => console.log(err));
     }
-    moves1Url();
+    moves && moves1Url();
     async function moves2Url() {
       return await axios
         .get(moves[1]?.url)
@@ -43,29 +38,27 @@ export function PokemonCard({ pokemon, state }) {
         })
         .catch((err) => console.log(err));
     }
-    moves2Url();
+    moves && moves2Url();
+  }, [moveList]);
+
+  useEffect(() => {
     setIsShiny(false);
+
     localStorage.setItem("capturedInfo", JSON.stringify(captureInfo));
-    // localStorage.setItem("capturedList", JSON.stringify(capturedList));
-  }, [moveList, state, captureInfo]);
+  }, [state, captureInfo]);
+
+  function handleShiny() {
+    return setIsShiny(!isShiny);
+  }
 
   function handleCapture(pokeInfo) {
     if (!isCaptured) {
-      setCaptureInfo(pokeInfo);
-      const existingPokeList = localStorage.getItem("capturedList");
-      const newPokeList = JSON.parse(existingPokeList);
-      const newList = [...newPokeList, pokeInfo];
-      localStorage.setItem("capturedList", JSON.stringify(newList));
+      localStorage.setItem("capturedInfo", JSON.stringify(pokeInfo));
     } else if (isCaptured) {
-      setCaptureInfo([]);
-      //   const existingPokeList = localStorage.getItem("capturedList");
-      //   const newPokeList = JSON.parse(existingPokeList);
-      //   const oneLess = newPokeList.filter((id) => id.id !== pokeInfo.id);
-      //   localStorage.setItem("capturedList", JSON.stringify(oneLess));
     }
-    console.log("inside", isCaptured);
   }
 
+  console.log(isCaptured);
   return (
     <>
       {state === "loading" ? (
@@ -76,9 +69,9 @@ export function PokemonCard({ pokemon, state }) {
             {pokemon?.name.charAt(0).toUpperCase() +
               pokemon?.name.slice(1).toLowerCase()}
             <div>
-              {pokemon.stats[0].base_stat}
+              {pokemon?.stats[0].base_stat}
 
-              {pokemon.stats[0].stat.name}
+              {pokemon?.stats[0].stat.name}
             </div>
           </div>
 
@@ -105,13 +98,13 @@ export function PokemonCard({ pokemon, state }) {
           <div className="pokemonStatsContainer">
             <div className="pokemonNameContainer">
               <div className="pokemonMovesContainer">
-                {moveDetailList1.map((move) => (
+                {moveDetailList1?.map((move) => (
                   <div className="moves" key={move.id}>
                     <div>{move.name}</div>
                     PP: {move.pp}
                   </div>
                 ))}
-                {moveDetailList2.map((move) => (
+                {moveDetailList2?.map((move) => (
                   <div className="moves" key={move.id}>
                     <div>{move.name}</div>
                     PP: {move.pp}
@@ -120,6 +113,7 @@ export function PokemonCard({ pokemon, state }) {
               </div>
               <div className="pokedexLink">
                 <button className="btn">Pokedex</button>
+
                 <img
                   onClick={() => {
                     setIsCaptured(!isCaptured);

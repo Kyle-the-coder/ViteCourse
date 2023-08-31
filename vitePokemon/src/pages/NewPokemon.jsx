@@ -75,7 +75,11 @@ function NewPokemon() {
                     pokemon={pokemon}
                     state={state}
                   />
-                  <button onClick={() => deletePokemon(pokemon.id)}>
+
+                  <button
+                    className="btn"
+                    onClick={() => deletePokemon(pokemon.id)}
+                  >
                     Delete
                   </button>
                 </div>

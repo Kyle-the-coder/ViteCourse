@@ -110,10 +110,5 @@
   width: 100%;
   display: flex;
   justify-content: space-evenly;
-  margin-bottom: 10px;
-}
-
-.pokedexLink > button {
-  background-color: aliceblue;
-  padding: 5px 10px 5px 10px;
+  margin-bottom: 5px;
 }

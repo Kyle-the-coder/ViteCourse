@@ -97,7 +97,8 @@ export function PokemonCard({ pokemon, state }) {
                 ))}
               </div>
               <div className="pokedexLink">
-                <Link>Pokedex</Link>
+                <button>Pokedex</button>
+                <button>Capture</button>
               </div>
             </div>
           </div>

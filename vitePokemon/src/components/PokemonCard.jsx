@@ -10,6 +10,7 @@ import "../styles/pokemonCard.css";
 export function PokemonCard({ pokemon, state }) {
   const [isShiny, setIsShiny] = useState(false);
   const [isCaptured, setIsCaptured] = useState(false);
+  const [captureInfo, setCaptureInfo] = useState([]);
   const [moveList, setMoveList] = useState(() => {
     return [...pokemon?.moves.map((move) => move.move)];
   });
@@ -46,8 +47,14 @@ export function PokemonCard({ pokemon, state }) {
     setIsShiny(false);
   }, [moveList, state]);
 
-  function handleCapture() {
-    return setIsCaptured(!isCaptured);
+  function handleCapture(pokeInfo) {
+    if (isCaptured === true) {
+      setCaptureInfo([]);
+      setIsCaptured(false);
+    } else if (isCaptured === false) {
+      setCaptureInfo(pokeInfo);
+      setIsCaptured(true);
+    }
   }
 
   return (
@@ -105,7 +112,7 @@ export function PokemonCard({ pokemon, state }) {
               <div className="pokedexLink">
                 <button className="btn">Pokedex</button>
                 <img
-                  onClick={() => handleCapture()}
+                  onClick={() => handleCapture(pokemon)}
                   src={isCaptured ? pokeBallFull : pokeBallEmpty}
                   width="40"
                 />

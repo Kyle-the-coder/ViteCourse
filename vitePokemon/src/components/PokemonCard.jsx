@@ -43,8 +43,6 @@ export function PokemonCard({ pokemon, state }) {
 
   useEffect(() => {
     setIsShiny(false);
-
-    localStorage.setItem("capturedInfo", JSON.stringify(captureInfo));
   }, [state, captureInfo]);
 
   function handleShiny() {
@@ -52,13 +50,18 @@ export function PokemonCard({ pokemon, state }) {
   }
 
   function handleCapture(pokeInfo) {
+    console.log(isCaptured);
     if (!isCaptured) {
       localStorage.setItem("capturedInfo", JSON.stringify(pokeInfo));
+      const existingPokeList = localStorage.getItem("capturedList") || [];
+      const newPokeList = JSON.parse(existingPokeList);
+      const newList = [...newPokeList, pokeInfo];
+      localStorage.setItem("capturedList", JSON.stringify(newList));
     } else if (isCaptured) {
+      localStorage.setItem("capturedInfo", JSON.stringify([]));
     }
   }
 
-  console.log(isCaptured);
   return (
     <>
       {state === "loading" ? (

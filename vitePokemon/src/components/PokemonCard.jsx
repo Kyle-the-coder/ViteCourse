@@ -11,6 +11,7 @@ export function PokemonCard({ pokemon, state }) {
   const [isShiny, setIsShiny] = useState(false);
   const [isCaptured, setIsCaptured] = useState(false);
   const [captureInfo, setCaptureInfo] = useState([]);
+  const [capturedList, setCapturedList] = useState([]);
   const [moveList, setMoveList] = useState(() => {
     return [...pokemon?.moves.map((move) => move.move)];
   });
@@ -45,17 +46,21 @@ export function PokemonCard({ pokemon, state }) {
     }
     moves2Url();
     setIsShiny(false);
-  }, [moveList, state]);
+    localStorage.setItem("capturedInfo", JSON.stringify(captureInfo));
+    // localStorage.setItem("capturedList", JSON.stringify(capturedList));
+  }, [moveList, state, captureInfo]);
 
   function handleCapture(pokeInfo) {
-    if (isCaptured === true) {
-      setCaptureInfo([]);
-      setIsCaptured(false);
-    } else if (isCaptured === false) {
+    if (!isCaptured) {
       setCaptureInfo(pokeInfo);
-      setIsCaptured(true);
+      setCapturedList([...capturedList, pokeInfo]);
+    } else if (isCaptured) {
+      setCaptureInfo([]);
     }
+    console.log("inside", isCaptured);
   }
+
+  console.log(capturedList);
 
   return (
     <>
@@ -112,7 +117,10 @@ export function PokemonCard({ pokemon, state }) {
               <div className="pokedexLink">
                 <button className="btn">Pokedex</button>
                 <img
-                  onClick={() => handleCapture(pokemon)}
+                  onClick={() => {
+                    setIsCaptured(!isCaptured);
+                    handleCapture(pokemon);
+                  }}
                   src={isCaptured ? pokeBallFull : pokeBallEmpty}
                   width="40"
                 />

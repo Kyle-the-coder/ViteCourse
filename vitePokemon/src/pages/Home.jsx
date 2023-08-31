@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import pokemonStorageImg from "../assets/pokemonStorage.webp";
-import { nav } from "../hooks/navigate";
+
 function Home() {
+  const navigate = useNavigate();
   return (
     <>
       <div className="container">
@@ -12,7 +13,7 @@ function Home() {
               Here you can store, view info, and search for your favorite
               pokemon!
             </p>
-            <button onClick={() => nav("/newpokemon")} className="btn">
+            <button onClick={() => navigate("/newpokemon")} className="btn">
               Get Started
             </button>
           </div>

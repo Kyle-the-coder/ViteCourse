@@ -1,12 +1,15 @@
-import "../styles/pokemonCard.css";
-import background from "../assets/bg.webp";
-import waterB from "../assets/waterB.png";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import background from "../assets/bg.webp";
+import pokeBallEmpty from "../assets/pokeballEmpty.png";
+import pokeBallFull from "../assets/pokeballFull.png";
+import waterB from "../assets/waterB.png";
+import "../styles/pokemonCard.css";
 
 export function PokemonCard({ pokemon, state }) {
   const [isShiny, setIsShiny] = useState(false);
+  const [isCaptured, setIsCaptured] = useState(false);
   const [moveList, setMoveList] = useState(() => {
     return [...pokemon?.moves.map((move) => move.move)];
   });
@@ -43,7 +46,10 @@ export function PokemonCard({ pokemon, state }) {
     setIsShiny(false);
   }, [moveList, state]);
 
-  console.log(pokemon);
+  function handleCapture() {
+    return setIsCaptured(!isCaptured);
+  }
+
   return (
     <>
       {state === "loading" ? (
@@ -97,8 +103,12 @@ export function PokemonCard({ pokemon, state }) {
                 ))}
               </div>
               <div className="pokedexLink">
-                <button>Pokedex</button>
-                <button>Capture</button>
+                <button className="btn">Pokedex</button>
+                <img
+                  onClick={() => handleCapture()}
+                  src={isCaptured ? pokeBallFull : pokeBallEmpty}
+                  width="40"
+                />
               </div>
             </div>
           </div>

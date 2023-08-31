@@ -28,11 +28,7 @@ function NewPokemon() {
   }, [state]);
 
   function deletePokemon(pokeId) {
-    console.log(pokeId);
-    console.log(pokeList.filter((id) => id === pokeId));
     const newPokeList = pokeList.filter((id) => id.id !== pokeId);
-    console.log(pokeList);
-    console.log(newPokeList);
     localStorage.setItem("pokeList", JSON.stringify(newPokeList));
     const newInfo = localStorage.getItem("pokeList");
     setPokeList(JSON.parse(newInfo));

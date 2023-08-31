@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import pokemonStorageImg from "../assets/pokemonStorage.webp";
+import { nav } from "../hooks/navigate";
 function Home() {
   return (
     <>
@@ -11,9 +12,9 @@ function Home() {
               Here you can store, view info, and search for your favorite
               pokemon!
             </p>
-            <Link to="/newpokemon" className="btn">
+            <button onClick={() => nav("/newpokemon")} className="btn">
               Get Started
-            </Link>
+            </button>
           </div>
           <div className="welcomeImage">
             <img src={pokemonStorageImg} width="400" height="200" />

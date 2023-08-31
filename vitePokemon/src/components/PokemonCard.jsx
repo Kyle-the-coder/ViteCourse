@@ -11,7 +11,6 @@ export function PokemonCard({ pokemon, state }) {
   const [isShiny, setIsShiny] = useState(false);
   const [isCaptured, setIsCaptured] = useState(false);
   const [captureInfo, setCaptureInfo] = useState([]);
-  const [capturedList, setCapturedList] = useState([]);
   const [moveList, setMoveList] = useState(() => {
     return [...pokemon?.moves.map((move) => move.move)];
   });
@@ -53,14 +52,19 @@ export function PokemonCard({ pokemon, state }) {
   function handleCapture(pokeInfo) {
     if (!isCaptured) {
       setCaptureInfo(pokeInfo);
-      setCapturedList([...capturedList, pokeInfo]);
+      const existingPokeList = localStorage.getItem("capturedList");
+      const newPokeList = JSON.parse(existingPokeList);
+      const newList = [...newPokeList, pokeInfo];
+      localStorage.setItem("capturedList", JSON.stringify(newList));
     } else if (isCaptured) {
       setCaptureInfo([]);
+      //   const existingPokeList = localStorage.getItem("capturedList");
+      //   const newPokeList = JSON.parse(existingPokeList);
+      //   const oneLess = newPokeList.filter((id) => id.id !== pokeInfo.id);
+      //   localStorage.setItem("capturedList", JSON.stringify(oneLess));
     }
     console.log("inside", isCaptured);
   }
-
-  console.log(capturedList);
 
   return (
     <>

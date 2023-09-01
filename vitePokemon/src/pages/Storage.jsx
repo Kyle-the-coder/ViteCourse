@@ -15,7 +15,7 @@ function Storage() {
   function deletePokemon(pokeId) {
     const newPokeList = capturedList.filter((id) => id.id !== pokeId);
     localStorage.setItem("pokeList", JSON.stringify(newPokeList));
-    const newInfo = localStorage.getItem("capturedList");
+    const newInfo = localStorage.getItem("pokeList");
     const filterList = JSON.parse(newInfo);
     const filtered = filterList.filter((poke) => poke.captured === false);
     setCapturedList(filtered);

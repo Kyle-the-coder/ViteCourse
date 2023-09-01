@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Form, useActionData, useNavigation } from "react-router-dom";
+import { EmptyCard } from "../components/EmptyCard";
 import { PokemonCard } from "../components/PokemonCard";
 import { getPokemon } from "../hooks/getPokemon";
 
@@ -8,7 +9,7 @@ function NewPokemon() {
 
   const [pokemon, setPokemon] = useState(() => {
     const p = localStorage.getItem("pokemon");
-    if (p === null) return [];
+    if (p === null) return null;
     return JSON.parse(p);
   });
   const [isMounted, setIsMounted] = useState(false);
@@ -35,7 +36,7 @@ function NewPokemon() {
     const newInfo = localStorage.getItem("pokeList");
     setPokeList(JSON.parse(newInfo));
   }
-  console.log(pokemon);
+  console.log(isMounted);
   return (
     <>
       <div className="container">
@@ -52,7 +53,7 @@ function NewPokemon() {
           ) : (
             <div className="resultsContainer">
               <h1>Search Results:</h1>
-              <PokemonCard pokemon={pokemon} state={state} />
+              <EmptyCard />
             </div>
           )
         ) : (
@@ -68,7 +69,7 @@ function NewPokemon() {
               .reverse()
               .map((pokemon) => (
                 <div className="gridContainer" key={pokemon.id}>
-                  <PokemonCard pokemon={pokemon.pokeInfo} state={state} />
+                  {/* <PokemonCard pokemon={pokemon.pokeInfo} state={state} /> */}
 
                   <button
                     className="btn"

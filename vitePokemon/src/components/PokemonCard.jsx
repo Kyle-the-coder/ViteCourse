@@ -53,27 +53,25 @@ export function PokemonCard({ pokemon, state, captured }) {
     if (!isCaptured) {
       localStorage.setItem("capturedInfo", JSON.stringify(pokeInfo));
       const existingPokeList = localStorage.getItem("pokeList") || [];
-      console.log(existingPokeList);
-      if (existingPokeList.length === 0) {
+      if (existingPokeList.length === 2) {
         const newList = [{ pokeInfo, captured: true }];
         localStorage.setItem("pokeList", JSON.stringify(newList));
-      } else if (existingPokeList.length > 0) {
+      } else if (existingPokeList.length > 2) {
         const newPokeList = JSON.parse(existingPokeList);
         const changeCapture = newPokeList.map((poke) => {
-          console.log(poke);
-          if (poke.id === pokeInfo.id) {
+          if (poke.pokeInfo.id === pokeInfo.id) {
             return { ...poke, captured: true };
+          } else {
+            return { ...poke };
           }
         });
-        // const alteredList = [...newPokeList, { pokeInfo, catpured: true }];
         localStorage.setItem("pokeList", JSON.stringify(changeCapture));
       }
     } else if (isCaptured) {
       localStorage.setItem("capturedInfo", JSON.stringify([]));
     }
   }
-  console.log(pokemon);
-
+  console.log(captured);
   return (
     <>
       {pokemon !== null ? (

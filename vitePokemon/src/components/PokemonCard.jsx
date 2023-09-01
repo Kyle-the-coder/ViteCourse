@@ -10,7 +10,7 @@ export function PokemonCard({ pokemon, state, captured }) {
   const [isCaptured, setIsCaptured] = useState(false);
   const [captureInfo, setCaptureInfo] = useState([]);
   const [moveList, setMoveList] = useState(() => {
-    return [...pokemon?.moves.map((move) => move.move)];
+    return [...(pokemon?.moves?.map((move) => move.move) ?? [])];
   });
   const [moveDetailList1, setMoveDetailList1] = useState([]);
   const [moveDetailList2, setMoveDetailList2] = useState([]);
@@ -52,88 +52,100 @@ export function PokemonCard({ pokemon, state, captured }) {
   function handleCapture(pokeInfo) {
     if (!isCaptured) {
       localStorage.setItem("capturedInfo", JSON.stringify(pokeInfo));
-      const existingPokeList = localStorage.getItem("capturedList") || [];
+      const existingPokeList = localStorage.getItem("pokeList") || [];
       console.log(existingPokeList);
       if (existingPokeList.length === 0) {
         const newList = [{ pokeInfo, captured: true }];
-        localStorage.setItem("capturedList", JSON.stringify(newList));
+        localStorage.setItem("pokeList", JSON.stringify(newList));
       } else if (existingPokeList.length > 0) {
         const newPokeList = JSON.parse(existingPokeList);
-        const alteredList = [...newPokeList, { pokeInfo, catpured: true }];
-        localStorage.setItem("capturedList", JSON.stringify(alteredList));
+        const changeCapture = newPokeList.map((poke) => {
+          console.log(poke);
+          if (poke.id === pokeInfo.id) {
+            return { ...poke, captured: true };
+          }
+        });
+        // const alteredList = [...newPokeList, { pokeInfo, catpured: true }];
+        localStorage.setItem("pokeList", JSON.stringify(changeCapture));
       }
     } else if (isCaptured) {
       localStorage.setItem("capturedInfo", JSON.stringify([]));
     }
   }
+  console.log(Object.keys(pokemon.length));
 
   return (
     <>
-      {state === "loading" ? (
-        "loading"
+      {pokemon ? (
+        <>
+          <div className="cardContainer">
+            <div className="titleContainer">
+              {pokemon
+                ? `${pokemon.name?.charAt(0).toUpperCase()}${pokemon.name
+                    ?.slice(1)
+                    .toLowerCase()}`
+                : "Loading..."}
+              <div>
+                {pokemon?.stats[0].base_stat}
+
+                {pokemon?.stats[0].stat.name}
+              </div>
+            </div>
+
+            <div className="pokemonImgContainer">
+              <div className="pokemonImg">
+                <div className="pokemonSprite">
+                  {isShiny ? (
+                    <img src={pokemon?.sprites?.front_shiny} />
+                  ) : (
+                    <img src={pokemon?.sprites?.front_default} />
+                  )}
+
+                  <button className="shinyButton" onClick={() => handleShiny()}>
+                    shiny: {""}
+                    {isShiny ? "on" : "off"}
+                  </button>
+                </div>
+                <div className="pokemonBackgroundImg">
+                  <img src={background} />
+                </div>
+              </div>
+            </div>
+
+            <div className="pokemonStatsContainer">
+              <div className="pokemonNameContainer">
+                <div className="pokemonMovesContainer">
+                  {moveDetailList1?.map((move) => (
+                    <div className="moves" key={move.id}>
+                      <div>{move.name}</div>
+                      PP: {move.pp}
+                    </div>
+                  ))}
+                  {moveDetailList2?.map((move) => (
+                    <div className="moves" key={move.id}>
+                      <div>{move.name}</div>
+                      PP: {move.pp}
+                    </div>
+                  ))}
+                </div>
+                <div className="pokedexLink">
+                  <button className="btn">Pokedex</button>
+
+                  <img
+                    onClick={() => {
+                      setIsCaptured(!isCaptured);
+                      handleCapture(pokemon);
+                    }}
+                    src={captured ? pokeBallFull : pokeBallEmpty}
+                    width="40"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
       ) : (
-        <div className="cardContainer">
-          <div className="titleContainer">
-            {pokemon?.name.charAt(0).toUpperCase() +
-              pokemon?.name.slice(1).toLowerCase()}
-            <div>
-              {pokemon?.stats[0].base_stat}
-
-              {pokemon?.stats[0].stat.name}
-            </div>
-          </div>
-
-          <div className="pokemonImgContainer">
-            <div className="pokemonImg">
-              <div className="pokemonSprite">
-                {isShiny ? (
-                  <img src={pokemon?.sprites?.front_shiny} />
-                ) : (
-                  <img src={pokemon?.sprites?.front_default} />
-                )}
-
-                <button className="shinyButton" onClick={() => handleShiny()}>
-                  shiny: {""}
-                  {isShiny ? "on" : "off"}
-                </button>
-              </div>
-              <div className="pokemonBackgroundImg">
-                <img src={background} />
-              </div>
-            </div>
-          </div>
-
-          <div className="pokemonStatsContainer">
-            <div className="pokemonNameContainer">
-              <div className="pokemonMovesContainer">
-                {moveDetailList1?.map((move) => (
-                  <div className="moves" key={move.id}>
-                    <div>{move.name}</div>
-                    PP: {move.pp}
-                  </div>
-                ))}
-                {moveDetailList2?.map((move) => (
-                  <div className="moves" key={move.id}>
-                    <div>{move.name}</div>
-                    PP: {move.pp}
-                  </div>
-                ))}
-              </div>
-              <div className="pokedexLink">
-                <button className="btn">Pokedex</button>
-
-                <img
-                  onClick={() => {
-                    setIsCaptured(!isCaptured);
-                    handleCapture(pokemon);
-                  }}
-                  src={captured ? pokeBallFull : pokeBallEmpty}
-                  width="40"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <div>Search for your first Pokemon!</div>
       )}
     </>
   );

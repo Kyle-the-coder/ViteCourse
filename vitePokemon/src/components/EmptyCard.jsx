@@ -7,7 +7,7 @@ export function EmptyCard() {
     <>
       <div className="cardContainer">
         <div className="titleContainer">
-          <h1>Pokemon Name</h1>
+          <p>Pokemon Name</p>
           <div>Stats</div>
         </div>
 
@@ -27,7 +27,7 @@ export function EmptyCard() {
               <div>Move 2</div>
             </div>
             <div className="pokedexLink">
-              <button disabled="true" className="btn">
+              <button disabled={true} className="btn">
                 Pokedex
               </button>
 

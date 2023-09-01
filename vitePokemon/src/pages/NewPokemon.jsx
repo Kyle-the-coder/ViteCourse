@@ -6,6 +6,7 @@ import { getPokemon } from "../hooks/getPokemon";
 
 function NewPokemon() {
   const { state } = useNavigation();
+  const [isCaptured, setIsCaptured] = useState(false);
 
   const [pokemon, setPokemon] = useState(() => {
     const p = localStorage.getItem("pokemon");
@@ -31,7 +32,7 @@ function NewPokemon() {
     if (state === "submitting") {
       setIsMounted(true);
     }
-  }, [state, isMounted, pokemon?.captured]);
+  }, [state, isMounted, isCaptured]);
 
   function deletePokemon(pokeId) {
     const newPokeList = pokeList.filter((id) => id.id !== pokeId);
@@ -60,6 +61,8 @@ function NewPokemon() {
                 pokemon={JSON.parse(pokemon.pokeInfo)}
                 state={state}
                 captured={pokemon.captured}
+                setIsCaptured={setIsCaptured}
+                isCaptured={isCaptured}
               />
             )}
           </div>

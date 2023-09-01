@@ -28,7 +28,10 @@ function NewPokemon() {
     const newPokemonList = localStorage.getItem("pokeList");
 
     setPokeList(JSON.parse(newPokemonList));
-  }, [state]);
+    if (state === "submitting") {
+      setIsMounted(true);
+    }
+  }, [state, isMounted]);
 
   function deletePokemon(pokeId) {
     const newPokeList = pokeList.filter((id) => id.id !== pokeId);
@@ -74,7 +77,7 @@ function NewPokemon() {
               .reverse()
               .map((pokemon) => (
                 <div className="gridContainer" key={pokemon.id}>
-                  {/* <PokemonCard pokemon={pokemon.pokeInfo} state={state} /> */}
+                  <PokemonCard pokemon={pokemon.pokeInfo} state={state} />
 
                   <button
                     className="btn"

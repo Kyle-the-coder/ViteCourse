@@ -5,7 +5,7 @@ import pokeBallEmpty from "../assets/pokeballEmpty.png";
 import pokeBallFull from "../assets/pokeballFull.png";
 import "../styles/pokemonCard.css";
 
-export function PokemonCard({ pokemon, state }) {
+export function PokemonCard({ pokemon, state, captured }) {
   const [isShiny, setIsShiny] = useState(false);
   const [isCaptured, setIsCaptured] = useState(false);
   const [captureInfo, setCaptureInfo] = useState([]);
@@ -50,13 +50,18 @@ export function PokemonCard({ pokemon, state }) {
   }
 
   function handleCapture(pokeInfo) {
-    console.log(isCaptured);
     if (!isCaptured) {
       localStorage.setItem("capturedInfo", JSON.stringify(pokeInfo));
       const existingPokeList = localStorage.getItem("capturedList") || [];
-      const newPokeList = JSON.parse(existingPokeList);
-      const newList = [...newPokeList, pokeInfo];
-      localStorage.setItem("capturedList", JSON.stringify(newList));
+      console.log(existingPokeList);
+      if (existingPokeList.length === 0) {
+        const newList = [{ pokeInfo, captured: true }];
+        localStorage.setItem("capturedList", JSON.stringify(newList));
+      } else if (existingPokeList.length > 0) {
+        const newPokeList = JSON.parse(existingPokeList);
+        const alteredList = [...newPokeList, { pokeInfo, catpured: true }];
+        localStorage.setItem("capturedList", JSON.stringify(alteredList));
+      }
     } else if (isCaptured) {
       localStorage.setItem("capturedInfo", JSON.stringify([]));
     }
@@ -122,7 +127,7 @@ export function PokemonCard({ pokemon, state }) {
                     setIsCaptured(!isCaptured);
                     handleCapture(pokemon);
                   }}
-                  src={isCaptured ? pokeBallFull : pokeBallEmpty}
+                  src={captured ? pokeBallFull : pokeBallEmpty}
                   width="40"
                 />
               </div>

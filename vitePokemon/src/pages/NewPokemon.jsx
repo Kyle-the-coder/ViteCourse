@@ -39,7 +39,7 @@ function NewPokemon() {
     const newInfo = localStorage.getItem("pokeList");
     setPokeList(JSON.parse(newInfo));
   }
-  console.log(isMounted);
+
   return (
     <>
       <div className="container">
@@ -77,7 +77,11 @@ function NewPokemon() {
               .reverse()
               .map((pokemon) => (
                 <div className="gridContainer" key={pokemon.id}>
-                  <PokemonCard pokemon={pokemon.pokeInfo} state={state} />
+                  <PokemonCard
+                    pokemon={pokemon.pokeInfo}
+                    state={state}
+                    captured={pokemon.captured}
+                  />
 
                   <button
                     className="btn"

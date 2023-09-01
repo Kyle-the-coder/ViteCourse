@@ -5,9 +5,11 @@ import { PokemonCard } from "../components/PokemonCard";
 function Storage() {
   const { state } = useNavigation();
   const [capturedList, setCapturedList] = useState(() => {
-    const list = localStorage.getItem("capturedList");
+    const list = localStorage.getItem("pokeList");
     if (list === null) return [];
-    return JSON.parse(list);
+    const filter = JSON.parse(list);
+    const filteredList = filter.filter((poke) => poke.captured !== false);
+    return filteredList;
   });
 
   function deletePokemon(pokeId) {

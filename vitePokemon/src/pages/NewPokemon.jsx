@@ -31,7 +31,7 @@ function NewPokemon() {
     if (state === "submitting") {
       setIsMounted(true);
     }
-  }, [state, isMounted]);
+  }, [state, isMounted, pokemon?.captured]);
 
   function deletePokemon(pokeId) {
     const newPokeList = pokeList.filter((id) => id.id !== pokeId);
@@ -39,7 +39,7 @@ function NewPokemon() {
     const newInfo = localStorage.getItem("pokeList");
     setPokeList(JSON.parse(newInfo));
   }
-
+  console.log("outside", pokemon?.captured);
   return (
     <>
       <div className="container">
@@ -56,7 +56,11 @@ function NewPokemon() {
             {pokemon === null ? (
               <EmptyCard />
             ) : (
-              <PokemonCard pokemon={pokemon} state={state} />
+              <PokemonCard
+                pokemon={JSON.parse(pokemon.pokeInfo)}
+                state={state}
+                captured={pokemon.captured}
+              />
             )}
           </div>
         ) : (
@@ -102,19 +106,21 @@ async function action({ request }) {
   const existingPokeList = localStorage.getItem("pokeList") || [];
   const formData = await request.formData();
   const searchName = formData.get("name");
-  const pokeInfo = await getPokemon(searchName);
+  const pokeInfoSearch = await getPokemon(searchName);
   //HANDLE RECENT SEARCH LIST
   if (existingPokeList.length > 0) {
     const newPokeList = JSON.parse(existingPokeList);
-    const newList = [...newPokeList, { pokeInfo, captured: false }];
+    const newList = [...newPokeList, { pokeInfoSearch, captured: false }];
     localStorage.setItem("pokeList", JSON.stringify(newList));
   } else if (existingPokeList.length === 0) {
     console.log("it equals 0");
-    existingPokeList.push({ pokeInfo, captured: false });
+    existingPokeList.push({ pokeInfo: pokeInfoSearch, captured: false });
     localStorage.setItem("pokeList", JSON.stringify(existingPokeList));
   }
   //HANDLE CURRENT SEARCH
-  localStorage.setItem("pokemon", JSON.stringify(pokeInfo));
+  const pokeInfo = JSON.stringify(pokeInfoSearch);
+  const newList = { pokeInfo, captured: false };
+  localStorage.setItem("pokemon", JSON.stringify(newList));
 
   return pokeInfo;
 }

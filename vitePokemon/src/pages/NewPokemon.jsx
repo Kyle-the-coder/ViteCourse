@@ -8,7 +8,7 @@ function NewPokemon() {
 
   const [pokemon, setPokemon] = useState(() => {
     const p = localStorage.getItem("pokemon");
-    if (p === null) return {};
+    if (p === null) return [];
     return JSON.parse(p);
   });
   const [isMounted, setIsMounted] = useState(false);
@@ -35,7 +35,7 @@ function NewPokemon() {
     const newInfo = localStorage.getItem("pokeList");
     setPokeList(JSON.parse(newInfo));
   }
-
+  console.log(pokemon);
   return (
     <>
       <div className="container">
@@ -68,7 +68,7 @@ function NewPokemon() {
               .reverse()
               .map((pokemon) => (
                 <div className="gridContainer" key={pokemon.id}>
-                  {/* <PokemonCard pokemon={pokemon.pokeInfo} state={state} /> */}
+                  <PokemonCard pokemon={pokemon.pokeInfo} state={state} />
 
                   <button
                     className="btn"

@@ -8,22 +8,24 @@ function NewPokemon() {
 
   const [pokemon, setPokemon] = useState(() => {
     const p = localStorage.getItem("pokemon");
-    if (p === undefined) return [];
+    if (p === null) return {};
     return JSON.parse(p);
   });
   const [isMounted, setIsMounted] = useState(false);
   const [pokeList, setPokeList] = useState(() => {
     const list = localStorage.getItem("pokeList");
-    if (list === undefined) return [];
+    if (list === null) return [];
     setIsMounted(true);
     return JSON.parse(list);
   });
 
   useEffect(() => {
     const newPokemonInfo = localStorage.getItem("pokemon");
+
     setPokemon(JSON.parse(newPokemonInfo));
 
     const newPokemonList = localStorage.getItem("pokeList");
+
     setPokeList(JSON.parse(newPokemonList));
   }, [state]);
 
@@ -66,11 +68,7 @@ function NewPokemon() {
               .reverse()
               .map((pokemon) => (
                 <div className="gridContainer" key={pokemon.id}>
-                  <PokemonCard
-                    key={pokemon.id}
-                    pokemon={pokemon}
-                    state={state}
-                  />
+                  {/* <PokemonCard pokemon={pokemon.pokeInfo} state={state} /> */}
 
                   <button
                     className="btn"
@@ -91,21 +89,21 @@ async function action({ request }) {
   const existingPokeList = localStorage.getItem("pokeList") || [];
   const formData = await request.formData();
   const searchName = formData.get("name");
-  const addPokemon = await getPokemon(searchName);
+  const pokeInfo = await getPokemon(searchName);
   //HANDLE RECENT SEARCH LIST
   if (existingPokeList.length > 0) {
     const newPokeList = JSON.parse(existingPokeList);
-    const newList = [...newPokeList, { addPokemon, captured: false }];
+    const newList = [...newPokeList, { pokeInfo, captured: false }];
     localStorage.setItem("pokeList", JSON.stringify(newList));
   } else if (existingPokeList.length === 0) {
     console.log("it equals 0");
-    existingPokeList.push({ addPokemon, captured: false });
+    existingPokeList.push({ pokeInfo, captured: false });
     localStorage.setItem("pokeList", JSON.stringify(existingPokeList));
   }
   //HANDLE CURRENT SEARCH
-  localStorage.setItem("pokemon", JSON.stringify(addPokemon));
+  localStorage.setItem("pokemon", JSON.stringify(pokeInfo));
 
-  return addPokemon;
+  return pokeInfo;
 }
 
 export const newPokemonRoute = {

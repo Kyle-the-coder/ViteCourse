@@ -95,11 +95,11 @@ async function action({ request }) {
   //HANDLE RECENT SEARCH LIST
   if (existingPokeList.length > 0) {
     const newPokeList = JSON.parse(existingPokeList);
-    const newList = [...newPokeList, addPokemon];
+    const newList = [...newPokeList, { addPokemon, captured: false }];
     localStorage.setItem("pokeList", JSON.stringify(newList));
   } else if (existingPokeList.length === 0) {
     console.log("it equals 0");
-    existingPokeList.push(addPokemon);
+    existingPokeList.push({ addPokemon, captured: false });
     localStorage.setItem("pokeList", JSON.stringify(existingPokeList));
   }
   //HANDLE CURRENT SEARCH

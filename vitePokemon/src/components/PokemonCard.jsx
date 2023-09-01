@@ -72,11 +72,11 @@ export function PokemonCard({ pokemon, state, captured }) {
       localStorage.setItem("capturedInfo", JSON.stringify([]));
     }
   }
-  console.log(Object.keys(pokemon.length));
+  console.log(pokemon);
 
   return (
     <>
-      {pokemon ? (
+      {pokemon !== null ? (
         <>
           <div className="cardContainer">
             <div className="titleContainer">

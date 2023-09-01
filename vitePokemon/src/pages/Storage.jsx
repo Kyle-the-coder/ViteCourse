@@ -16,6 +16,8 @@ function Storage() {
     const newInfo = localStorage.getItem("capturedList");
     setCapturedList(JSON.parse(newInfo));
   }
+  console.log(capturedList.map((poke) => poke?.pokeInfo?.name));
+
   return (
     <>
       <div className="container">
@@ -29,7 +31,8 @@ function Storage() {
                 <div className="gridContainer" key={pokemon.id}>
                   <PokemonCard
                     key={pokemon.id}
-                    pokemon={pokemon}
+                    pokemon={pokemon.pokeInfo}
+                    captured={pokemon.captured}
                     state={state}
                   />
 

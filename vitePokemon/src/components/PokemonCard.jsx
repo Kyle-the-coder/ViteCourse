@@ -5,9 +5,14 @@ import pokeBallEmpty from "../assets/pokeballEmpty.png";
 import pokeBallFull from "../assets/pokeballFull.png";
 import "../styles/pokemonCard.css";
 
-export function PokemonCard({ pokemon, state, captured }) {
+export function PokemonCard({
+  pokemon,
+  state,
+  captured,
+  isCaptured,
+  setIsCaptured,
+}) {
   const [isShiny, setIsShiny] = useState(false);
-  const [isCaptured, setIsCaptured] = useState(false);
   const [captureInfo, setCaptureInfo] = useState([]);
   const [moveList, setMoveList] = useState(() => {
     return [...(pokemon?.moves?.map((move) => move.move) ?? [])];
@@ -74,7 +79,7 @@ export function PokemonCard({ pokemon, state, captured }) {
       localStorage.setItem("capturedInfo", JSON.stringify([]));
     }
   }
-  console.log("inside", captured);
+
   return (
     <>
       {pokemon !== null ? (

@@ -48,16 +48,21 @@ function NewPokemon() {
           <button>submit</button>
         </Form>
         {isMounted ? (
-          state === "loading" ? (
-            <h1>loading</h1>
-          ) : (
+          <div className="resultsContainer">
+            <h1>Search Results:</h1>
+            {pokemon === null ? (
+              <EmptyCard />
+            ) : (
+              <PokemonCard pokemon={pokemon} state={state} />
+            )}
+          </div>
+        ) : (
+          <>
             <div className="resultsContainer">
-              <h1>Search Results:</h1>
+              <h1>Search Results</h1>
               <EmptyCard />
             </div>
-          )
-        ) : (
-          <></>
+          </>
         )}
         <div className="recentSearchListContainer">
           <div>

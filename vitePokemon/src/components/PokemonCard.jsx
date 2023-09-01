@@ -51,6 +51,9 @@ export function PokemonCard({ pokemon, state, captured }) {
 
   function handleCapture(pokeInfo) {
     if (!isCaptured) {
+      const pokemon = JSON.parse(localStorage.getItem("pokemon"));
+      pokemon.captured = true;
+      localStorage.setItem("pokemon", JSON.stringify(pokemon));
       localStorage.setItem("capturedInfo", JSON.stringify(pokeInfo));
       const existingPokeList = localStorage.getItem("pokeList") || [];
       if (existingPokeList.length === 2) {
@@ -71,7 +74,7 @@ export function PokemonCard({ pokemon, state, captured }) {
       localStorage.setItem("capturedInfo", JSON.stringify([]));
     }
   }
-  console.log(captured);
+  console.log("inside", captured);
   return (
     <>
       {pokemon !== null ? (
@@ -79,7 +82,7 @@ export function PokemonCard({ pokemon, state, captured }) {
           <div className="cardContainer">
             <div className="titleContainer">
               {pokemon
-                ? `${pokemon.name?.charAt(0).toUpperCase()}${pokemon.name
+                ? `${pokemon?.name?.charAt(0).toUpperCase()}${pokemon?.name
                     ?.slice(1)
                     .toLowerCase()}`
                 : "Loading..."}

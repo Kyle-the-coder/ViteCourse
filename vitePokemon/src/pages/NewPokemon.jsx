@@ -23,11 +23,8 @@ function NewPokemon() {
 
   useEffect(() => {
     const newPokemonInfo = localStorage.getItem("pokemon");
-
     setPokemon(JSON.parse(newPokemonInfo));
-
     const newPokemonList = localStorage.getItem("pokeList");
-
     setPokeList(JSON.parse(newPokemonList));
     if (state === "submitting") {
       setIsMounted(true);
@@ -39,6 +36,50 @@ function NewPokemon() {
     localStorage.setItem("pokeList", JSON.stringify(newPokeList));
     const newInfo = localStorage.getItem("pokeList");
     setPokeList(JSON.parse(newInfo));
+  }
+
+  function handleCapture(pokeInfo) {
+    console.log(pokemon.captured);
+    if (!pokemon.captured) {
+      const pokemon = JSON.parse(localStorage.getItem("pokemon"));
+      pokemon.captured = true;
+      localStorage.setItem("pokemon", JSON.stringify(pokemon));
+      localStorage.setItem("capturedInfo", JSON.stringify(pokeInfo));
+      const existingPokeList = localStorage.getItem("pokeList") || [];
+      if (existingPokeList.length === 2) {
+        const newList = [{ pokeInfo, captured: true }];
+        localStorage.setItem("pokeList", JSON.stringify(newList));
+      } else if (existingPokeList.length > 2) {
+        const newPokeList = JSON.parse(existingPokeList);
+        const changeCapture = newPokeList.map((poke) => {
+          if (poke.pokeInfo.id === pokeInfo.id) {
+            return { ...poke, captured: true };
+          } else {
+            return { ...poke };
+          }
+        });
+        localStorage.setItem("pokeList", JSON.stringify(changeCapture));
+      }
+    } else if (pokemon.captured) {
+      localStorage.setItem("capturedInfo", JSON.stringify([]));
+      const pokemon = JSON.parse(localStorage.getItem("pokemon"));
+      pokemon.captured = false;
+      localStorage.setItem("pokemon", JSON.stringify(pokemon));
+      const existingPokeList = localStorage.getItem("pokeList");
+      const newPokeList = JSON.parse(existingPokeList);
+      const changeCapture = newPokeList.map((poke) => {
+        if (poke.pokeInfoSearch.id === pokeInfo.id) {
+          return { ...poke, captured: false };
+        } else {
+          return { ...poke };
+        }
+      });
+      localStorage.setItem("pokeList", JSON.stringify(changeCapture));
+    }
+  }
+
+  function handleRun() {
+    localStorage.setItem("pokemon", null);
   }
 
   return (
@@ -69,10 +110,10 @@ function NewPokemon() {
                     </div>
                     <h1>
                       You Found a wild{" "}
-                      {JSON.parse(pokemon.pokeInfo)
+                      {JSON.parse(pokemon?.pokeInfo)
                         .name.charAt(0)
                         .toUpperCase() +
-                        JSON.parse(pokemon.pokeInfo)
+                        JSON.parse(pokemon?.pokeInfo)
                           .name.slice(1)
                           .toLowerCase()}
                       !
@@ -89,8 +130,18 @@ function NewPokemon() {
                 <div className="captureContainer">
                   <h1>What will you do?</h1>
                   <div>
-                    <button className="btn">Capture</button>
-                    <button className="btn">Run</button>
+                    <button
+                      onClick={() => {
+                        setIsCaptured(!isCaptured);
+                        handleCapture(JSON.parse(pokemon.pokeInfo));
+                      }}
+                      className="btn"
+                    >
+                      Capture
+                    </button>
+                    <button onClick={() => handleRun()} className="btn">
+                      Run
+                    </button>
                   </div>
                 </div>
               </>
@@ -113,10 +164,10 @@ function NewPokemon() {
               ?.slice()
               .reverse()
               .map((pokemon) => (
-                <div className="gridContainer" key={pokemon.pokeInfoSearch.id}>
+                <div className="gridContainer" key={pokemon.pokeInfo.id}>
                   <PokemonCard
-                    key={pokemon.pokeInfoSearch.id}
-                    pokemon={pokemon.pokeInfoSearch}
+                    key={pokemon.pokeInfo.id}
+                    pokemon={pokemon.pokeInfo}
                     state={state}
                     captured={pokemon.captured}
                     setIsCaptured={setIsCaptured}
@@ -125,7 +176,7 @@ function NewPokemon() {
 
                   <button
                     className="btn"
-                    onClick={() => deletePokemon(pokemon.id)}
+                    onClick={() => deletePokemon(pokemon.pokeInfo.id)}
                   >
                     Delete
                   </button>
@@ -146,7 +197,10 @@ async function action({ request }) {
   //HANDLE RECENT SEARCH LIST
   if (existingPokeList.length > 0) {
     const newPokeList = JSON.parse(existingPokeList);
-    const newList = [...newPokeList, { pokeInfoSearch, captured: false }];
+    const newList = [
+      ...newPokeList,
+      { pokeInfo: pokeInfoSearch, captured: false },
+    ];
     localStorage.setItem("pokeList", JSON.stringify(newList));
   } else if (existingPokeList.length === 0) {
     console.log("it equals 0");

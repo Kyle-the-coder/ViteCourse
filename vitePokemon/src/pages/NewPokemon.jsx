@@ -40,7 +40,7 @@ function NewPokemon() {
     const newInfo = localStorage.getItem("pokeList");
     setPokeList(JSON.parse(newInfo));
   }
-  console.log("outside", pokemon?.captured);
+  console.log(pokeList.map((poke) => poke.pokeInfoSearch.id));
   return (
     <>
       <div className="container">
@@ -83,9 +83,10 @@ function NewPokemon() {
               ?.slice()
               .reverse()
               .map((pokemon) => (
-                <div className="gridContainer" key={pokemon.id}>
+                <div className="gridContainer" key={pokemon.pokeInfoSearch.id}>
                   <PokemonCard
-                    pokemon={pokemon.pokeInfo}
+                    key={pokemon.pokeInfoSearch.id}
+                    pokemon={pokemon.pokeInfoSearch}
                     state={state}
                     captured={pokemon.captured}
                   />

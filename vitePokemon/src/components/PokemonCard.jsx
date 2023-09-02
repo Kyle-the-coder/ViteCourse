@@ -59,7 +59,9 @@ export function PokemonCard({
     console.log(captured);
     if (!captured) {
       const pokemon = JSON.parse(localStorage.getItem("pokemon"));
-      pokemon.captured = true;
+      if (pokemon !== null) {
+        pokemon.captured = true;
+      }
       localStorage.setItem("pokemon", JSON.stringify(pokemon));
       localStorage.setItem("capturedInfo", JSON.stringify(pokeInfo));
       const existingPokeList = localStorage.getItem("pokeList") || [];
@@ -80,12 +82,14 @@ export function PokemonCard({
     } else if (captured) {
       localStorage.setItem("capturedInfo", JSON.stringify([]));
       const pokemon = JSON.parse(localStorage.getItem("pokemon"));
-      pokemon.captured = false;
+      if (pokemon !== null) {
+        pokemon.captured = false;
+      }
       localStorage.setItem("pokemon", JSON.stringify(pokemon));
       const existingPokeList = localStorage.getItem("pokeList");
       const newPokeList = JSON.parse(existingPokeList);
       const changeCapture = newPokeList.map((poke) => {
-        if (poke.pokeInfoSearch.id === pokeInfo.id) {
+        if (poke.pokeInfo.id === pokeInfo.id) {
           return { ...poke, captured: false };
         } else {
           return { ...poke };
@@ -149,7 +153,7 @@ export function PokemonCard({
                   ))}
                 </div>
                 <div className="pokedexLink">
-                  <button className="btn">Pokedex</button>
+                  <button className="pokedexBtn">Pokedex</button>
 
                   <img
                     onClick={() => {

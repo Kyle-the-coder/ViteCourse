@@ -68,7 +68,7 @@ function NewPokemon() {
       const existingPokeList = localStorage.getItem("pokeList");
       const newPokeList = JSON.parse(existingPokeList);
       const changeCapture = newPokeList.map((poke) => {
-        if (poke.pokeInfoSearch.id === pokeInfo.id) {
+        if (poke.pokeInfo.id === pokeInfo.id) {
           return { ...poke, captured: false };
         } else {
           return { ...poke };

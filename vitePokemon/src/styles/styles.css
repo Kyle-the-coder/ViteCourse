@@ -110,3 +110,7 @@ body {
   display: flex;
   justify-content: space-evenly;
 }
+
+.recentSearchListContainer {
+  margin-top: 40px;
+}

@@ -31,7 +31,7 @@ function Storage() {
             .reverse()
             .map((pokemon) => {
               return (
-                <div className="gridContainer" key={pokemon.id}>
+                <div className="gridContainer" key={pokemon.pokeInfoSearch.id}>
                   <PokemonCard
                     key={pokemon.id}
                     pokemon={pokemon.pokeInfoSearch}

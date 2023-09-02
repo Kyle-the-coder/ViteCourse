@@ -77,6 +77,12 @@ body {
   border-radius: 0.8rem;
   text-decoration: none;
 }
+.pokedexBtn {
+  padding: 5px 10px 5px 10px;
+  background-color: hsl(0, 2%, 90%);
+  border-radius: 0.8rem;
+  text-decoration: none;
+}
 
 .resultsContainer {
   display: flex;

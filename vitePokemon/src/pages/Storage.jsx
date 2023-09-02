@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigation } from "react-router-dom";
 import { PokemonCard } from "../components/PokemonCard";
 
 function Storage() {
   const { state } = useNavigation();
+  const [isCaptured, setIsCaptured] = useState(false);
   const [capturedList, setCapturedList] = useState(() => {
     const list = localStorage.getItem("pokeList");
     if (list === null) return [];
@@ -12,14 +13,14 @@ function Storage() {
     return filteredList;
   });
 
-  function deletePokemon(pokeId) {
-    const newPokeList = capturedList.filter((id) => id.id !== pokeId);
-    localStorage.setItem("pokeList", JSON.stringify(newPokeList));
-    const newInfo = localStorage.getItem("pokeList");
-    const filterList = JSON.parse(newInfo);
-    const filtered = filterList.filter((poke) => poke.captured === false);
-    setCapturedList(filtered);
-  }
+  useEffect(() => {
+    const pokeInfo = localStorage.getItem("pokeList");
+    if (pokeInfo !== null) {
+      const pokemon = JSON.parse(pokeInfo);
+      const filteredList = pokemon.filter((poke) => poke.captured !== false);
+      setCapturedList(filteredList);
+    }
+  }, [isCaptured]);
 
   return (
     <>
@@ -37,14 +38,9 @@ function Storage() {
                     pokemon={pokemon.pokeInfoSearch}
                     captured={pokemon.captured}
                     state={state}
+                    setIsCaptured={setIsCaptured}
+                    isCaptured={isCaptured}
                   />
-
-                  <button
-                    className="btn"
-                    onClick={() => deletePokemon(pokemon.id)}
-                  >
-                    Delete
-                  </button>
                 </div>
               );
             })}

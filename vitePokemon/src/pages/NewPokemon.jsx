@@ -53,17 +53,45 @@ function NewPokemon() {
         </Form>
         {isMounted ? (
           <div className="resultsContainer">
-            <h1>Search Results:</h1>
             {pokemon === null ? (
-              <EmptyCard />
+              <>
+                <div>
+                  <h1>Searching...</h1>
+                </div>
+                <EmptyCard />
+              </>
             ) : (
-              <PokemonCard
-                pokemon={JSON.parse(pokemon.pokeInfo)}
-                state={state}
-                captured={pokemon.captured}
-                setIsCaptured={setIsCaptured}
-                isCaptured={isCaptured}
-              />
+              <>
+                {pokemon && (
+                  <>
+                    <div>
+                      <h1>Wow!</h1>
+                    </div>
+                    <h1>
+                      You Found a wild{" "}
+                      {JSON.parse(pokemon.pokeInfo)
+                        .name.charAt(0)
+                        .toUpperCase() +
+                        JSON.parse(pokemon.pokeInfo)
+                          .name.slice(1)
+                          .toLowerCase()}
+                      !
+                    </h1>
+                  </>
+                )}
+                <PokemonCard
+                  pokemon={JSON.parse(pokemon.pokeInfo)}
+                  state={state}
+                  captured={pokemon.captured}
+                  setIsCaptured={setIsCaptured}
+                  isCaptured={isCaptured}
+                />
+                <div>
+                  <h1>What will you do?</h1>
+                  <button className="btn">Caputre</button>
+                  <button className="btn">Run</button>
+                </div>
+              </>
             )}
           </div>
         ) : (

@@ -40,7 +40,7 @@ function NewPokemon() {
     const newInfo = localStorage.getItem("pokeList");
     setPokeList(JSON.parse(newInfo));
   }
-  console.log(pokeList.map((poke) => poke.pokeInfoSearch.id));
+
   return (
     <>
       <div className="container">

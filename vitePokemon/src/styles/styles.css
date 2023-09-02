@@ -97,3 +97,16 @@ body {
 .title {
   margin-bottom: 20px;
 }
+
+.captureContainer {
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.captureContainer > div {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}

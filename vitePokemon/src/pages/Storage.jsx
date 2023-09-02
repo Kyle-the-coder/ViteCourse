@@ -34,7 +34,7 @@ function Storage() {
                 <div className="gridContainer" key={pokemon.id}>
                   <PokemonCard
                     key={pokemon.id}
-                    pokemon={pokemon.pokeInfo}
+                    pokemon={pokemon.pokeInfoSearch}
                     captured={pokemon.captured}
                     state={state}
                   />

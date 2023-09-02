@@ -27,7 +27,7 @@ export function EmptyCard() {
               <div>Move 2</div>
             </div>
             <div className="pokedexLink">
-              <button disabled={true} className="btn">
+              <button disabled={true} className="pokedexBtn">
                 Pokedex
               </button>
 

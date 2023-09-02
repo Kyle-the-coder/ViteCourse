@@ -69,7 +69,7 @@ export function PokemonCard({
       } else if (existingPokeList.length > 2) {
         const newPokeList = JSON.parse(existingPokeList);
         const changeCapture = newPokeList.map((poke) => {
-          if (poke.pokeInfoSearch.id === pokeInfo.id) {
+          if (poke.pokeInfo.id === pokeInfo.id) {
             return { ...poke, captured: true };
           } else {
             return { ...poke };

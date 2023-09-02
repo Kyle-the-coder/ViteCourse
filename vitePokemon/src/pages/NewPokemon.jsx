@@ -86,10 +86,12 @@ function NewPokemon() {
                   setIsCaptured={setIsCaptured}
                   isCaptured={isCaptured}
                 />
-                <div>
+                <div className="captureContainer">
                   <h1>What will you do?</h1>
-                  <button className="btn">Caputre</button>
-                  <button className="btn">Run</button>
+                  <div>
+                    <button className="btn">Capture</button>
+                    <button className="btn">Run</button>
+                  </div>
                 </div>
               </>
             )}

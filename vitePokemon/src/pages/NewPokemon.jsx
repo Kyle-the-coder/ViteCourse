@@ -45,7 +45,7 @@ function NewPokemon() {
     <>
       <div className="container">
         <div className="title">
-          <h1>Find a pokemon:</h1>
+          <h1>Search in the wild grass:</h1>
         </div>
         <Form method="post">
           <input type="text" name="name" defaultValue={pokemon?.name} />

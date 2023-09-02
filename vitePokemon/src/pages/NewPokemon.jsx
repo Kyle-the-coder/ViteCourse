@@ -78,8 +78,11 @@ function NewPokemon() {
     }
   }
 
-  function handleRun() {
+  function handleRun(e) {
     localStorage.setItem("pokemon", null);
+    const newInfo = localStorage.getItem("pokemon");
+    const getInfo = JSON.parse(newInfo);
+    setPokemon(getInfo);
   }
 
   return (
@@ -96,9 +99,6 @@ function NewPokemon() {
           <div className="resultsContainer">
             {pokemon === null ? (
               <>
-                <div>
-                  <h1>Searching...</h1>
-                </div>
                 <EmptyCard />
               </>
             ) : (
@@ -193,7 +193,7 @@ async function action({ request }) {
   const existingPokeList = localStorage.getItem("pokeList") || [];
   const formData = await request.formData();
   const searchName = formData.get("name");
-  const pokeInfoSearch = await getPokemon(searchName);
+  const pokeInfoSearch = await getPokemon(searchName.toLowerCase());
   //HANDLE RECENT SEARCH LIST
   if (existingPokeList.length > 0) {
     const newPokeList = JSON.parse(existingPokeList);

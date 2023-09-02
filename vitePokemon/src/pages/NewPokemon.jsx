@@ -89,6 +89,8 @@ function NewPokemon() {
                     pokemon={pokemon.pokeInfoSearch}
                     state={state}
                     captured={pokemon.captured}
+                    setIsCaptured={setIsCaptured}
+                    isCaptured={isCaptured}
                   />
 
                   <button

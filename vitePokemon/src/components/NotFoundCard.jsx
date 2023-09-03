@@ -1,3 +1,7 @@
+import background from "../assets/bg.webp";
+import pokeBallEmpty from "../assets/pokeballEmpty.png";
+import "../styles/pokemonCard.css";
+
 export function NotFoundCard() {
   return (
     <>

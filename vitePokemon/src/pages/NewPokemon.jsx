@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Form, useActionData, useNavigation } from "react-router-dom";
 import { EmptyCard } from "../components/EmptyCard";
+import { NotFoundCard } from "../components/NotFoundCard";
 import { PokemonCard } from "../components/PokemonCard";
 import { getPokemon } from "../hooks/getPokemon";
 
@@ -99,7 +100,7 @@ function NewPokemon() {
           <div className="resultsContainer">
             {pokemon === null ? (
               <>
-                <EmptyCard />
+                <NotFoundCard />
               </>
             ) : (
               <>

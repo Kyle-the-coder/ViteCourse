@@ -19,7 +19,6 @@ function NewPokemon() {
   const [pokeList, setPokeList] = useState(() => {
     const list = localStorage.getItem("pokeList");
     if (list === null) return [];
-    setIsMounted(true);
     return JSON.parse(list);
   });
 
@@ -38,32 +37,32 @@ function NewPokemon() {
   }
 
   function handleCapture(pokeInfo) {
-    console.log(pokemon.captured);
+    //FALSEY INPUT
     if (!pokemon.captured) {
+      //HANDLE SINGLE POKEMON UPDATE
       const pokemon = JSON.parse(localStorage.getItem("pokemon"));
       pokemon.captured = true;
       localStorage.setItem("pokemon", JSON.stringify(pokemon));
-      localStorage.setItem("capturedInfo", JSON.stringify(pokeInfo));
+      //HANDLE POKE LIST UPDATE
       const existingPokeList = localStorage.getItem("pokeList") || [];
-      if (existingPokeList.length === 2) {
-        const newList = [{ pokeInfo, captured: true }];
-        localStorage.setItem("pokeList", JSON.stringify(newList));
-      } else if (existingPokeList.length > 2) {
-        const newPokeList = JSON.parse(existingPokeList);
-        const changeCapture = newPokeList.map((poke) => {
-          if (poke.pokeInfo.id === pokeInfo.id) {
-            return { ...poke, captured: true };
-          } else {
-            return { ...poke };
-          }
-        });
-        localStorage.setItem("pokeList", JSON.stringify(changeCapture));
-      }
+      const newPokeList = JSON.parse(existingPokeList);
+      const changeCapture = newPokeList.map((poke) => {
+        if (poke.pokeInfo.id === pokeInfo.id) {
+          return { ...poke, captured: true };
+        } else {
+          return { ...poke };
+        }
+      });
+      localStorage.setItem("pokeList", JSON.stringify(changeCapture));
+
+      //TRUTHY INPUT
     } else if (pokemon.captured) {
+      //HANDLE SINGLE POKEMON UPDATE
       localStorage.setItem("capturedInfo", JSON.stringify([]));
       const pokemon = JSON.parse(localStorage.getItem("pokemon"));
       pokemon.captured = false;
       localStorage.setItem("pokemon", JSON.stringify(pokemon));
+      //HANDLE POKELIST UPDATE
       const existingPokeList = localStorage.getItem("pokeList");
       const newPokeList = JSON.parse(existingPokeList);
       const changeCapture = newPokeList.map((poke) => {
@@ -77,7 +76,7 @@ function NewPokemon() {
     }
   }
 
-  function handleRun(e) {
+  function handleRun() {
     localStorage.setItem("pokemon", null);
     const newInfo = localStorage.getItem("pokemon");
     const getInfo = JSON.parse(newInfo);

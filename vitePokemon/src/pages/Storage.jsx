@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigation } from "react-router-dom";
+import { PokeList } from "../components/PokeList";
 import { PokemonCard } from "../components/PokemonCard";
 
 function Storage() {
   const { state } = useNavigation();
   const [isCaptured, setIsCaptured] = useState(false);
-  const [capturedList, setCapturedList] = useState(() => {
+  const [pokeList, setPokeList] = useState(() => {
     const list = localStorage.getItem("pokeList");
     if (list === null) return [];
     const filter = JSON.parse(list);
@@ -18,7 +19,7 @@ function Storage() {
     if (pokeInfo !== null) {
       const pokemon = JSON.parse(pokeInfo);
       const filteredList = pokemon.filter((poke) => poke.captured !== false);
-      setCapturedList(filteredList);
+      setPokeList(filteredList);
     }
   }, [isCaptured]);
 
@@ -26,25 +27,12 @@ function Storage() {
     <>
       <div className="container">
         <h1>Storage</h1>
-        <div className="card-grid">
-          {capturedList
-            ?.slice()
-            .reverse()
-            .map((pokemon) => {
-              return (
-                <div className="gridContainer" key={pokemon.pokeInfo.id}>
-                  <PokemonCard
-                    key={pokemon.id}
-                    pokemon={pokemon.pokeInfo}
-                    captured={pokemon.captured}
-                    state={state}
-                    setIsCaptured={setIsCaptured}
-                    isCaptured={isCaptured}
-                  />
-                </div>
-              );
-            })}
-        </div>
+        <PokeList
+          pokeList={pokeList}
+          isCaptured={isCaptured}
+          setIsCaptured={setIsCaptured}
+          state={state}
+        />
       </div>
     </>
   );

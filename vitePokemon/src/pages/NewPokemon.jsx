@@ -5,8 +5,9 @@ import { PokemonCard } from "../components/PokemonCard";
 import { getPokemon } from "../hooks/getPokemon";
 
 function NewPokemon() {
-  const { state } = useNavigation();
   const [isCaptured, setIsCaptured] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const { state } = useNavigation();
   const errors = useActionData() || null;
 
   const [pokemon, setPokemon] = useState(() => {
@@ -14,7 +15,6 @@ function NewPokemon() {
     if (p === null) return null;
     return JSON.parse(p);
   });
-  const [isMounted, setIsMounted] = useState(false);
   const [pokeList, setPokeList] = useState(() => {
     const list = localStorage.getItem("pokeList");
     if (list === null) return [];

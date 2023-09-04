@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Form, useActionData, useNavigation } from "react-router-dom";
 import { EmptyCard } from "../components/EmptyCard";
+import { PokeList } from "../components/PokeList";
 import { PokemonCard } from "../components/PokemonCard";
 import { getPokemon } from "../hooks/getPokemon";
 
@@ -154,30 +155,11 @@ function NewPokemon() {
           <div>
             <h1>Recent Searches:</h1>
           </div>
-          <div className="card-grid">
-            {pokeList
-              ?.slice()
-              .reverse()
-              .map((pokemon) => (
-                <div className="gridContainer" key={pokemon.pokeInfo.id}>
-                  <PokemonCard
-                    key={pokemon.pokeInfo.id}
-                    pokemon={pokemon.pokeInfo}
-                    state={state}
-                    captured={pokemon.captured}
-                    setIsCaptured={setIsCaptured}
-                    isCaptured={isCaptured}
-                  />
-
-                  <button
-                    className="btn"
-                    onClick={() => deletePokemon(pokemon.pokeInfo.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              ))}
-          </div>
+          <PokeList
+            pokeList={pokeList}
+            isCaptured={isCaptured}
+            setIsCaptured={setIsCaptured}
+          />
         </div>
       </div>
     </>

@@ -4,9 +4,11 @@ import { EmptyCard } from "../components/EmptyCard";
 import { PokeList } from "../components/PokeList";
 import { PokemonCard } from "../components/PokemonCard";
 import { getPokemon } from "../hooks/getPokemon";
+import { getRandomNum } from "../hooks/getRandomNum";
 
 function NewPokemon() {
   const [isCaptured, setIsCaptured] = useState(false);
+  const [isBallThrown, setIsBallThrown] = useState(false);
 
   const { state } = useNavigation();
   const errors = useActionData() || null;
@@ -28,7 +30,7 @@ function NewPokemon() {
     setPokemon(JSON.parse(newPokemonInfo));
     const newPokemonList = localStorage.getItem("pokeList");
     setPokeList(JSON.parse(newPokemonList));
-  }, [state, isCaptured]);
+  }, [state, isCaptured, isBallThrown]);
 
   function deletePokemon(pokeId) {
     const newPokeList = pokeList.filter((id) => id.id !== pokeId);
@@ -37,24 +39,37 @@ function NewPokemon() {
     setPokeList(JSON.parse(newInfo));
   }
 
-  function handleCapture(pokeInfo) {
+  async function handleCapture(pokeInfo) {
     //FALSEY INPUT
     if (!pokemon.captured) {
-      //HANDLE SINGLE POKEMON UPDATE
-      const pokemon = JSON.parse(localStorage.getItem("pokemon"));
-      pokemon.captured = true;
-      localStorage.setItem("pokemon", JSON.stringify(pokemon));
-      //HANDLE POKE LIST UPDATE
-      const existingPokeList = localStorage.getItem("pokeList") || [];
-      const newPokeList = JSON.parse(existingPokeList);
-      const changeCapture = newPokeList.map((poke) => {
-        if (poke.pokeInfo.id === pokeInfo.id) {
-          return { ...poke, captured: true };
-        } else {
-          return { ...poke };
+      setIsBallThrown(true);
+      const rand = getRandomNum();
+      setTimeout(() => {
+        console.log(rand);
+        if (rand >= 5) {
+          //HANDLE SINGLE POKEMON UPDATE
+          const pokemon = JSON.parse(localStorage.getItem("pokemon"));
+          pokemon.captured = true;
+          localStorage.setItem("pokemon", JSON.stringify(pokemon));
+          //HANDLE POKE LIST UPDATE
+          const existingPokeList = localStorage.getItem("pokeList") || [];
+          const newPokeList = JSON.parse(existingPokeList);
+          const changeCapture = newPokeList.map((poke) => {
+            if (poke.pokeInfo.id === pokeInfo.id) {
+              return { ...poke, captured: true };
+            } else {
+              return { ...poke };
+            }
+          });
+          setIsBallThrown(false);
+          localStorage.setItem("pokeList", JSON.stringify(changeCapture));
+        } else if (rand < 5) {
+          console.log("did not capture");
+          setIsBallThrown(false);
+          return;
         }
-      });
-      localStorage.setItem("pokeList", JSON.stringify(changeCapture));
+        setIsBallThrown(false);
+      }, [2000]);
 
       //TRUTHY INPUT
     } else if (pokemon.captured) {
@@ -83,7 +98,7 @@ function NewPokemon() {
     const getInfo = JSON.parse(newInfo);
     setPokemon(getInfo);
   }
-
+  console.log(isBallThrown);
   return (
     <>
       <div className="container">
@@ -129,8 +144,19 @@ function NewPokemon() {
                 captured={pokemon.captured}
                 setIsCaptured={setIsCaptured}
                 isCaptured={isCaptured}
+                isBallThrown={isBallThrown}
               />
               <div className="captureContainer">
+                <p>
+                  Capture Status:{" "}
+                  <span className="captureStatus">
+                    {isBallThrown
+                      ? "capturing..."
+                      : pokemon.captured
+                      ? "Captured"
+                      : "Not captured"}
+                  </span>
+                </p>
                 <h1>What will you do?</h1>
                 <div>
                   <button
@@ -159,6 +185,7 @@ function NewPokemon() {
             pokeList={pokeList}
             isCaptured={isCaptured}
             setIsCaptured={setIsCaptured}
+            isDeleteButton={true}
           />
         </div>
       </div>

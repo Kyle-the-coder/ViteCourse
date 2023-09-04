@@ -24,6 +24,7 @@ export function PokeList({
                 captured={pokemon.captured}
                 setIsCaptured={setIsCaptured}
                 isCaptured={isCaptured}
+                isShiny={pokemon.shiny}
               />
 
               {isDeleteButton && (

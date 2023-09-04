@@ -9,6 +9,7 @@ import { getRandomNum } from "../hooks/getRandomNum";
 function NewPokemon() {
   const [isCaptured, setIsCaptured] = useState(false);
   const [isBallThrown, setIsBallThrown] = useState(false);
+  const [isShiny, setIsShiny] = useState(false);
 
   const { state } = useNavigation();
   const errors = useActionData() || null;
@@ -61,6 +62,7 @@ function NewPokemon() {
               return { ...poke };
             }
           });
+
           setIsBallThrown(false);
           localStorage.setItem("pokeList", JSON.stringify(changeCapture));
         } else if (rand < 5) {
@@ -98,7 +100,7 @@ function NewPokemon() {
     const getInfo = JSON.parse(newInfo);
     setPokemon(getInfo);
   }
-  console.log(isBallThrown);
+  console.log(isShiny);
   return (
     <>
       <div className="container">
@@ -145,6 +147,7 @@ function NewPokemon() {
                 setIsCaptured={setIsCaptured}
                 isCaptured={isCaptured}
                 isBallThrown={isBallThrown}
+                isShiny={isShiny}
               />
               <div className="captureContainer">
                 <p>
@@ -186,6 +189,7 @@ function NewPokemon() {
             isCaptured={isCaptured}
             setIsCaptured={setIsCaptured}
             isDeleteButton={true}
+            isShiny={isShiny}
           />
         </div>
       </div>
@@ -200,6 +204,15 @@ async function action({ request }) {
   const searchName = formData.get("name");
   const pokeInfoSearch = await getPokemon(searchName.toLowerCase());
 
+  //HANDLE SHINY CHANCE
+  let isShiny = null;
+  const shinyRand = getRandomNum();
+  if (shinyRand >= 5) {
+    isShiny = true;
+  } else if (shinyRand < 5) {
+    isShiny = false;
+  }
+
   //HANDLE BAD REQUEST
   if (pokeInfoSearch === undefined) {
     errors.message = "bad request, try again";
@@ -210,17 +223,21 @@ async function action({ request }) {
     const newPokeList = JSON.parse(existingPokeList);
     const newList = [
       ...newPokeList,
-      { pokeInfo: pokeInfoSearch, captured: false },
+      { pokeInfo: pokeInfoSearch, captured: false, shiny: isShiny },
     ];
     localStorage.setItem("pokeList", JSON.stringify(newList));
   } else if (existingPokeList.length === 0) {
     console.log("it equals 0");
-    existingPokeList.push({ pokeInfo: pokeInfoSearch, captured: false });
+    existingPokeList.push({
+      pokeInfo: pokeInfoSearch,
+      captured: false,
+      shiny: isShiny,
+    });
     localStorage.setItem("pokeList", JSON.stringify(existingPokeList));
   }
   //HANDLE CURRENT SEARCH
   const pokeInfo = JSON.stringify(pokeInfoSearch);
-  const newList = { pokeInfo, captured: false };
+  const newList = { pokeInfo, captured: false, shiny: isShiny };
   localStorage.setItem("pokemon", JSON.stringify(newList));
 
   return null;

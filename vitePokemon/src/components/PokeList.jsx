@@ -1,7 +1,12 @@
 import { useNavigation } from "react-router-dom";
 import { PokemonCard } from "./PokemonCard";
 
-export function PokeList({ pokeList, isCaptured, setIsCaptured }) {
+export function PokeList({
+  pokeList,
+  isCaptured,
+  setIsCaptured,
+  isDeleteButton,
+}) {
   const { state } = useNavigation();
   return (
     <>
@@ -21,12 +26,14 @@ export function PokeList({ pokeList, isCaptured, setIsCaptured }) {
                 isCaptured={isCaptured}
               />
 
-              <button
-                className="btn"
-                onClick={() => deletePokemon(pokemon.pokeInfo.id)}
-              >
-                Delete
-              </button>
+              {isDeleteButton && (
+                <button
+                  className="btn"
+                  onClick={() => deletePokemon(pokemon.pokeInfo.id)}
+                >
+                  Delete
+                </button>
+              )}
             </div>
           ))}
       </div>

@@ -7,6 +7,7 @@ import { getPokemon } from "../hooks/getPokemon";
 function NewPokemon() {
   const { state } = useNavigation();
   const [isCaptured, setIsCaptured] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const [pokemon, setPokemon] = useState(() => {
     const p = localStorage.getItem("pokemon");
@@ -194,6 +195,10 @@ async function action({ request }) {
   const formData = await request.formData();
   const searchName = formData.get("name");
   const pokeInfoSearch = await getPokemon(searchName.toLowerCase());
+
+  if (pokeInfoSearch.key === null) {
+    return "couldn't find";
+  }
   //HANDLE RECENT SEARCH LIST
   if (existingPokeList.length > 0) {
     const newPokeList = JSON.parse(existingPokeList);

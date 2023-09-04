@@ -100,69 +100,60 @@ function NewPokemon() {
         <div className="errorContainer">
           <p className="errorMessage">{errors != null && errors.message}</p>
         </div>
-        {isMounted ? (
-          <div className="resultsContainer">
-            {pokemon === null ? (
-              <>
-                <div className="resultsContainer">
-                  <h1>Search Results</h1>
-                  <EmptyCard />
-                </div>
-              </>
-            ) : (
-              <>
-                {pokemon && (
-                  <>
-                    <div>
-                      <h1>Wow!</h1>
-                    </div>
-                    <h1>
-                      You Found a wild{" "}
-                      {JSON.parse(pokemon?.pokeInfo)
-                        .name.charAt(0)
-                        .toUpperCase() +
-                        JSON.parse(pokemon?.pokeInfo)
-                          .name.slice(1)
-                          .toLowerCase()}
-                      !
-                    </h1>
-                  </>
-                )}
-                <PokemonCard
-                  pokemon={JSON.parse(pokemon.pokeInfo)}
-                  state={state}
-                  captured={pokemon.captured}
-                  setIsCaptured={setIsCaptured}
-                  isCaptured={isCaptured}
-                />
-                <div className="captureContainer">
-                  <h1>What will you do?</h1>
+
+        <div className="resultsContainer">
+          {pokemon === null ? (
+            <>
+              <div className="resultsContainer">
+                <h1>Search Results</h1>
+                <EmptyCard />
+              </div>
+            </>
+          ) : (
+            <>
+              {pokemon && (
+                <>
                   <div>
-                    <button
-                      onClick={() => {
-                        setIsCaptured(!isCaptured);
-                        handleCapture(JSON.parse(pokemon.pokeInfo));
-                      }}
-                      className="btn"
-                    >
-                      Capture
-                    </button>
-                    <button onClick={() => handleRun()} className="btn">
-                      Run
-                    </button>
+                    <h1>Wow!</h1>
                   </div>
+                  <h1>
+                    You Found a wild{" "}
+                    {JSON.parse(pokemon?.pokeInfo)
+                      .name.charAt(0)
+                      .toUpperCase() +
+                      JSON.parse(pokemon?.pokeInfo).name.slice(1).toLowerCase()}
+                    !
+                  </h1>
+                </>
+              )}
+              <PokemonCard
+                pokemon={JSON.parse(pokemon.pokeInfo)}
+                state={state}
+                captured={pokemon.captured}
+                setIsCaptured={setIsCaptured}
+                isCaptured={isCaptured}
+              />
+              <div className="captureContainer">
+                <h1>What will you do?</h1>
+                <div>
+                  <button
+                    onClick={() => {
+                      setIsCaptured(!isCaptured);
+                      handleCapture(JSON.parse(pokemon.pokeInfo));
+                    }}
+                    className="btn"
+                  >
+                    Capture
+                  </button>
+                  <button onClick={() => handleRun()} className="btn">
+                    Run
+                  </button>
                 </div>
-              </>
-            )}
-          </div>
-        ) : (
-          <>
-            <div className="resultsContainer">
-              <h1>Search Results</h1>
-              <EmptyCard />
-            </div>
-          </>
-        )}
+              </div>
+            </>
+          )}
+        </div>
+
         <div className="recentSearchListContainer">
           <div>
             <h1>Recent Searches:</h1>
@@ -203,7 +194,8 @@ async function action({ request }) {
   const formData = await request.formData();
   const searchName = formData.get("name");
   const pokeInfoSearch = await getPokemon(searchName.toLowerCase());
-  console.log(pokeInfoSearch);
+
+  //HANDLE BAD REQUEST
   if (pokeInfoSearch === undefined) {
     errors.message = "bad request, try again";
     return errors;

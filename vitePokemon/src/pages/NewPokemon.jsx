@@ -5,6 +5,7 @@ import { PokeList } from "../components/PokeList";
 import { PokemonCard } from "../components/PokemonCard";
 import { getPokemon } from "../hooks/getPokemon";
 import { getRandomNum } from "../hooks/getRandomNum";
+import { v4 as uuidv4 } from "uuid";
 
 function NewPokemon() {
   const [isCaptured, setIsCaptured] = useState(false);
@@ -55,7 +56,7 @@ function NewPokemon() {
       const runRand = getRandomNum();
       console.log(runRand);
       setTimeout(() => {
-        if (runRand >= 6) {
+        if (runRand >= 3) {
           if (rand >= 7) {
             //HANDLE SINGLE POKEMON UPDATE
             const pokemon = JSON.parse(localStorage.getItem("pokemon"));
@@ -80,7 +81,7 @@ function NewPokemon() {
             return;
           }
           setIsBallThrown(false);
-        } else if (runRand < 6) {
+        } else if (runRand < 3) {
           return handleRun();
         }
       }, [2000]);
@@ -189,6 +190,7 @@ function NewPokemon() {
 }
 
 async function action({ request }) {
+  const randomUUID = uuidv4();
   const errors = {};
   const existingPokeList = localStorage.getItem("pokeList") || [];
   const formData = await request.formData();
@@ -214,7 +216,12 @@ async function action({ request }) {
     const newPokeList = JSON.parse(existingPokeList);
     const newList = [
       ...newPokeList,
-      { pokeInfo: pokeInfoSearch, captured: false, shiny: isShiny },
+      {
+        pokeInfo: pokeInfoSearch,
+        captured: false,
+        shiny: isShiny,
+        key: randomUUID,
+      },
     ];
     localStorage.setItem("pokeList", JSON.stringify(newList));
   } else if (existingPokeList.length === 0) {
@@ -223,12 +230,18 @@ async function action({ request }) {
       pokeInfo: pokeInfoSearch,
       captured: false,
       shiny: isShiny,
+      key: randomUUID,
     });
     localStorage.setItem("pokeList", JSON.stringify(existingPokeList));
   }
   //HANDLE CURRENT SEARCH
   const pokeInfo = JSON.stringify(pokeInfoSearch);
-  const newList = { pokeInfo, captured: false, shiny: isShiny };
+  const newList = {
+    pokeInfo,
+    captured: false,
+    shiny: isShiny,
+    key: randomUUID,
+  };
   localStorage.setItem("pokemon", JSON.stringify(newList));
 
   return null;

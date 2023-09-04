@@ -6,6 +6,7 @@ import { PokemonCard } from "../components/PokemonCard";
 function Storage() {
   const { state } = useNavigation();
   const [isCaptured, setIsCaptured] = useState(false);
+  const [isShiny, setIsShiny] = useState(false);
   const [pokeList, setPokeList] = useState(() => {
     const list = localStorage.getItem("pokeList");
     if (list === null) return [];
@@ -32,6 +33,7 @@ function Storage() {
           isCaptured={isCaptured}
           setIsCaptured={setIsCaptured}
           state={state}
+          isShiny={isShiny}
         />
       </div>
     </>

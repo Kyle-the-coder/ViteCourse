@@ -4,6 +4,7 @@ import background from "../assets/bg.webp";
 import pokeBallEmpty from "../assets/pokeballEmpty.png";
 import pokeBallFull from "../assets/pokeballFull.png";
 import "../styles/pokemonCard.css";
+import { UNSAFE_useRouteId } from "react-router-dom";
 
 export function PokemonCard({
   pokemon,
@@ -51,10 +52,6 @@ export function PokemonCard({
     setIsCaptured(captured);
   }, [state, captureInfo]);
 
-  function handleShiny() {
-    return setIsShiny(!isShiny);
-  }
-
   function handleCapture(pokeInfo) {
     if (!captured) {
       const pokemon = JSON.parse(localStorage.getItem("pokemon"));
@@ -97,6 +94,7 @@ export function PokemonCard({
       localStorage.setItem("pokeList", JSON.stringify(changeCapture));
     }
   }
+
   return (
     <>
       {pokemon !== null ? (

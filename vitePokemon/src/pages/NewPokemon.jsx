@@ -7,7 +7,7 @@ import { getPokemon } from "../hooks/getPokemon";
 function NewPokemon() {
   const { state } = useNavigation();
   const [isCaptured, setIsCaptured] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const errors = useActionData() || null;
 
   const [pokemon, setPokemon] = useState(() => {
     const p = localStorage.getItem("pokemon");
@@ -85,6 +85,7 @@ function NewPokemon() {
     const getInfo = JSON.parse(newInfo);
     setPokemon(getInfo);
   }
+  console.log(errors);
 
   return (
     <>
@@ -96,11 +97,17 @@ function NewPokemon() {
           <input type="text" name="name" defaultValue={pokemon?.name} />
           <button>submit</button>
         </Form>
+        <div className="errorContainer">
+          <p className="errorMessage">{errors != null && errors.message}</p>
+        </div>
         {isMounted ? (
           <div className="resultsContainer">
             {pokemon === null ? (
               <>
-                <EmptyCard />
+                <div className="resultsContainer">
+                  <h1>Search Results</h1>
+                  <EmptyCard />
+                </div>
               </>
             ) : (
               <>
@@ -191,13 +198,15 @@ function NewPokemon() {
 }
 
 async function action({ request }) {
+  const errors = {};
   const existingPokeList = localStorage.getItem("pokeList") || [];
   const formData = await request.formData();
   const searchName = formData.get("name");
   const pokeInfoSearch = await getPokemon(searchName.toLowerCase());
-
-  if (pokeInfoSearch.key === null) {
-    return "couldn't find";
+  console.log(pokeInfoSearch);
+  if (pokeInfoSearch === undefined) {
+    errors.message = "bad request, try again";
+    return errors;
   }
   //HANDLE RECENT SEARCH LIST
   if (existingPokeList.length > 0) {
@@ -217,7 +226,7 @@ async function action({ request }) {
   const newList = { pokeInfo, captured: false };
   localStorage.setItem("pokemon", JSON.stringify(newList));
 
-  return pokeInfo;
+  return null;
 }
 
 export const newPokemonRoute = {

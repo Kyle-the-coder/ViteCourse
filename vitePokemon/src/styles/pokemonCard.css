@@ -92,7 +92,6 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  overflow: auto;
 }
 
 .pokemonMovesContainer {
@@ -111,4 +110,16 @@
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 5px;
+}
+
+.rotatingPokeball {
+  animation: rotate 3s linear infinite;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg); /* Start with no rotation (0 degrees) */
+  }
+  to {
+    transform: rotate(360deg); /* Rotate a full circle (360 degrees) */
+  }
 }

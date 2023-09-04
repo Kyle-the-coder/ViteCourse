@@ -102,7 +102,7 @@ function NewPokemon() {
           {pokemon === null ? (
             <>
               <div className="resultsContainer">
-                <h1>Search Results</h1>
+                <h1>Search Results:</h1>
                 <EmptyCard />
               </div>
             </>

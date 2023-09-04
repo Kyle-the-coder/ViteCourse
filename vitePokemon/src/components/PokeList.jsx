@@ -16,7 +16,7 @@ export function PokeList({
           ?.slice()
           .reverse()
           .map((pokemon) => (
-            <div className="gridContainer" key={pokemon.pokeInfo.id}>
+            <div className="gridContainer" key={pokemon.key}>
               <PokemonCard
                 key={pokemon.pokeInfo.id}
                 pokemon={pokemon.pokeInfo}

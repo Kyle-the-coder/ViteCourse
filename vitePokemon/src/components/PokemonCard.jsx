@@ -11,6 +11,7 @@ export function PokemonCard({
   captured,
   isCaptured,
   setIsCaptured,
+  isBallThrown,
 }) {
   const [isShiny, setIsShiny] = useState(false);
   const [captureInfo, setCaptureInfo] = useState([]);
@@ -156,6 +157,7 @@ export function PokemonCard({
                   <button className="pokedexBtn">Pokedex</button>
 
                   <img
+                    className={`${isBallThrown ? "rotatingPokeball" : ""}`}
                     onClick={() => {
                       setIsCaptured(!isCaptured);
                       handleCapture(pokemon);

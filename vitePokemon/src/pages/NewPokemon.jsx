@@ -9,8 +9,7 @@ import { getRandomNum } from "../hooks/getRandomNum";
 function NewPokemon() {
   const [isCaptured, setIsCaptured] = useState(false);
   const [isBallThrown, setIsBallThrown] = useState(false);
-  const [isShiny, setIsShiny] = useState(false);
-
+  const [catchMessage, setCatchMessage] = useState("");
   const { state } = useNavigation();
   const errors = useActionData() || null;
 
@@ -40,37 +39,50 @@ function NewPokemon() {
     setPokeList(JSON.parse(newInfo));
   }
 
-  async function handleCapture(pokeInfo) {
+  function handleRun() {
+    localStorage.setItem("pokemon", null);
+    const newInfo = localStorage.getItem("pokemon");
+    const getInfo = JSON.parse(newInfo);
+    setCatchMessage("Pokemon Got Away!");
+    setPokemon(getInfo);
+  }
+
+  function handleCapture(pokeInfo) {
     //FALSEY INPUT
     if (!pokemon.captured) {
       setIsBallThrown(true);
       const rand = getRandomNum();
+      const runRand = getRandomNum();
+      console.log(runRand);
       setTimeout(() => {
-        console.log(rand);
-        if (rand >= 5) {
-          //HANDLE SINGLE POKEMON UPDATE
-          const pokemon = JSON.parse(localStorage.getItem("pokemon"));
-          pokemon.captured = true;
-          localStorage.setItem("pokemon", JSON.stringify(pokemon));
-          //HANDLE POKE LIST UPDATE
-          const existingPokeList = localStorage.getItem("pokeList") || [];
-          const newPokeList = JSON.parse(existingPokeList);
-          const changeCapture = newPokeList.map((poke) => {
-            if (poke.pokeInfo.id === pokeInfo.id) {
-              return { ...poke, captured: true };
-            } else {
-              return { ...poke };
-            }
-          });
+        if (runRand >= 6) {
+          if (rand >= 7) {
+            //HANDLE SINGLE POKEMON UPDATE
+            const pokemon = JSON.parse(localStorage.getItem("pokemon"));
+            pokemon.captured = true;
+            localStorage.setItem("pokemon", JSON.stringify(pokemon));
+            //HANDLE POKE LIST UPDATE
+            const existingPokeList = localStorage.getItem("pokeList") || [];
+            const newPokeList = JSON.parse(existingPokeList);
+            const changeCapture = newPokeList.map((poke) => {
+              if (poke.pokeInfo.id === pokeInfo.id) {
+                return { ...poke, captured: true };
+              } else {
+                return { ...poke };
+              }
+            });
 
+            setIsBallThrown(false);
+            localStorage.setItem("pokeList", JSON.stringify(changeCapture));
+          } else if (rand < 7) {
+            console.log("did not capture");
+            setIsBallThrown(false);
+            return;
+          }
           setIsBallThrown(false);
-          localStorage.setItem("pokeList", JSON.stringify(changeCapture));
-        } else if (rand < 5) {
-          console.log("did not capture");
-          setIsBallThrown(false);
-          return;
+        } else if (runRand < 6) {
+          return handleRun();
         }
-        setIsBallThrown(false);
       }, [2000]);
 
       //TRUTHY INPUT
@@ -94,13 +106,6 @@ function NewPokemon() {
     }
   }
 
-  function handleRun() {
-    localStorage.setItem("pokemon", null);
-    const newInfo = localStorage.getItem("pokemon");
-    const getInfo = JSON.parse(newInfo);
-    setPokemon(getInfo);
-  }
-  console.log(isShiny);
   return (
     <>
       <div className="container">
@@ -119,7 +124,7 @@ function NewPokemon() {
           {pokemon === null ? (
             <>
               <div className="resultsContainer">
-                <h1>Search Results:</h1>
+                <h1>{catchMessage}</h1>
                 <EmptyCard />
               </div>
             </>
@@ -127,11 +132,9 @@ function NewPokemon() {
             <>
               {pokemon && (
                 <>
-                  <div>
-                    <h1>Wow!</h1>
-                  </div>
+                  <div>{pokemon.shiny ? <h1>Wow!</h1> : ""}</div>
                   <h1>
-                    You Found a wild{" "}
+                    You Found a wild {pokemon.shiny ? "Shiny " : ""}
                     {JSON.parse(pokemon?.pokeInfo)
                       .name.charAt(0)
                       .toUpperCase() +
@@ -147,7 +150,7 @@ function NewPokemon() {
                 setIsCaptured={setIsCaptured}
                 isCaptured={isCaptured}
                 isBallThrown={isBallThrown}
-                isShiny={isShiny}
+                isShiny={pokemon.shiny}
               />
               <div className="captureContainer">
                 <p>
@@ -168,6 +171,7 @@ function NewPokemon() {
                       handleCapture(JSON.parse(pokemon.pokeInfo));
                     }}
                     className="btn"
+                    disabled={pokemon.captured}
                   >
                     Capture
                   </button>
@@ -178,19 +182,6 @@ function NewPokemon() {
               </div>
             </>
           )}
-        </div>
-
-        <div className="recentSearchListContainer">
-          <div>
-            <h1>Recent Searches:</h1>
-          </div>
-          <PokeList
-            pokeList={pokeList}
-            isCaptured={isCaptured}
-            setIsCaptured={setIsCaptured}
-            isDeleteButton={true}
-            isShiny={isShiny}
-          />
         </div>
       </div>
     </>

@@ -84,7 +84,7 @@
   justify-content: center;
   align-items: center;
   background-color: rgb(31, 61, 61);
-  padding: 10px;
+  padding: 3px 5px 3px 5px;
 }
 .pokemonNameContainer {
   width: 100%;
@@ -103,6 +103,13 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
+  margin-bottom: 1px;
+}
+.shiny {
+  display: flex;
+  width: 100%;
+  justify-content: right;
+  margin-bottom: 1px;
 }
 
 .pokedexLink {

@@ -144,6 +144,7 @@ export function PokemonCard({
                     </div>
                   ))}
                 </div>
+                <div className="shiny">{isShiny ? "Shiny" : ""}</div>
                 <div className="pokedexLink">
                   <button className="pokedexBtn">Pokedex</button>
 

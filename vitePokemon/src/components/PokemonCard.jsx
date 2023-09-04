@@ -12,8 +12,8 @@ export function PokemonCard({
   isCaptured,
   setIsCaptured,
   isBallThrown,
+  isShiny,
 }) {
-  const [isShiny, setIsShiny] = useState(false);
   const [captureInfo, setCaptureInfo] = useState([]);
   const [moveList, setMoveList] = useState(() => {
     return [...(pokemon?.moves?.map((move) => move.move) ?? [])];
@@ -48,7 +48,6 @@ export function PokemonCard({
   }, [moveList]);
 
   useEffect(() => {
-    setIsShiny(false);
     setIsCaptured(captured);
   }, [state, captureInfo]);
 
@@ -57,7 +56,6 @@ export function PokemonCard({
   }
 
   function handleCapture(pokeInfo) {
-    console.log(captured);
     if (!captured) {
       const pokemon = JSON.parse(localStorage.getItem("pokemon"));
       if (pokemon !== null) {
@@ -125,11 +123,6 @@ export function PokemonCard({
                   ) : (
                     <img src={pokemon?.sprites?.front_default} />
                   )}
-
-                  <button className="shinyButton" onClick={() => handleShiny()}>
-                    shiny: {""}
-                    {isShiny ? "on" : "off"}
-                  </button>
                 </div>
                 <div className="pokemonBackgroundImg">
                   <img src={background} />

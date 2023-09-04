@@ -14,7 +14,7 @@ export function NotFoundCard() {
         <div className="pokemonImgContainer">
           <div className="pokemonImg">
             <div className="pokemonSprite">
-              <p>Couldn't find Anything</p>
+              <p>No Pokemon Found</p>
             </div>
             <div className="pokemonBackgroundImg">
               <img src={background} />

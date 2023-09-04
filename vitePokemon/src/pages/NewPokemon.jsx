@@ -15,6 +15,7 @@ function NewPokemon() {
     if (p === null) return null;
     return JSON.parse(p);
   });
+
   const [pokeList, setPokeList] = useState(() => {
     const list = localStorage.getItem("pokeList");
     if (list === null) return [];
@@ -85,7 +86,6 @@ function NewPokemon() {
     const getInfo = JSON.parse(newInfo);
     setPokemon(getInfo);
   }
-  console.log(errors);
 
   return (
     <>

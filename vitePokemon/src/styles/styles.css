@@ -120,3 +120,15 @@ body {
 .recentSearchListContainer {
   margin-top: 40px;
 }
+
+.errorContainer {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+}
+
+.errorMessage {
+  color: red;
+}

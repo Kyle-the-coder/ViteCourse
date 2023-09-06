@@ -3,8 +3,8 @@ import { Form, useActionData, useNavigation } from "react-router-dom";
 import { EmptyCard } from "../components/EmptyCard";
 import { PokeList } from "../components/PokeList";
 import { PokemonCard } from "../components/PokemonCard";
-import { getPokemon } from "../hooks/getPokemon";
-import { getRandomNum } from "../hooks/getRandomNum";
+import { getPokemon } from "../api/getPokemon";
+import { getRandomNum } from "../api/getRandomNum";
 import { v4 as uuidv4 } from "uuid";
 
 function NewPokemon() {

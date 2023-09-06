@@ -1,16 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
+import { handleRelease } from "../functions/handleRelease";
 import axios from "axios";
 import background from "../assets/bg.webp";
 import pokeBallEmpty from "../assets/pokeballEmpty.png";
 import pokeBallFull from "../assets/pokeballFull.png";
 import "../styles/pokemonCard.css";
-import { UNSAFE_useRouteId } from "react-router-dom";
 
 export function PokemonCard({
   pokemon,
   state,
   captured,
-  isCaptured,
   setIsCaptured,
   isBallThrown,
   isShiny,
@@ -51,51 +50,6 @@ export function PokemonCard({
   useEffect(() => {
     setIsCaptured(captured);
   }, [state, captureInfo]);
-
-  function handleCapture(pokeInfo) {
-    if (!captured) {
-      const pokemon = JSON.parse(localStorage.getItem("pokemon"));
-      if (pokemon !== null) {
-        pokemon.captured = true;
-      }
-      localStorage.setItem("pokemon", JSON.stringify(pokemon));
-      localStorage.setItem("capturedInfo", JSON.stringify(pokeInfo));
-      const existingPokeList = localStorage.getItem("pokeList") || [];
-      if (existingPokeList.length === 2) {
-        const newList = [{ pokeInfo, captured: true }];
-        localStorage.setItem("pokeList", JSON.stringify(newList));
-      } else if (existingPokeList.length > 2) {
-        const newPokeList = JSON.parse(existingPokeList);
-        const changeCapture = newPokeList.map((poke) => {
-          if (poke.pokeInfo.id === pokeInfo.id) {
-            return { ...poke, captured: true };
-          } else {
-            return { ...poke };
-          }
-        });
-        localStorage.setItem("pokeList", JSON.stringify(changeCapture));
-      }
-    } else if (captured) {
-      localStorage.setItem("capturedInfo", JSON.stringify([]));
-      const pokemon = JSON.parse(localStorage.getItem("pokemon"));
-      if (pokemon !== null) {
-        pokemon.captured = false;
-      }
-      localStorage.setItem("pokemon", JSON.stringify(pokemon));
-      const existingPokeList = localStorage.getItem("pokeList");
-      const newPokeList = JSON.parse(existingPokeList);
-      const changeCapture = newPokeList.map((poke) => {
-        console.log(poke);
-        if (poke.key === pokeInfo.key) {
-          return { ...poke, captured: false };
-        } else {
-          return { ...poke };
-        }
-      });
-      console.log(changeCapture);
-      localStorage.setItem("pokeList", JSON.stringify(changeCapture));
-    }
-  }
 
   return (
     <>
@@ -153,8 +107,7 @@ export function PokemonCard({
                   <img
                     className={`${isBallThrown ? "rotatingPokeball" : ""}`}
                     onClick={() => {
-                      setIsCaptured(!isCaptured);
-                      handleCapture(pokemon);
+                      handleRelease(pokemon.key);
                     }}
                     src={captured ? pokeBallFull : pokeBallEmpty}
                     width="40"

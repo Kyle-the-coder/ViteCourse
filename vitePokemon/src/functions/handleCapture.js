@@ -1,40 +1,45 @@
-export function handleCapture(pokeInfo) {
+import { useState } from "react";
+import { getRandomNum } from "../api/getRandomNum";
+
+function handleRun() {
+  localStorage.setItem("pokemon", null);
+  const newInfo = localStorage.getItem("pokemon");
+  const getInfo = JSON.parse(newInfo);
+  setCatchMessage("Pokemon Got Away!");
+  setPokemon(getInfo);
+}
+export function handleCapture(pokemon) {
   //FALSEY INPUT
   if (!pokemon.captured) {
-    setIsBallThrown(true);
     const rand = getRandomNum();
     const runRand = getRandomNum();
-    console.log(runRand);
-    setTimeout(() => {
-      if (runRand >= 3) {
-        if (rand >= 7) {
-          //HANDLE SINGLE POKEMON UPDATE
-          const pokemon = JSON.parse(localStorage.getItem("pokemon"));
-          pokemon.captured = true;
-          localStorage.setItem("pokemon", JSON.stringify(pokemon));
-          //HANDLE POKE LIST UPDATE
-          const existingPokeList = localStorage.getItem("pokeList") || [];
-          const newPokeList = JSON.parse(existingPokeList);
-          const changeCapture = newPokeList.map((poke) => {
-            if (poke.key === pokemon.key) {
-              return { ...poke, captured: true };
-            } else {
-              return { ...poke };
-            }
-          });
 
-          setIsBallThrown(false);
-          localStorage.setItem("pokeList", JSON.stringify(changeCapture));
-        } else if (rand < 7) {
-          console.log("did not capture");
-          setIsBallThrown(false);
-          return;
-        }
-        setIsBallThrown(false);
-      } else if (runRand < 3) {
-        return handleRun();
+    if (runRand >= 3) {
+      if (rand >= 7) {
+        //HANDLE SINGLE POKEMON UPDATE
+        const pokemon = JSON.parse(localStorage.getItem("pokemon"));
+        pokemon.captured = true;
+        localStorage.setItem("pokemon", JSON.stringify(pokemon));
+        //HANDLE POKE LIST UPDATE
+        const existingPokeList = localStorage.getItem("pokeList") || [];
+        const newPokeList = JSON.parse(existingPokeList);
+        const changeCapture = newPokeList.map((poke) => {
+          if (poke.key === pokemon.key) {
+            return { ...poke, captured: true };
+          } else {
+            return { ...poke };
+          }
+        });
+
+        localStorage.setItem("pokeList", JSON.stringify(changeCapture));
+      } else if (rand < 7) {
+        console.log("did not capture");
+
+        return;
       }
-    }, [2000]);
+    } else if (runRand < 3) {
+      return handleRun();
+    }
 
     //TRUTHY INPUT
   } else if (pokemon.captured) {
@@ -44,7 +49,7 @@ export function handleCapture(pokeInfo) {
     pokemon.captured = false;
     localStorage.setItem("pokemon", JSON.stringify(pokemon));
     //HANDLE POKELIST UPDATE
-    const existingPokeList = localStorage.getItem("pokeList");
+    const existingPokeList = localStorage.getItem("pokeList") || [];
     const newPokeList = JSON.parse(existingPokeList);
     const changeCapture = newPokeList.map((poke) => {
       if (poke.pokeInfo.id === pokeInfo.id) {

@@ -85,12 +85,14 @@ export function PokemonCard({
       const existingPokeList = localStorage.getItem("pokeList");
       const newPokeList = JSON.parse(existingPokeList);
       const changeCapture = newPokeList.map((poke) => {
-        if (poke.key === pokemon.key) {
+        console.log(poke);
+        if (poke.key === pokeInfo.key) {
           return { ...poke, captured: false };
         } else {
           return { ...poke };
         }
       });
+      console.log(changeCapture);
       localStorage.setItem("pokeList", JSON.stringify(changeCapture));
     }
   }

@@ -6,7 +6,7 @@ import { PokemonCard } from "../components/PokemonCard";
 import { getPokemon } from "../api/getPokemon";
 import { getRandomNum } from "../api/getRandomNum";
 import { v4 as uuidv4 } from "uuid";
-import { handleCapture } from "../functions/handleCapture";
+import { handleCapture, handleRun } from "../functions/handleCapture";
 
 function NewPokemon() {
   const [isCaptured, setIsCaptured] = useState(false);
@@ -32,7 +32,7 @@ function NewPokemon() {
     setPokemon(JSON.parse(newPokemonInfo));
     const newPokemonList = localStorage.getItem("pokeList");
     setPokeList(JSON.parse(newPokemonList));
-  }, [state, isCaptured, isBallThrown]);
+  }, [state, isCaptured, isBallThrown, catchMessage]);
 
   function deletePokemon(pokeId) {
     const newPokeList = pokeList.filter((id) => id.id !== pokeId);
@@ -41,19 +41,16 @@ function NewPokemon() {
     setPokeList(JSON.parse(newInfo));
   }
 
-  function handleRun() {
-    localStorage.setItem("pokemon", null);
-    const newInfo = localStorage.getItem("pokemon");
-    const getInfo = JSON.parse(newInfo);
-    setCatchMessage("Pokemon Got Away!");
-    setPokemon(getInfo);
+  function getAway() {
+    setCatchMessage("You Got Away");
+    handleRun(pokemon);
   }
-
   function handleBallThrown(pokeInfo) {
     setIsBallThrown(true);
     setTimeout(() => {
       handleCapture(pokeInfo);
       setIsBallThrown(false);
+      setCatchMessage("Pokemon got away");
     }, [2000]);
   }
 
@@ -126,7 +123,7 @@ function NewPokemon() {
                   >
                     Capture
                   </button>
-                  <button onClick={() => handleRun()} className="btn">
+                  <button onClick={() => getAway()} className="btn">
                     Run
                   </button>
                 </div>

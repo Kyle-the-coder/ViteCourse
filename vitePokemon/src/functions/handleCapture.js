@@ -1,12 +1,10 @@
-import { useState } from "react";
 import { getRandomNum } from "../api/getRandomNum";
 
-function handleRun() {
+export function handleRun(pokemon) {
   localStorage.setItem("pokemon", null);
   const newInfo = localStorage.getItem("pokemon");
   const getInfo = JSON.parse(newInfo);
-  setCatchMessage("Pokemon Got Away!");
-  setPokemon(getInfo);
+  return (pokemon = getInfo);
 }
 export function handleCapture(pokemon) {
   //FALSEY INPUT
@@ -14,7 +12,7 @@ export function handleCapture(pokemon) {
     const rand = getRandomNum();
     const runRand = getRandomNum();
 
-    if (runRand >= 3) {
+    if (runRand >= 8) {
       if (rand >= 7) {
         //HANDLE SINGLE POKEMON UPDATE
         const pokemon = JSON.parse(localStorage.getItem("pokemon"));
@@ -37,7 +35,7 @@ export function handleCapture(pokemon) {
 
         return;
       }
-    } else if (runRand < 3) {
+    } else if (runRand < 8) {
       return handleRun();
     }
 

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Form, useActionData, useNavigation } from "react-router-dom";
 import { EmptyCard } from "../components/EmptyCard";
-import { PokeList } from "../components/PokeList";
 import { PokemonCard } from "../components/PokemonCard";
 import { getPokemon } from "../api/getPokemon";
 import { getRandomNum } from "../api/getRandomNum";
@@ -33,13 +32,6 @@ function NewPokemon() {
     const newPokemonList = localStorage.getItem("pokeList");
     setPokeList(JSON.parse(newPokemonList));
   }, [state, isCaptured, isBallThrown, catchMessage]);
-
-  function deletePokemon(pokeId) {
-    const newPokeList = pokeList.filter((id) => id.id !== pokeId);
-    localStorage.setItem("pokeList", JSON.stringify(newPokeList));
-    const newInfo = localStorage.getItem("pokeList");
-    setPokeList(JSON.parse(newInfo));
-  }
 
   function getAway() {
     setCatchMessage("You Got Away");

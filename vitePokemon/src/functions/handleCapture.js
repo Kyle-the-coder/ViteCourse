@@ -12,7 +12,7 @@ export function handleCapture(pokemon) {
     const rand = getRandomNum();
     const runRand = getRandomNum();
 
-    if (runRand >= 8) {
+    if (runRand >= 4) {
       if (rand >= 7) {
         //HANDLE SINGLE POKEMON UPDATE
         const pokemon = JSON.parse(localStorage.getItem("pokemon"));
@@ -35,7 +35,7 @@ export function handleCapture(pokemon) {
 
         return;
       }
-    } else if (runRand < 8) {
+    } else if (runRand < 4) {
       return handleRun();
     }
 

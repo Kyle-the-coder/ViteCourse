@@ -1,13 +1,11 @@
+import { useState } from "react";
 import { useNavigation } from "react-router-dom";
 import { PokemonCard } from "./PokemonCard";
 
-export function PokeList({
-  pokeList,
-  isCaptured,
-  setIsCaptured,
-  isDeleteButton,
-}) {
+export function PokeList({ pokeList, isCaptured, setIsCaptured }) {
   const { state } = useNavigation();
+  const [isBallThrown, setIsBallThrown] = useState(false);
+
   return (
     <>
       {" "}
@@ -18,23 +16,15 @@ export function PokeList({
           .map((pokemon) => (
             <div className="gridContainer" key={pokemon.key}>
               <PokemonCard
-                key={pokemon.pokeInfo.id}
-                pokemon={pokemon.pokeInfo}
+                pokemon={JSON.parse(pokemon.pokeInfo)}
                 state={state}
                 captured={pokemon.captured}
                 setIsCaptured={setIsCaptured}
                 isCaptured={isCaptured}
                 isShiny={pokemon.shiny}
+                isBallThrown={isBallThrown}
+                pokeKey={pokemon.key}
               />
-
-              {isDeleteButton && (
-                <button
-                  className="btn"
-                  onClick={() => deletePokemon(pokemon.pokeInfo.id)}
-                >
-                  Delete
-                </button>
-              )}
             </div>
           ))}
       </div>

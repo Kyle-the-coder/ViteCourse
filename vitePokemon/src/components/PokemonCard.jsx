@@ -13,6 +13,7 @@ export function PokemonCard({
   setIsCaptured,
   isBallThrown,
   isShiny,
+  pokeKey,
 }) {
   const [captureInfo, setCaptureInfo] = useState([]);
   const [moveList, setMoveList] = useState(() => {
@@ -107,7 +108,7 @@ export function PokemonCard({
                   <img
                     className={`${isBallThrown ? "rotatingPokeball" : ""}`}
                     onClick={() => {
-                      handleRelease(pokemon.key);
+                      handleRelease(pokeKey);
                     }}
                     src={captured ? pokeBallFull : pokeBallEmpty}
                     width="40"

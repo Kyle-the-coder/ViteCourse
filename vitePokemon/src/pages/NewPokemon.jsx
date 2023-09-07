@@ -131,7 +131,6 @@ function NewPokemon() {
 async function action({ request }) {
   const randomUUID = uuidv4();
   const errors = {};
-  const existingPokeList = localStorage.getItem("pokeList") || [];
   const formData = await request.formData();
   const searchName = formData.get("name");
   const pokeInfoSearch = await getPokemon(searchName.toLowerCase());
@@ -150,29 +149,7 @@ async function action({ request }) {
     errors.message = "bad request, try again";
     return errors;
   }
-  //HANDLE RECENT SEARCH LIST
-  if (existingPokeList.length > 0) {
-    const newPokeList = JSON.parse(existingPokeList);
-    const newList = [
-      ...newPokeList,
-      {
-        pokeInfo: pokeInfoSearch,
-        captured: false,
-        shiny: isShiny,
-        key: randomUUID,
-      },
-    ];
-    localStorage.setItem("pokeList", JSON.stringify(newList));
-  } else if (existingPokeList.length === 0) {
-    console.log("it equals 0");
-    existingPokeList.push({
-      pokeInfo: pokeInfoSearch,
-      captured: false,
-      shiny: isShiny,
-      key: randomUUID,
-    });
-    localStorage.setItem("pokeList", JSON.stringify(existingPokeList));
-  }
+
   //HANDLE CURRENT SEARCH
   const pokeInfo = JSON.stringify(pokeInfoSearch);
   const newList = {

@@ -10,19 +10,17 @@ function Storage() {
   const [pokeList, setPokeList] = useState(() => {
     const list = localStorage.getItem("pokeList");
     if (list === null) return [];
-    const filter = JSON.parse(list);
-    const filteredList = filter.filter((poke) => poke.captured !== false);
-    return filteredList;
+    return JSON.parse(list);
   });
 
   useEffect(() => {
     const pokeInfo = localStorage.getItem("pokeList");
     if (pokeInfo !== null) {
       const pokemon = JSON.parse(pokeInfo);
-      const filteredList = pokemon.filter((poke) => poke.captured !== false);
-      setPokeList(filteredList);
+
+      setPokeList(pokemon);
     }
-  }, [isCaptured]);
+  }, [isCaptured, state]);
 
   return (
     <>

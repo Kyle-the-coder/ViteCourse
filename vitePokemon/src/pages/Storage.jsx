@@ -21,7 +21,6 @@ function Storage() {
       setPokeList(pokemon);
     }
   }, [isCaptured, state]);
-  console.log("hi");
 
   return (
     <>

@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react";
 import { useNavigation } from "react-router-dom";
 import { PokeList } from "../components/PokeList";
-import { PokemonCard } from "../components/PokemonCard";
 
 function Storage() {
   const { state } = useNavigation();
   const [isCaptured, setIsCaptured] = useState(false);
+  const [isReleased, setIsReleased] = useState(false);
   const [isShiny, setIsShiny] = useState(false);
   const [pokeList, setPokeList] = useState(() => {
-    const list = localStorage.getItem("pokeList");
+    const list = localStorage.getItem("captureList");
     if (list === null) return [];
     return JSON.parse(list);
   });
 
   useEffect(() => {
-    const pokeInfo = localStorage.getItem("pokeList");
+    const pokeInfo = localStorage.getItem("captureList");
     if (pokeInfo !== null) {
       const pokemon = JSON.parse(pokeInfo);
 
       setPokeList(pokemon);
     }
-  }, [isCaptured, state]);
+  }, [isCaptured, state, isReleased]);
 
   return (
     <>
@@ -32,6 +32,7 @@ function Storage() {
           setIsCaptured={setIsCaptured}
           state={state}
           isShiny={isShiny}
+          setIsReleased={setIsReleased}
         />
       </div>
     </>

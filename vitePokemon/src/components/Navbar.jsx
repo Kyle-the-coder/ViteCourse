@@ -6,7 +6,7 @@ export function Navbar() {
     <nav className="top-nav">
       <div className="nav-text-large">
         Pokemon Storage
-        <img src={pokeBall} width="60" height="60" />
+        <img src={pokeBall} className="nav-Img" />
       </div>
       <ul className="nav-list">
         <li>

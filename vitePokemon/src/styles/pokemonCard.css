@@ -130,3 +130,16 @@
     transform: rotate(360deg); /* Rotate a full circle (360 degrees) */
   }
 }
+
+/* Mobile styles */
+@media (max-width: 767px) {
+  .titleContainer {
+    font-size: 1.1rem;
+  }
+  .pokemonMovesContainer {
+    font-size: 0.8rem;
+  }
+  .shiny {
+    font-size: 0.8rem;
+  }
+}

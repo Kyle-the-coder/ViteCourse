@@ -187,4 +187,54 @@ body {
     height: 40px;
     margin-left: 10px;
   }
+
+  .container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .welcomeContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .welcomeTitle {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .title {
+    margin-bottom: 20px;
+  }
+  .btn {
+    padding: 5px 10px 5px 10px;
+    background-color: hsl(8, 80%, 35%);
+    color: white;
+    border-radius: 0.8rem;
+    text-decoration: none;
+  }
+  .pokedexBtn {
+    padding: 5px 10px 5px 10px;
+    background-color: hsl(0, 2%, 90%);
+    border-radius: 0.8rem;
+    text-decoration: none;
+  }
+
+  .resultsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+  }
+  .resultsContainer > h1 {
+    margin-bottom: 20px;
+  }
 }

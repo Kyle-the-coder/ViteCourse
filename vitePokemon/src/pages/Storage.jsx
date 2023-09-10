@@ -32,6 +32,7 @@ function Storage() {
           setIsCaptured={setIsCaptured}
           state={state}
           isShiny={isShiny}
+          isReleased={isReleased}
           setIsReleased={setIsReleased}
         />
       </div>

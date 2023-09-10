@@ -1,9 +1,12 @@
 export function handleRelease(pokeKey) {
-  console.log(pokeKey);
-  const pokeList = JSON.parse(localStorage.getItem("pokeList"));
-  console.log(pokeList);
+  //HANDLE POKEINFO
+  const pokemon = JSON.parse(localStorage.getItem("pokemon"));
+  pokemon.captured = false;
+  localStorage.setItem("pokemon", JSON.stringify(pokemon));
+  //HANDLE LIST
+  const pokeList = JSON.parse(localStorage.getItem("captureList"));
   const newPokeList = pokeList.filter((key) => key.key !== pokeKey);
-  localStorage.setItem("pokeList", JSON.stringify(newPokeList));
-  const newInfo = localStorage.getItem("pokeList");
+  localStorage.setItem("captureList", JSON.stringify(newPokeList));
+  const newInfo = localStorage.getItem("captureList");
   return newInfo;
 }

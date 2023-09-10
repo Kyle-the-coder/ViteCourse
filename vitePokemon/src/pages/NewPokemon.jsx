@@ -21,7 +21,7 @@ function NewPokemon() {
   });
 
   const [pokeList, setPokeList] = useState(() => {
-    const list = localStorage.getItem("pokeList");
+    const list = localStorage.getItem("captureList");
     if (list === null) return [];
     return JSON.parse(list);
   });
@@ -29,7 +29,7 @@ function NewPokemon() {
   useEffect(() => {
     const newPokemonInfo = localStorage.getItem("pokemon");
     setPokemon(JSON.parse(newPokemonInfo));
-    const newPokemonList = localStorage.getItem("pokeList");
+    const newPokemonList = localStorage.getItem("captureList");
     setPokeList(JSON.parse(newPokemonList));
   }, [state, isCaptured, isBallThrown, catchMessage]);
 

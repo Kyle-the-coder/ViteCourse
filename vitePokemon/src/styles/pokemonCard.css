@@ -134,12 +134,12 @@
 /* Mobile styles */
 @media (max-width: 767px) {
   .titleContainer {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
   .pokemonMovesContainer {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
   .shiny {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }

@@ -2,7 +2,13 @@ import { useState } from "react";
 import { useNavigation } from "react-router-dom";
 import { PokemonCard } from "./PokemonCard";
 
-export function PokeList({ pokeList, isCaptured, setIsCaptured }) {
+export function PokeList({
+  pokeList,
+  isCaptured,
+  setIsCaptured,
+  isReleased,
+  setIsReleased,
+}) {
   const { state } = useNavigation();
   const [isBallThrown, setIsBallThrown] = useState(false);
 
@@ -24,6 +30,8 @@ export function PokeList({ pokeList, isCaptured, setIsCaptured }) {
                 isShiny={pokemon.shiny}
                 isBallThrown={isBallThrown}
                 pokeKey={pokemon.key}
+                isReleased={isReleased}
+                setIsReleased={setIsReleased}
               />
             </div>
           ))}

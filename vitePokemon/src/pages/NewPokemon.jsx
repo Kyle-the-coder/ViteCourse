@@ -86,7 +86,7 @@ function NewPokemon() {
               <PokemonCard
                 pokemon={JSON.parse(pokemon.pokeInfo)}
                 state={state}
-                captured={pokemon.captured}
+                captured={pokemon.captured.capture}
                 setIsCaptured={setIsCaptured}
                 isCaptured={isCaptured}
                 isBallThrown={isBallThrown}
@@ -98,8 +98,10 @@ function NewPokemon() {
                   <span className="captureStatus">
                     {isBallThrown
                       ? "capturing..."
-                      : pokemon.captured
+                      : pokemon.captured.capture
                       ? "Captured"
+                      : pokemon.captured.release
+                      ? "Released"
                       : "Not captured"}
                   </span>
                 </p>
@@ -111,7 +113,7 @@ function NewPokemon() {
                       handleBallThrown(JSON.parse(pokemon.pokeInfo));
                     }}
                     className="btn"
-                    disabled={pokemon.captured}
+                    disabled={pokemon.captured.capture}
                   >
                     Capture
                   </button>
@@ -154,7 +156,7 @@ async function action({ request }) {
   const pokeInfo = JSON.stringify(pokeInfoSearch);
   const newList = {
     pokeInfo,
-    captured: false,
+    captured: { capture: false, release: false },
     shiny: isShiny,
     key: randomUUID,
   };

@@ -167,7 +167,7 @@ body {
   .nav-list a {
     color: white;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   .nav-list a:hover,
@@ -236,5 +236,11 @@ body {
   }
   .resultsContainer > h1 {
     margin-bottom: 20px;
+  }
+  .captureStatus {
+    font-size: 1.2rem;
+  }
+  .captureContainer > p {
+    font-size: 1.2rem;
   }
 }

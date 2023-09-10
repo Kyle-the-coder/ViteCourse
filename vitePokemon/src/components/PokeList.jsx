@@ -11,7 +11,7 @@ export function PokeList({
 }) {
   const { state } = useNavigation();
   const [isBallThrown, setIsBallThrown] = useState(false);
-
+  console.log(pokeList.map((pokemon) => pokemon.captured.capture));
   return (
     <>
       {" "}
@@ -24,7 +24,7 @@ export function PokeList({
               <PokemonCard
                 pokemon={JSON.parse(pokemon.pokeInfo)}
                 state={state}
-                captured={pokemon.captured}
+                captured={pokemon.captured.capture}
                 setIsCaptured={setIsCaptured}
                 isCaptured={isCaptured}
                 isShiny={pokemon.shiny}

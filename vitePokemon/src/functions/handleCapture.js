@@ -45,7 +45,6 @@ export function handleCapture(pokemon) {
         }
       } else if (rand < 4) {
         console.log("did not capture");
-
         return;
       }
     } else if (runRand < 2) {

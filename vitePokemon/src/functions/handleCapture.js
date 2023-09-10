@@ -18,7 +18,7 @@ export function handleCapture(pokemon) {
       if (rand >= 4) {
         //HANDLE SINGLE POKEMON UPDATE
         const pokemon = JSON.parse(localStorage.getItem("pokemon"));
-        pokemon.captured = true;
+        pokemon.captured.capture = true;
         localStorage.setItem("pokemon", JSON.stringify(pokemon));
         //HANDLE POKE LIST UPDATE
         const existingPokeList = localStorage.getItem("captureList") || [];
@@ -28,7 +28,7 @@ export function handleCapture(pokemon) {
             {
               pokeInfo: pokemon.pokeInfo,
               key: randomUUID,
-              captured: true,
+              captured: { capture: true, release: false },
               shiny: pokemon.shiny,
             },
           ];
@@ -38,7 +38,7 @@ export function handleCapture(pokemon) {
           newPokeList.push({
             pokeInfo: pokemon.pokeInfo,
             key: randomUUID,
-            captured: true,
+            captured: { capture: true, release: false },
             shiny: pokemon.shiny,
           });
           localStorage.setItem("captureList", JSON.stringify(newPokeList));

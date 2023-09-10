@@ -21,7 +21,7 @@ export function handleCapture(pokemon) {
         pokemon.captured = true;
         localStorage.setItem("pokemon", JSON.stringify(pokemon));
         //HANDLE POKE LIST UPDATE
-        const existingPokeList = localStorage.getItem("pokeList") || [];
+        const existingPokeList = localStorage.getItem("captureList") || [];
 
         if (existingPokeList.length === 0) {
           const newPokeList = [
@@ -32,7 +32,7 @@ export function handleCapture(pokemon) {
               shiny: pokemon.shiny,
             },
           ];
-          localStorage.setItem("pokeList", JSON.stringify(newPokeList));
+          localStorage.setItem("captureList", JSON.stringify(newPokeList));
         } else if (existingPokeList.length !== 0) {
           const newPokeList = JSON.parse(existingPokeList);
           newPokeList.push({
@@ -41,7 +41,7 @@ export function handleCapture(pokemon) {
             key: randomUUID,
             shiny: pokemon.shiny,
           });
-          localStorage.setItem("pokeList", JSON.stringify(newPokeList));
+          localStorage.setItem("captureList", JSON.stringify(newPokeList));
         }
       } else if (rand < 4) {
         console.log("did not capture");

@@ -26,7 +26,7 @@ export function handleCapture(pokemon) {
         if (existingPokeList.length === 0) {
           const newPokeList = [
             {
-              pokeInfo: pokemon.pokeInfo,
+              pokeInfo: JSON.parse(pokemon.pokeInfo),
               key: randomUUID,
               captured: { capture: true, release: false },
               shiny: pokemon.shiny,
@@ -36,7 +36,7 @@ export function handleCapture(pokemon) {
         } else if (existingPokeList.length !== 0) {
           const newPokeList = JSON.parse(existingPokeList);
           newPokeList.push({
-            pokeInfo: pokemon.pokeInfo,
+            pokeInfo: JSON.parse(pokemon.pokeInfo),
             key: randomUUID,
             captured: { capture: true, release: false },
             shiny: pokemon.shiny,

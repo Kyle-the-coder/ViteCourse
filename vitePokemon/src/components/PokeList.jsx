@@ -22,7 +22,7 @@ export function PokeList({
           .map((pokemon) => (
             <div className="gridContainer" key={pokemon.key}>
               <PokemonCard
-                pokemon={JSON.parse(pokemon.pokeInfo)}
+                pokemon={pokemon.pokeInfo}
                 state={state}
                 captured={pokemon.captured.capture}
                 setIsCaptured={setIsCaptured}

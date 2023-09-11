@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useRef, useState } from "react";
 import { useNavigation } from "react-router-dom";
 import { PokeList } from "../components/PokeList";
+import "../styles/storage.css";
 
 const FILTERS = {
   SHINY: "SHINY",
@@ -33,17 +34,19 @@ function Storage() {
   const [isShiny, setIsShiny] = useState(false);
   const [pokeList, setPokeList] = useReducer(reducer, [], (initialValue) => {
     const list = localStorage.getItem("captureList");
-    if (list === null) return initialValue;
+    console.log(list === null);
+    if (list === null) return [];
+    console.log(JSON.parse(list));
     return JSON.parse(list);
   });
 
   useEffect(() => {
-    const pokeInfo = localStorage.getItem("captureList");
-    if (pokeInfo !== null) {
-      const pokemon = JSON.parse(pokeInfo);
-
-      setPokeList(pokemon);
-    }
+    // const pokeInfo = localStorage.getItem("captureList");
+    // if (pokeInfo !== null) {
+    //   const pokemon = JSON.parse(pokeInfo);
+    //   console.log("pokemon", pokemon);
+    //   setPokeList(pokemon);
+    // }
   }, [isCaptured, state, isReleased]);
 
   const handleSelectChange = (event) => {

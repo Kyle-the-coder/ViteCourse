@@ -1,15 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useNavigation } from "react-router-dom";
 import { PokeList } from "../components/PokeList";
+
+const FILTERS = {
+  SHINY: "SHINY",
+  PPHIGH: "PPHIGH",
+  PPLOW: "PPLOW",
+  HPHIGH: "HPHIGH",
+  HPLOW: "HPLOW",
+};
+
+function reducer(pokeInfo, { type, payload }) {
+  switch (type) {
+    case FILTERS.SHINY:
+      return pokeInfo.map((pokemon) => pokemon.shiny === true);
+    case FILTERS.PPHIGH:
+      return pokeInfo.map((pokemon) => pokemon);
+    case FILTERS.PPLOW:
+      return pokeInfo.map((pokemon) => pokemon);
+    case FILTERS.HPHIGH:
+      return pokeInfo.map((pokemon) => pokemon);
+    case FILTERS.HPLOW:
+      return pokeInfo.map((pokemon) => pokemon);
+  }
+}
 
 function Storage() {
   const { state } = useNavigation();
   const [isCaptured, setIsCaptured] = useState(false);
   const [isReleased, setIsReleased] = useState(false);
   const [isShiny, setIsShiny] = useState(false);
-  const [pokeList, setPokeList] = useState(() => {
+  const [pokeList, setPokeList] = useReducer(reducer, [], (initialValue) => {
     const list = localStorage.getItem("captureList");
-    if (list === null) return [];
+    if (list === null) return initialValue;
     return JSON.parse(list);
   });
 
@@ -25,7 +48,9 @@ function Storage() {
   return (
     <>
       <div className="container">
-        <h1>Storage</h1>
+        <div className="storageTitleContainer">
+          <h1>Storage</h1>
+        </div>
         <PokeList
           pokeList={pokeList}
           isCaptured={isCaptured}

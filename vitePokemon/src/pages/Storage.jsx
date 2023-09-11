@@ -11,16 +11,32 @@ const FILTERS = {
   HPLOW: "HPLOW",
 };
 
-function reducer(pokeInfo, { type, payload }) {
+function reducer(pokeInfo, { type }) {
   switch (type) {
     case FILTERS.SHINY:
-      return pokeInfo.map((pokemon) => pokemon.shiny === true);
+      return pokeInfo.filter((pokemon) => pokemon.shiny === true);
     case FILTERS.PPHIGH:
       return pokeInfo.map((pokemon) => pokemon);
     case FILTERS.PPLOW:
       return pokeInfo.map((pokemon) => pokemon);
     case FILTERS.HPHIGH:
-      return pokeInfo.map((pokemon) => pokemon);
+      console.log("poke", pokeInfo);
+      const newPokeInfo = pokeInfo.map((pokemon) => pokemon.pokeInfo);
+      // Filter for the "hp" stat and sort by base_stat
+      newPokeInfo.sort((a, b) => {
+        const hpStatA = a.stats.find((stat) => stat.stat.name === "hp");
+        const hpStatB = b.stats.find((stat) => stat.stat.name === "hp");
+        if (hpStatA && hpStatB) {
+          return hpStatB.base_stat - hpStatA.base_stat;
+        }
+        // Handle cases where "hp" stat is missing in some pokemons
+        return 0;
+      });
+
+      console.log(newPokeInfo);
+      return pokeInfo.map((pokemon) => {
+        return { ...pokemon, pokeInfo: newPokeInfo };
+      });
     case FILTERS.HPLOW:
       return pokeInfo.map((pokemon) => pokemon);
   }
@@ -32,17 +48,29 @@ function Storage() {
   const [isCaptured, setIsCaptured] = useState(false);
   const [isReleased, setIsReleased] = useState(false);
   const [isShiny, setIsShiny] = useState(false);
-  const [pokeList, setPokeList] = useReducer(reducer, [], (initialValue) => {
+  const [pokeList, dispatch] = useReducer(reducer, [], (initialValue) => {
     const list = localStorage.getItem("captureList");
-    console.log(list === null);
-    if (list === null) return [];
-    console.log(JSON.parse(list));
+
+    if (list === null) return initialValue;
+
     return JSON.parse(list);
   });
 
   const handleSelectChange = (event) => {
-    selectedOptionRef.current = event.target.value;
+    filterRef.current = event.target.value;
+
+    if (filterRef.current === "option1") {
+      dispatch({ type: FILTERS.SHINY });
+    }
+    if (filterRef.current === "option2") {
+      dispatch({ type: FILTERS.HPHIGH });
+    }
   };
+  // console.log(
+  //   pokeList.map((pokemon) =>
+  //     JSON.parse(pokemon.pokeInfo).stats.map((stat) => stat.base_stat)
+  //   )
+  // );
 
   return (
     <>

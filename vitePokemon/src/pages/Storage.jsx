@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import { useNavigation } from "react-router-dom";
 import { PokeList } from "../components/PokeList";
 
@@ -27,6 +27,7 @@ function reducer(pokeInfo, { type, payload }) {
 
 function Storage() {
   const { state } = useNavigation();
+  const filterRef = useRef();
   const [isCaptured, setIsCaptured] = useState(false);
   const [isReleased, setIsReleased] = useState(false);
   const [isShiny, setIsShiny] = useState(false);
@@ -45,11 +46,21 @@ function Storage() {
     }
   }, [isCaptured, state, isReleased]);
 
+  const handleSelectChange = (event) => {
+    selectedOptionRef.current = event.target.value;
+  };
+
   return (
     <>
       <div className="container">
         <div className="storageTitleContainer">
           <h1>Storage</h1>
+          <select onChange={handleSelectChange}>
+            <option value="">Select an option</option>
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+          </select>
         </div>
         <PokeList
           pokeList={pokeList}

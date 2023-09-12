@@ -4,41 +4,62 @@ import { PokeList } from "../components/PokeList";
 import "../styles/storage.css";
 
 const FILTERS = {
+  MOST_RECENT: "MOST_RECENT",
   SHINY: "SHINY",
-  PPHIGH: "PPHIGH",
-  PPLOW: "PPLOW",
   HPHIGH: "HPHIGH",
   HPLOW: "HPLOW",
+  ORIGINAL: "ORIGINAL",
 };
 
 function reducer(pokeInfo, { type }) {
+  const ogInfo = localStorage.getItem("captureList");
   switch (type) {
     case FILTERS.SHINY:
-      return pokeInfo.filter((pokemon) => pokemon.shiny === true);
-    case FILTERS.PPHIGH:
-      return pokeInfo.map((pokemon) => pokemon);
-    case FILTERS.PPLOW:
-      return pokeInfo.map((pokemon) => pokemon);
+      const shinyFilter = pokeInfo.filter((pokemon) => pokemon.shiny === true);
+      return shinyFilter;
     case FILTERS.HPHIGH:
-      console.log("poke", pokeInfo);
-      const newPokeInfo = pokeInfo.map((pokemon) => pokemon.pokeInfo);
-      // Filter for the "hp" stat and sort by base_stat
-      newPokeInfo.sort((a, b) => {
-        const hpStatA = a.stats.find((stat) => stat.stat.name === "hp");
-        const hpStatB = b.stats.find((stat) => stat.stat.name === "hp");
-        if (hpStatA && hpStatB) {
-          return hpStatB.base_stat - hpStatA.base_stat;
-        }
-        // Handle cases where "hp" stat is missing in some pokemons
-        return 0;
-      });
-
-      console.log(newPokeInfo);
-      return pokeInfo.map((pokemon) => {
-        return { ...pokemon, pokeInfo: newPokeInfo };
-      });
+      if (ogInfo !== null) {
+        const newPokeInfo = JSON.parse(ogInfo).sort((a, b) => {
+          const hpStatA = (a.pokeInfo.stats || []).find(
+            (stat) => stat.stat.name === "hp"
+          );
+          const hpStatB = (b.pokeInfo.stats || []).find(
+            (stat) => stat.stat.name === "hp"
+          );
+          if (hpStatA && hpStatB) {
+            return hpStatB.base_stat - hpStatA.base_stat;
+          }
+          return 0;
+        });
+        return newPokeInfo;
+      }
     case FILTERS.HPLOW:
-      return pokeInfo.map((pokemon) => pokemon);
+      if (ogInfo !== null) {
+        const newPokeInfo = JSON.parse(ogInfo).sort((a, b) => {
+          const hpStatA = (a.pokeInfo.stats || []).find(
+            (stat) => stat.stat.name === "hp"
+          );
+          const hpStatB = (b.pokeInfo.stats || []).find(
+            (stat) => stat.stat.name === "hp"
+          );
+          if (hpStatA && hpStatB) {
+            return hpStatA.base_stat - hpStatB.base_stat;
+          }
+          return 0;
+        });
+        return newPokeInfo;
+      }
+    case FILTERS.ORIGINAL:
+      if (ogInfo !== null) {
+        return JSON.parse(ogInfo);
+      }
+    case FILTERS.MOST_RECENT:
+      if (ogInfo !== null) {
+        return JSON.parse(ogInfo)
+          .slice()
+          .reverse()
+          .map((poke) => poke);
+      }
   }
 }
 
@@ -59,18 +80,22 @@ function Storage() {
   const handleSelectChange = (event) => {
     filterRef.current = event.target.value;
 
-    if (filterRef.current === "option1") {
+    if (filterRef.current === "shinys") {
       dispatch({ type: FILTERS.SHINY });
     }
-    if (filterRef.current === "option2") {
+    if (filterRef.current === "hpHigh") {
       dispatch({ type: FILTERS.HPHIGH });
     }
+    if (filterRef.current === "hpLow") {
+      dispatch({ type: FILTERS.HPLOW });
+    }
+    if (filterRef.current === "original") {
+      dispatch({ type: FILTERS.ORIGINAL });
+    }
+    if (filterRef.current === "mostRecent") {
+      dispatch({ type: FILTERS.MOST_RECENT });
+    }
   };
-  // console.log(
-  //   pokeList.map((pokemon) =>
-  //     JSON.parse(pokemon.pokeInfo).stats.map((stat) => stat.base_stat)
-  //   )
-  // );
 
   return (
     <>
@@ -79,9 +104,11 @@ function Storage() {
           <h1>Storage</h1>
           <select onChange={handleSelectChange}>
             <option value="">Select an option</option>
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
+            <option value="mostRecent">Most Recent</option>
+            <option value="shinys">Shiny's</option>
+            <option value="hpHigh">HP High</option>
+            <option value="hpLow">HP Low</option>
+            <option value="original">Original</option>
           </select>
         </div>
         <PokeList

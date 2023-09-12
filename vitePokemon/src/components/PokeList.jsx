@@ -16,25 +16,22 @@ export function PokeList({
     <>
       {" "}
       <div className="card-grid">
-        {pokeList
-          ?.slice()
-          .reverse()
-          .map((pokemon) => (
-            <div className="gridContainer" key={pokemon.key}>
-              <PokemonCard
-                pokemon={pokemon.pokeInfo}
-                state={state}
-                captured={pokemon.captured.capture}
-                setIsCaptured={setIsCaptured}
-                isCaptured={isCaptured}
-                isShiny={pokemon.shiny}
-                isBallThrown={isBallThrown}
-                pokeKey={pokemon.key}
-                isReleased={isReleased}
-                setIsReleased={setIsReleased}
-              />
-            </div>
-          ))}
+        {pokeList.map((pokemon) => (
+          <div className="gridContainer" key={pokemon.key}>
+            <PokemonCard
+              pokemon={pokemon.pokeInfo}
+              state={state}
+              captured={pokemon.captured.capture}
+              setIsCaptured={setIsCaptured}
+              isCaptured={isCaptured}
+              isShiny={pokemon.shiny}
+              isBallThrown={isBallThrown}
+              pokeKey={pokemon.key}
+              isReleased={isReleased}
+              setIsReleased={setIsReleased}
+            />
+          </div>
+        ))}
       </div>
     </>
   );

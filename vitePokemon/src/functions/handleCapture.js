@@ -13,6 +13,7 @@ export function handleCapture(pokemon) {
   if (!pokemon.captured) {
     const rand = getRandomNum();
     const runRand = getRandomNum();
+    console.log("capture", rand);
 
     //POKEMON DOESN'T RUN
     if (runRand >= 2) {

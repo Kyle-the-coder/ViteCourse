@@ -28,7 +28,6 @@ export function PokemonCard({
   });
   const [moveDetailList1, setMoveDetailList1] = useState([]);
   const [moveDetailList2, setMoveDetailList2] = useState([]);
-  const [starBonus, setStarBonus] = useState(0);
 
   useMemo(() => {
     const moves = moveList?.splice(0, 2);
@@ -58,13 +57,6 @@ export function PokemonCard({
 
   useEffect(() => {
     setIsCaptured(captured);
-    if (starRating === 2) {
-      setStarBonus(10);
-    } else if (starRating === 3) {
-      setStarBonus(20);
-    } else if (starRating === 1) {
-      setStarBonus(0);
-    }
   }, [state, captureInfo, starRating]);
 
   return (
@@ -79,7 +71,7 @@ export function PokemonCard({
                     .toLowerCase()}`
                 : "Loading..."}
               <div className="hpContainer">
-                {pokemon?.stats[0].base_stat + starBonus}
+                {pokemon?.stats[0].base_stat}
 
                 {pokemon?.stats[0].stat.name}
                 <img

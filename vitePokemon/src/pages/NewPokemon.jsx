@@ -54,7 +54,7 @@ function NewPokemon() {
     setBallHit(null);
     const count = localStorage.getItem("pokeballCount");
     const ballHitRand = getRandomNum();
-    console.log("ball rand", ballHitRand);
+
     //HANDLE POKEBALL COUNT IF NO POKEBALLS
     if (count <= 0) {
       setCatchMessage("You ran out of pokeballs");
@@ -70,7 +70,7 @@ function NewPokemon() {
       setIsBallThrown(true);
       setTimeout(() => {
         //BALL HIT SUCCESSFULLY
-        if (ballHitRand >= 0 && ballHitRand <= 5) {
+        if (ballHitRand >= 0 && ballHitRand <= 7) {
           setBallHit(true);
           setIsBallThrown(false);
           setTimeout(() => {
@@ -79,7 +79,7 @@ function NewPokemon() {
             setCatchMessage("Pokemon got away");
           }, [4000]);
           //BALL HIT UNSUCCESSFULLY
-        } else if (ballHitRand > 5 && ballHitRand <= 10) {
+        } else if (ballHitRand > 7 && ballHitRand <= 10) {
           setIsBallThrown(false);
           setBallHit(false);
           setBallSpin(false);
@@ -92,7 +92,7 @@ function NewPokemon() {
     setPokeBallCount(rand);
   }
   // console.log("thrown", isBallThrown);
-  console.log("ball", ballHit);
+  // console.log("ball", ballHit);
   // console.log("captured", isCaptured);
 
   return (
@@ -219,8 +219,9 @@ async function action({ request }) {
   console.log(formData);
   const searchName = formData.get("name");
   console.log(searchName);
-  if (searchName.length < 0) {
-    return;
+  if (searchName.length <= 0) {
+    errors.message = "you must enter a pokemon name";
+    return errors;
   }
   const pokeInfoSearch = await getPokemon(searchName.toLowerCase());
   localStorage.setItem("ballHit", false);
@@ -237,7 +238,6 @@ async function action({ request }) {
   //HANDLE STAR RATING
   const starRand = getRandomNum();
   let starNum = 0;
-  console.log(starRand);
   if (starRand >= 0 && starRand <= 5) {
     starNum = starNum + 1;
   } else if (starRand > 5 && starRand <= 8) {

@@ -71,9 +71,7 @@ function Storage() {
   const [isShiny, setIsShiny] = useState(false);
   const [pokeList, dispatch] = useReducer(reducer, [], (initialValue) => {
     const list = localStorage.getItem("captureList");
-
     if (list === null) return initialValue;
-
     return JSON.parse(list);
   });
 

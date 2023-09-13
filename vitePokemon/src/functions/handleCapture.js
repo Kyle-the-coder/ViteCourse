@@ -30,6 +30,7 @@ export function handleCapture(pokemon) {
               key: randomUUID,
               captured: { capture: true, release: false },
               shiny: pokemon.shiny,
+              starRating: pokemon.starRating,
             },
           ];
           localStorage.setItem("captureList", JSON.stringify(newPokeList));
@@ -40,6 +41,7 @@ export function handleCapture(pokemon) {
             key: randomUUID,
             captured: { capture: true, release: false },
             shiny: pokemon.shiny,
+            starRating: pokemon.starRating,
           });
           localStorage.setItem("captureList", JSON.stringify(newPokeList));
         }

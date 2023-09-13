@@ -95,7 +95,11 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 .resultsContainer > h1 {
+  margin-bottom: 20px;
+}
+.resultsContainer > button {
   margin-bottom: 20px;
 }
 

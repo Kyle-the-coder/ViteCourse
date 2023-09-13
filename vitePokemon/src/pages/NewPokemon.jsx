@@ -155,14 +155,37 @@ async function action({ request }) {
   //HANDLE STAR RATING
   const starRand = getRandomNum();
   let starNum = 0;
-
+  console.log(starRand);
   if (starRand >= 0 && starRand <= 3) {
     starNum = starNum + 1;
   } else if (starRand >= 3 && starRand <= 6) {
     starNum = starNum + 2;
+    pokeInfoSearch.stats.find((stat) => {
+      if (stat.stat.name === "hp") {
+        stat.base_stat += 10;
+      }
+    });
+    //  pokeInfo.map((pokemon) => {
+    //   const pokeStat = (pokemon.stats || []).find(
+    //     (stat) => stat.stat.name === "hp"
+    //   );
+
+    // });
   } else if (starRand >= 6 && starRand <= 10) {
     starNum = starNum + 3;
+    pokeInfoSearch.stats.find((stat) => {
+      if (stat.stat.name === "hp") {
+        stat.base_stat += 20;
+      }
+    });
+    // pokeInfo.map((pokemon) => {
+    //   const pokeStat = (pokemon.stats || []).find(
+    //     (stat) => stat.stat.name === "hp"
+    //   );
+
+    // });
   }
+  console.log(pokeInfoSearch);
 
   //HANDLE BAD REQUEST
   if (pokeInfoSearch === undefined) {

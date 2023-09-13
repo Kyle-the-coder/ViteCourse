@@ -21,6 +21,7 @@ export function PokemonCard({
   isReleased,
   setIsReleased,
   starRating,
+  ballSpin,
 }) {
   const [captureInfo, setCaptureInfo] = useState([]);
   const [moveList, setMoveList] = useState(() => {
@@ -123,7 +124,7 @@ export function PokemonCard({
                   <button className="pokedexBtn">Pokedex</button>
 
                   <img
-                    className={`${isBallThrown ? "rotatingPokeball" : ""}`}
+                    className={`${ballSpin ? "rotatingPokeball" : ""}`}
                     onClick={() => {
                       setIsReleased(!isReleased);
                       handleRelease(pokeKey);

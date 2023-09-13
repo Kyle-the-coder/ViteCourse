@@ -44,7 +44,7 @@ function NewPokemon() {
     if (isCap !== null) {
       setIsCaptured(JSON.parse(isCap)?.captured.capture);
     }
-  }, [state, isCaptured, isBallThrown, catchMessage, ballHit]);
+  }, [state, isCaptured, isBallThrown, catchMessage, ballHit, ballSpin]);
 
   function getAway() {
     setCatchMessage("You Got Away");
@@ -91,9 +91,6 @@ function NewPokemon() {
     const rand = getRandomNum();
     setPokeBallCount(rand);
   }
-  // console.log("thrown", isBallThrown);
-  // console.log("ball", ballHit);
-  // console.log("captured", isCaptured);
 
   return (
     <>
@@ -216,15 +213,12 @@ async function action({ request }) {
   const randomUUID = uuidv4();
   const errors = {};
   const formData = await request.formData();
-  console.log(formData);
   const searchName = formData.get("name");
-  console.log(searchName);
   if (searchName.length <= 0) {
     errors.message = "you must enter a pokemon name";
     return errors;
   }
   const pokeInfoSearch = await getPokemon(searchName.toLowerCase());
-  localStorage.setItem("ballHit", false);
 
   //HANDLE SHINY CHANCE
   let isShiny = null;

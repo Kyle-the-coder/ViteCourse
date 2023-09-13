@@ -11,7 +11,7 @@ export function PokeList({
 }) {
   const { state } = useNavigation();
   const [isBallThrown, setIsBallThrown] = useState(false);
-
+  console.log(pokeList.map((poke) => poke.starRating));
   return (
     <>
       {" "}
@@ -29,6 +29,7 @@ export function PokeList({
               pokeKey={pokemon.key}
               isReleased={isReleased}
               setIsReleased={setIsReleased}
+              starRating={pokemon.starRating}
             />
           </div>
         ))}

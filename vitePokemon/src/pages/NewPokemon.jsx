@@ -44,19 +44,29 @@ function NewPokemon() {
     handleRun(pokemon);
   }
   function handleBallThrown(pokeInfo) {
-    setIsBallThrown(true);
-    setTimeout(() => {
-      handleCapture(pokeInfo);
-      setIsBallThrown(false);
-      setCatchMessage("Pokemon got away");
-    }, [2000]);
+    const count = localStorage.getItem("pokeballCount");
+    if (count <= 0) {
+      setCatchMessage("You ran out of pokeballs");
+      setPokeBallCount(0);
+      localStorage.setItem("pokeballCount", pokeBallCount);
+      handleRun(pokemon);
+    } else if (count > 0) {
+      setPokeBallCount(pokeBallCount - 1);
+      localStorage.setItem("pokeballCount", pokeBallCount);
+      setIsBallThrown(true);
+      setTimeout(() => {
+        handleCapture(pokeInfo);
+        setIsBallThrown(false);
+        setCatchMessage("Pokemon got away");
+      }, [2000]);
+    }
   }
-  function handlePokeballCount() {
-    setPokeBallCount(pokeBallCount - 1);
-    localStorage.setItem("pokeballCount", pokeBallCount);
+  function handleGetMorePokeballs() {
+    const rand = getRandomNum();
+    console.log(rand);
+    setPokeBallCount(rand);
   }
   console.log(pokeBallCount);
-
   return (
     <>
       <div className="container">
@@ -81,6 +91,19 @@ function NewPokemon() {
             <>
               <div className="resultsContainer">
                 <h1>{catchMessage}</h1>
+                <h1>Pokeball Count: {pokeBallCount}</h1>
+                {pokeBallCount === 0 ? (
+                  <>
+                    <button
+                      className="btn"
+                      onClick={() => handleGetMorePokeballs()}
+                    >
+                      Get More Pokeballs
+                    </button>
+                  </>
+                ) : (
+                  ""
+                )}
                 <EmptyCard />
               </div>
             </>
@@ -129,7 +152,6 @@ function NewPokemon() {
                     onClick={() => {
                       setIsCaptured(!isCaptured);
                       handleBallThrown(JSON.parse(pokemon.pokeInfo));
-                      handlePokeballCount();
                     }}
                     className="btn"
                     disabled={pokemon.captured.capture}

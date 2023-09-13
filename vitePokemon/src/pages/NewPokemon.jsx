@@ -13,7 +13,7 @@ function NewPokemon() {
   const [catchMessage, setCatchMessage] = useState("");
   const [pokeBallCount, setPokeBallCount] = useState(() => {
     const count = localStorage.getItem("pokeballCount");
-    if (count === null) return 0;
+    if (count === null) return 10;
     return JSON.parse(count);
   });
   const { state } = useNavigation();

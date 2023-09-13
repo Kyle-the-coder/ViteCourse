@@ -11,6 +11,11 @@ function NewPokemon() {
   const [isCaptured, setIsCaptured] = useState(false);
   const [isBallThrown, setIsBallThrown] = useState(false);
   const [catchMessage, setCatchMessage] = useState("");
+  const [pokeBallCount, setPokeBallCount] = useState(() => {
+    const count = localStorage.getItem("pokeballCount");
+    if (count === null) return 0;
+    return JSON.parse(count);
+  });
   const { state } = useNavigation();
   const errors = useActionData() || null;
 
@@ -31,6 +36,7 @@ function NewPokemon() {
     setPokemon(JSON.parse(newPokemonInfo));
     const newPokemonList = localStorage.getItem("captureList");
     setPokeList(JSON.parse(newPokemonList));
+    localStorage.setItem("pokeballCount", pokeBallCount);
   }, [state, isCaptured, isBallThrown, catchMessage]);
 
   function getAway() {
@@ -45,6 +51,11 @@ function NewPokemon() {
       setCatchMessage("Pokemon got away");
     }, [2000]);
   }
+  function handlePokeballCount() {
+    setPokeBallCount(pokeBallCount - 1);
+    localStorage.setItem("pokeballCount", pokeBallCount);
+  }
+  console.log(pokeBallCount);
 
   return (
     <>
@@ -111,17 +122,19 @@ function NewPokemon() {
                       : "Not captured"}
                   </span>
                 </p>
+                <p>Pokeball Count: {pokeBallCount}</p>
                 <h1>What will you do?</h1>
                 <div>
                   <button
                     onClick={() => {
                       setIsCaptured(!isCaptured);
                       handleBallThrown(JSON.parse(pokemon.pokeInfo));
+                      handlePokeballCount();
                     }}
                     className="btn"
                     disabled={pokemon.captured.capture}
                   >
-                    Capture
+                    Throw Pokeball
                   </button>
                   <button onClick={() => getAway()} className="btn">
                     Run
@@ -156,16 +169,16 @@ async function action({ request }) {
   const starRand = getRandomNum();
   let starNum = 0;
   console.log(starRand);
-  if (starRand >= 0 && starRand <= 3) {
+  if (starRand >= 0 && starRand <= 5) {
     starNum = starNum + 1;
-  } else if (starRand >= 3 && starRand <= 6) {
+  } else if (starRand > 5 && starRand <= 8) {
     starNum = starNum + 2;
     pokeInfoSearch.stats.find((stat) => {
       if (stat.stat.name === "hp") {
         stat.base_stat += 10;
       }
     });
-  } else if (starRand >= 6 && starRand <= 10) {
+  } else if (starRand > 8 && starRand <= 10) {
     starNum = starNum + 3;
     pokeInfoSearch.stats.find((stat) => {
       if (stat.stat.name === "hp") {

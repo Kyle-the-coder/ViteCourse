@@ -96,6 +96,7 @@ function NewPokemon() {
                 isCaptured={isCaptured}
                 isBallThrown={isBallThrown}
                 isShiny={pokemon.shiny}
+                starRating={pokemon.starRating}
               />
               <div className="captureContainer">
                 <p>
@@ -151,6 +152,18 @@ async function action({ request }) {
     isShiny = false;
   }
 
+  //HANDLE STAR RATING
+  const starRand = getRandomNum();
+  let starNum = 0;
+
+  if (starRand >= 0 && starRand <= 3) {
+    starNum = starNum + 1;
+  } else if (starRand >= 3 && starRand <= 6) {
+    starNum = starNum + 2;
+  } else if (starRand >= 6 && starRand <= 10) {
+    starNum = starNum + 3;
+  }
+
   //HANDLE BAD REQUEST
   if (pokeInfoSearch === undefined) {
     errors.message = "bad request, try again";
@@ -164,6 +177,7 @@ async function action({ request }) {
     captured: { capture: false, release: false },
     shiny: isShiny,
     key: randomUUID,
+    starRating: starNum,
   };
   localStorage.setItem("pokemon", JSON.stringify(newList));
 

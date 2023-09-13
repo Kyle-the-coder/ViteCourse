@@ -137,6 +137,10 @@ body {
 .errorMessage {
   color: red;
 }
+.hpContainer {
+  display: flex;
+  align-items: center;
+}
 
 /* Mobile styles */
 @media (max-width: 767px) {

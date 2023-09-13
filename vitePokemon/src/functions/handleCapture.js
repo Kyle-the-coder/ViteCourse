@@ -13,62 +13,76 @@ export function handleCapture(pokemon) {
   if (!pokemon.captured) {
     const rand = getRandomNum();
     const runRand = getRandomNum();
+    const ballHitRand = getRandomNum();
+    console.log("ball", ballHitRand);
 
-    if (runRand >= 2) {
-      if (rand >= 4) {
-        //HANDLE SINGLE POKEMON UPDATE
-        const pokemon = JSON.parse(localStorage.getItem("pokemon"));
-        pokemon.captured.capture = true;
-        localStorage.setItem("pokemon", JSON.stringify(pokemon));
-        //HANDLE POKE LIST UPDATE
-        const existingPokeList = localStorage.getItem("captureList") || [];
+    if (ballHitRand >= 0 && ballHitRand <= 5) {
+      localStorage.setItem("ballHit", false);
+      return;
+    } else if (ballHitRand > 5 && ballHitRand <= 10) {
+      localStorage.setItem("ballHit", true);
+      setTimeout(() => {
+        //POKEMON DOESN'T RUN
+        if (runRand >= 2) {
+          //SUCCESSFUL CAPTURE
+          if (rand >= 4) {
+            //HANDLE SINGLE POKEMON UPDATE
+            const pokemon = JSON.parse(localStorage.getItem("pokemon"));
+            pokemon.captured.capture = true;
+            localStorage.setItem("pokemon", JSON.stringify(pokemon));
+            //HANDLE POKE LIST UPDATE
+            const existingPokeList = localStorage.getItem("captureList") || [];
 
-        if (existingPokeList.length === 0) {
-          const newPokeList = [
-            {
-              pokeInfo: JSON.parse(pokemon.pokeInfo),
-              key: randomUUID,
-              captured: { capture: true, release: false },
-              shiny: pokemon.shiny,
-              starRating: pokemon.starRating,
-            },
-          ];
-          localStorage.setItem("captureList", JSON.stringify(newPokeList));
-        } else if (existingPokeList.length !== 0) {
-          const newPokeList = JSON.parse(existingPokeList);
-          newPokeList.push({
-            pokeInfo: JSON.parse(pokemon.pokeInfo),
-            key: randomUUID,
-            captured: { capture: true, release: false },
-            shiny: pokemon.shiny,
-            starRating: pokemon.starRating,
-          });
-          localStorage.setItem("captureList", JSON.stringify(newPokeList));
+            if (existingPokeList.length === 0) {
+              const newPokeList = [
+                {
+                  pokeInfo: JSON.parse(pokemon.pokeInfo),
+                  key: randomUUID,
+                  captured: { capture: true, release: false },
+                  shiny: pokemon.shiny,
+                  starRating: pokemon.starRating,
+                },
+              ];
+              localStorage.setItem("captureList", JSON.stringify(newPokeList));
+            } else if (existingPokeList.length !== 0) {
+              const newPokeList = JSON.parse(existingPokeList);
+              newPokeList.push({
+                pokeInfo: JSON.parse(pokemon.pokeInfo),
+                key: randomUUID,
+                captured: { capture: true, release: false },
+                shiny: pokemon.shiny,
+                starRating: pokemon.starRating,
+              });
+              localStorage.setItem("captureList", JSON.stringify(newPokeList));
+            }
+            //UNSUCCESSFUL CAPTURE
+          } else if (rand < 4) {
+            return;
+          }
+          //POKEMON DOES RUN
+        } else if (runRand < 2) {
+          return handleRun();
         }
-      } else if (rand < 4) {
-        console.log("did not capture");
-        return;
-      }
-    } else if (runRand < 2) {
-      return handleRun();
-    }
 
-    //TRUTHY INPUT
-  } else if (pokemon.captured) {
-    //HANDLE SINGLE POKEMON UPDATE
-    const pokemon = JSON.parse(localStorage.getItem("pokemon"));
-    pokemon.captured = false;
-    localStorage.setItem("pokemon", JSON.stringify(pokemon));
-    //HANDLE POKELIST UPDATE
-    const existingPokeList = localStorage.getItem("captureList") || [];
-    const newPokeList = JSON.parse(existingPokeList);
-    const changeCapture = newPokeList.map((poke) => {
-      if (poke.pokeInfo.id === pokeInfo.id) {
-        return { ...poke, captured: false };
-      } else {
-        return { ...poke };
-      }
-    });
-    localStorage.setItem("captureList", JSON.stringify(changeCapture));
+        //TRUTHY INPUT
+        else if (pokemon.captured) {
+          //HANDLE SINGLE POKEMON UPDATE
+          const pokemon = JSON.parse(localStorage.getItem("pokemon"));
+          pokemon.captured = false;
+          localStorage.setItem("pokemon", JSON.stringify(pokemon));
+          //HANDLE POKELIST UPDATE
+          const existingPokeList = localStorage.getItem("captureList") || [];
+          const newPokeList = JSON.parse(existingPokeList);
+          const changeCapture = newPokeList.map((poke) => {
+            if (poke.pokeInfo.id === pokeInfo.id) {
+              return { ...poke, captured: false };
+            } else {
+              return { ...poke };
+            }
+          });
+          localStorage.setItem("captureList", JSON.stringify(changeCapture));
+        }
+      }, [2000]);
+    }
   }
 }

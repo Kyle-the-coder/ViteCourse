@@ -5,6 +5,10 @@ import background from "../assets/bg.webp";
 import pokeBallEmpty from "../assets/pokeballEmpty.png";
 import pokeBallFull from "../assets/pokeballFull.png";
 import "../styles/pokemonCard.css";
+import oneStar from "../assets/1Star.png";
+import twoStar from "../assets/2Star.png";
+import threeStar from "../assets/3Star.png";
+import ballOpen from "../assets/pokeballOpen.png";
 
 export function PokemonCard({
   pokemon,
@@ -16,6 +20,7 @@ export function PokemonCard({
   pokeKey,
   isReleased,
   setIsReleased,
+  starRating,
 }) {
   const [captureInfo, setCaptureInfo] = useState([]);
   const [moveList, setMoveList] = useState(() => {
@@ -23,6 +28,7 @@ export function PokemonCard({
   });
   const [moveDetailList1, setMoveDetailList1] = useState([]);
   const [moveDetailList2, setMoveDetailList2] = useState([]);
+  const [starBonus, setStarBonus] = useState(0);
 
   useMemo(() => {
     const moves = moveList?.splice(0, 2);
@@ -52,7 +58,14 @@ export function PokemonCard({
 
   useEffect(() => {
     setIsCaptured(captured);
-  }, [state, captureInfo]);
+    if (starRating === 2) {
+      setStarBonus(10);
+    } else if (starRating === 3) {
+      setStarBonus(20);
+    } else if (starRating === 1) {
+      setStarBonus(0);
+    }
+  }, [state, captureInfo, starRating]);
 
   return (
     <>
@@ -65,10 +78,20 @@ export function PokemonCard({
                     ?.slice(1)
                     .toLowerCase()}`
                 : "Loading..."}
-              <div>
-                {pokemon?.stats[0].base_stat}
+              <div className="hpContainer">
+                {pokemon?.stats[0].base_stat + starBonus}
 
                 {pokemon?.stats[0].stat.name}
+                <img
+                  className="starImg"
+                  src={
+                    (starRating == 1 && oneStar) ||
+                    (starRating == 2 && twoStar) ||
+                    (starRating === 3 && threeStar)
+                  }
+                  width="40"
+                  height="40"
+                />
               </div>
             </div>
 

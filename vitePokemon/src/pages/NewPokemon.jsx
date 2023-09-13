@@ -165,12 +165,6 @@ async function action({ request }) {
         stat.base_stat += 10;
       }
     });
-    //  pokeInfo.map((pokemon) => {
-    //   const pokeStat = (pokemon.stats || []).find(
-    //     (stat) => stat.stat.name === "hp"
-    //   );
-
-    // });
   } else if (starRand >= 6 && starRand <= 10) {
     starNum = starNum + 3;
     pokeInfoSearch.stats.find((stat) => {
@@ -178,14 +172,7 @@ async function action({ request }) {
         stat.base_stat += 20;
       }
     });
-    // pokeInfo.map((pokemon) => {
-    //   const pokeStat = (pokemon.stats || []).find(
-    //     (stat) => stat.stat.name === "hp"
-    //   );
-
-    // });
   }
-  console.log(pokeInfoSearch);
 
   //HANDLE BAD REQUEST
   if (pokeInfoSearch === undefined) {

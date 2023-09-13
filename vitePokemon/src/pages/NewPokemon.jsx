@@ -137,7 +137,7 @@ function NewPokemon() {
                   Capture Status:{" "}
                   <span className="captureStatus">
                     {isBallThrown
-                      ? "capturing..."
+                      ? "you threw the pokeball..."
                       : pokemon.captured.capture
                       ? "Captured"
                       : pokemon.captured.release

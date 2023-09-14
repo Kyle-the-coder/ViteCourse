@@ -63,6 +63,26 @@
   flex-direction: column;
   margin-top: 30px;
 }
+.wiggle {
+  animation: wiggle 0.5s ease infinite;
+}
+@keyframes wiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
 .pokemonSprite {
   z-index: 1;
   display: flex;

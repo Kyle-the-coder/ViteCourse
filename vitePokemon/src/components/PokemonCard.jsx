@@ -63,7 +63,7 @@ export function PokemonCard({
   useEffect(() => {
     setIsCaptured(captured);
   }, [state, captureInfo, starRating]);
-
+  console.log(isPokeballShown);
   return (
     <>
       {pokemon !== null ? (
@@ -94,7 +94,6 @@ export function PokemonCard({
 
             <div className="pokemonImgContainer">
               <div className="pokemonImg">
-                {ballHit === true && ballSpin === false}
                 {captured && isPokeballShown ? (
                   <div className="pokeballSprite">
                     <img src={ballClosed} width="80" />

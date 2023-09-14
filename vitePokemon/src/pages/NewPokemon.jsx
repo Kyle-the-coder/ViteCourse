@@ -8,32 +8,32 @@ import { v4 as uuidv4 } from "uuid";
 import { handleCapture, handleRun } from "../functions/handleCapture";
 
 function NewPokemon() {
+  const { state } = useNavigation();
+  const errors = useActionData() || null;
+  //HANDLE POKEMON CAPTURE STATES
   const [isCaptured, setIsCaptured] = useState(false);
   const [isBallThrown, setIsBallThrown] = useState(false);
+  const [ballHit, setBallHit] = useState(null);
   const [ballSpin, setBallSpin] = useState(false);
   const [catchMessage, setCatchMessage] = useState("");
+  //LOCAL STORAGE STATES
   const [pokeBallCount, setPokeBallCount] = useState(() => {
     const count = localStorage.getItem("pokeballCount");
     if (count === null) return 10;
     return JSON.parse(count);
   });
-  const { state } = useNavigation();
-  const errors = useActionData() || null;
-
   const [pokemon, setPokemon] = useState(() => {
     const p = localStorage.getItem("pokemon");
     if (p === null) return null;
     return JSON.parse(p);
   });
-
   const [pokeList, setPokeList] = useState(() => {
     const list = localStorage.getItem("captureList");
     if (list === null) return [];
     return JSON.parse(list);
   });
 
-  const [ballHit, setBallHit] = useState(null);
-
+  //UPDATE ANY CHANGES FROM STORAGE AND RENDER ON SCREEN
   useEffect(() => {
     const newPokemonInfo = localStorage.getItem("pokemon");
     setPokemon(JSON.parse(newPokemonInfo));
@@ -44,42 +44,51 @@ function NewPokemon() {
     if (isCap !== null) {
       setIsCaptured(JSON.parse(isCap)?.captured.capture);
     }
-  }, [state, isCaptured, isBallThrown, catchMessage, ballHit, ballSpin]);
+  }, [state, ballSpin]);
 
-  function getAway() {
+  //RUN AWAY FUNCTION
+  function handleGetAway() {
     setCatchMessage("You Got Away");
     handleRun(pokemon);
   }
+  //HANDLE POKEBALL THROW FUNCTION
   function handleBallThrown(pokeInfo) {
+    //MAKE SURE BALLHIT IS NULL AND GATHER INFO
     setBallHit(null);
     const count = localStorage.getItem("pokeballCount");
     const ballHitRand = getRandomNum();
 
-    //HANDLE POKEBALL COUNT IF NO POKEBALLS
+    //HANDLE POKEBALL THROW IF USER HAS NO POKEBALLS
     if (count <= 0) {
       setCatchMessage("You ran out of pokeballs");
       setPokeBallCount(0);
       localStorage.setItem("pokeballCount", pokeBallCount);
       handleRun(pokemon);
-      //HANDLE POKEBALL CAPTURE IF HAVE POKEBALLS
+      //HANDLE POKEBALL THROW IF USER HAS POKEBALLS
     } else if (count > 0) {
       //LOWER POKEBALL COUNT BY 1
       setPokeBallCount(pokeBallCount - 1);
       localStorage.setItem("pokeballCount", pokeBallCount);
+      //START THE ANIMATION
       setBallSpin(true);
       setIsBallThrown(true);
+      //TIMEOUT TO ALLOW TIME TO PASS FOR ANIMATION
       setTimeout(() => {
         //BALL HIT SUCCESSFULLY
         if (ballHitRand >= 0 && ballHitRand <= 7) {
+          //LET USER KNOW THE BALL HAS HIT THE POKEMON
           setBallHit(true);
           setIsBallThrown(false);
+          //TIMEOUT TO SEE IF POKEMON GETS CAPTURED SUCCESSFULLY
           setTimeout(() => {
             handleCapture(pokeInfo);
             setBallSpin(false);
+            //IF POKEMON GOT AWAY
             setCatchMessage("Pokemon got away");
           }, [4000]);
           //BALL HIT UNSUCCESSFULLY
         } else if (ballHitRand > 7 && ballHitRand <= 10) {
+          //SET EVERYTHING TO FALSE FOR UNSUCCESSFUL THROW
           setIsBallThrown(false);
           setBallHit(false);
           setBallSpin(false);
@@ -87,6 +96,7 @@ function NewPokemon() {
       }, [1000]);
     }
   }
+  //FUNCTION FOR GETTING MORE POKEBALLS
   function handleGetMorePokeballs() {
     const rand = getRandomNum();
     setPokeBallCount(rand);
@@ -139,16 +149,14 @@ function NewPokemon() {
                   <div>{pokemon.shiny ? <h1>Wow!</h1> : ""}</div>
                   <h1>
                     You Found a wild {pokemon.shiny ? "Shiny " : ""}
-                    {JSON.parse(pokemon?.pokeInfo)
-                      .name.charAt(0)
-                      .toUpperCase() +
-                      JSON.parse(pokemon?.pokeInfo).name.slice(1).toLowerCase()}
+                    {pokemon?.pokeInfo.name.charAt(0).toUpperCase() +
+                      pokemon?.pokeInfo.name.slice(1).toLowerCase()}
                     !
                   </h1>
                 </>
               )}
               <PokemonCard
-                pokemon={JSON.parse(pokemon.pokeInfo)}
+                pokemon={pokemon.pokeInfo}
                 state={state}
                 captured={pokemon.captured.capture}
                 setIsCaptured={setIsCaptured}
@@ -189,14 +197,19 @@ function NewPokemon() {
                 <div>
                   <button
                     onClick={() => {
-                      handleBallThrown(JSON.parse(pokemon.pokeInfo));
+                      handleBallThrown(pokemon.pokeInfo);
                     }}
                     className="btn"
                     disabled={pokemon.captured.capture}
                   >
                     Throw Pokeball
                   </button>
-                  <button onClick={() => getAway()} className="btn">
+                  <button
+                    onClick={() => {
+                      handleGetAway();
+                    }}
+                    className="btn"
+                  >
                     Run
                   </button>
                 </div>
@@ -257,7 +270,7 @@ async function action({ request }) {
   }
 
   //HANDLE CURRENT SEARCH
-  const pokeInfo = JSON.stringify(pokeInfoSearch);
+  const pokeInfo = pokeInfoSearch;
   const newList = {
     pokeInfo,
     captured: { capture: false, release: false },

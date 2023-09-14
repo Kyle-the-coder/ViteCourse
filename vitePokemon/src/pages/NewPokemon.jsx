@@ -181,11 +181,13 @@ function NewPokemon() {
                       <>ball is thrown...</>
                     ) : (
                       "" ||
-                      (ballHit === null
-                        ? "ball is not thrown..."
-                        : ballHit === true
-                        ? "ball hit"
-                        : "ball missed")
+                      (ballHit === null ? (
+                        "ball is not thrown..."
+                      ) : ballHit === true ? (
+                        "ball hit!"
+                      ) : (
+                        <span className="redText">ball missed</span>
+                      ))
                     )}
                   </span>
                 </p>

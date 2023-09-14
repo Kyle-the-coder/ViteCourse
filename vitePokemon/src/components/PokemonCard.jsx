@@ -94,15 +94,12 @@ export function PokemonCard({
 
             <div className="pokemonImgContainer">
               <div className="pokemonImg">
+                {ballHit === true && ballSpin === false}
                 {captured && isPokeballShown ? (
                   <div className="pokeballSprite">
                     <img src={ballClosed} width="80" />
                   </div>
-                ) : ballHit ? (
-                  <div className="pokeballSprite">
-                    <img src={ballOpen} width="80" />
-                  </div>
-                ) : (
+                ) : ballHit === true && ballSpin === false ? (
                   <div className="pokemonSprite">
                     {isShiny ? (
                       <img src={pokemon?.sprites?.front_shiny} />
@@ -110,6 +107,20 @@ export function PokemonCard({
                       <img src={pokemon?.sprites?.front_default} />
                     )}
                   </div>
+                ) : ballHit ? (
+                  <div className="pokeballSprite">
+                    <img src={ballOpen} width="80" className="wiggle" />
+                  </div>
+                ) : (
+                  <>
+                    <div className="pokemonSprite">
+                      {isShiny ? (
+                        <img src={pokemon?.sprites?.front_shiny} />
+                      ) : (
+                        <img src={pokemon?.sprites?.front_default} />
+                      )}
+                    </div>
+                  </>
                 )}
 
                 <div className="pokemonBackgroundImg">

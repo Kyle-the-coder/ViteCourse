@@ -15,6 +15,7 @@ function NewPokemon() {
   const [isBallThrown, setIsBallThrown] = useState(false);
   const [ballHit, setBallHit] = useState(null);
   const [ballSpin, setBallSpin] = useState(false);
+  const [isPokeballShown, setIsPokeballShown] = useState(false);
   const [catchMessage, setCatchMessage] = useState("");
   //LOCAL STORAGE STATES
   const [pokeBallCount, setPokeBallCount] = useState(() => {
@@ -44,7 +45,7 @@ function NewPokemon() {
     if (isCap !== null) {
       setIsCaptured(JSON.parse(isCap)?.captured.capture);
     }
-  }, [state, ballSpin]);
+  }, [state, ballSpin, catchMessage]);
 
   //RUN AWAY FUNCTION
   function handleGetAway() {
@@ -165,6 +166,9 @@ function NewPokemon() {
                 isBallThrown={isBallThrown}
                 isShiny={pokemon.shiny}
                 starRating={pokemon.starRating}
+                ballHit={ballHit}
+                setIsPokeballShown={setIsPokeballShown}
+                isPokeballShown={isPokeballShown}
               />
               <div className="captureContainer">
                 <p>

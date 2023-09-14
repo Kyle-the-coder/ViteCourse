@@ -96,7 +96,7 @@ function NewPokemon() {
           setBallHit(false);
           setBallSpin(false);
         }
-      }, [1000]);
+      }, [2000]);
     }
   }
   //FUNCTION FOR GETTING MORE POKEBALLS

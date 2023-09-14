@@ -11,6 +11,7 @@ export function PokeList({
 }) {
   const { state } = useNavigation();
   const [isBallThrown, setIsBallThrown] = useState(false);
+  const [isPokeballShown, setIsPokeballShown] = useState(false);
 
   return (
     <>
@@ -30,6 +31,8 @@ export function PokeList({
               isReleased={isReleased}
               setIsReleased={setIsReleased}
               starRating={pokemon.starRating}
+              setIsPokeballShown={setIsPokeballShown}
+              isPokeballShown={isPokeballShown}
             />
           </div>
         ))}

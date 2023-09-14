@@ -94,7 +94,7 @@ export function PokemonCard({
 
             <div className="pokemonImgContainer">
               <div className="pokemonImg">
-                {captured ? (
+                {captured && isPokeballShown ? (
                   <div className="pokeballSprite">
                     <img src={ballClosed} width="80" />
                   </div>

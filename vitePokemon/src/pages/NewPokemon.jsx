@@ -83,9 +83,11 @@ function NewPokemon() {
           //TIMEOUT TO SEE IF POKEMON GETS CAPTURED SUCCESSFULLY
           setTimeout(() => {
             handleCapture(pokeInfo);
-            setBallSpin(false);
             //IF POKEMON GOT AWAY
             setCatchMessage("Pokemon got away");
+            setTimeout(() => {
+              setBallSpin(false);
+            }, [100]);
           }, [4000]);
           //BALL HIT UNSUCCESSFULLY
         } else if (ballHitRand > 7 && ballHitRand <= 10) {

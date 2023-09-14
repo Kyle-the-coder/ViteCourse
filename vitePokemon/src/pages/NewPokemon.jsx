@@ -85,10 +85,9 @@ function NewPokemon() {
             handleCapture(pokeInfo);
             //IF POKEMON GOT AWAY
             setCatchMessage("Pokemon got away");
-            const captInfo = localStorage.getItem("pokemon");
-            if (captInfo.captured.capture === true) {
+            setTimeout(() => {
               setBallSpin(false);
-            }
+            }, [1000]);
           }, [4000]);
           //BALL HIT UNSUCCESSFULLY
         } else if (ballHitRand > 7 && ballHitRand <= 10) {

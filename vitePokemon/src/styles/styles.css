@@ -129,6 +129,9 @@ body {
 .recentSearchListContainer {
   margin-top: 40px;
 }
+.redText {
+  color: rgb(255, 86, 86);
+}
 
 .errorContainer {
   width: 100%;

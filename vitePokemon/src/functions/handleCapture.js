@@ -29,7 +29,7 @@ export function handleCapture(pokemon) {
         if (existingPokeList.length === 0) {
           const newPokeList = [
             {
-              pokeInfo: JSON.parse(pokemon.pokeInfo),
+              pokeInfo: pokemon.pokeInfo,
               key: pokemon.key,
               captured: { capture: true, release: false },
               shiny: pokemon.shiny,
@@ -40,7 +40,7 @@ export function handleCapture(pokemon) {
         } else if (existingPokeList.length !== 0) {
           const newPokeList = JSON.parse(existingPokeList);
           newPokeList.push({
-            pokeInfo: JSON.parse(pokemon.pokeInfo),
+            pokeInfo: pokemon.pokeInfo,
             key: pokemon.key,
             captured: { capture: true, release: false },
             shiny: pokemon.shiny,

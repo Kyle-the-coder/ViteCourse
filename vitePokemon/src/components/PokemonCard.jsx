@@ -9,6 +9,7 @@ import oneStar from "../assets/1Star.png";
 import twoStar from "../assets/2Star.png";
 import threeStar from "../assets/3Star.png";
 import ballOpen from "../assets/pokeballOpen.png";
+import ballClosed from "../assets/pokeballClosed2.png";
 
 export function PokemonCard({
   pokemon,
@@ -22,6 +23,9 @@ export function PokemonCard({
   setIsReleased,
   starRating,
   ballSpin,
+  ballHit,
+  isPokeballShown,
+  setIsPokeballShown,
 }) {
   const [captureInfo, setCaptureInfo] = useState([]);
   const [moveList, setMoveList] = useState(() => {
@@ -90,13 +94,24 @@ export function PokemonCard({
 
             <div className="pokemonImgContainer">
               <div className="pokemonImg">
-                <div className="pokemonSprite">
-                  {isShiny ? (
-                    <img src={pokemon?.sprites?.front_shiny} />
-                  ) : (
-                    <img src={pokemon?.sprites?.front_default} />
-                  )}
-                </div>
+                {captured ? (
+                  <div className="pokeballSprite">
+                    <img src={ballClosed} width="80" />
+                  </div>
+                ) : ballHit ? (
+                  <div className="pokeballSprite">
+                    <img src={ballOpen} width="80" />
+                  </div>
+                ) : (
+                  <div className="pokemonSprite">
+                    {isShiny ? (
+                      <img src={pokemon?.sprites?.front_shiny} />
+                    ) : (
+                      <img src={pokemon?.sprites?.front_default} />
+                    )}
+                  </div>
+                )}
+
                 <div className="pokemonBackgroundImg">
                   <img src={background} />
                 </div>

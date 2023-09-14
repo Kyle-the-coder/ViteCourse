@@ -99,8 +99,7 @@ function NewPokemon() {
   }
   //FUNCTION FOR GETTING MORE POKEBALLS
   function handleGetMorePokeballs() {
-    const rand = getRandomNum();
-    setPokeBallCount(rand);
+    setPokeBallCount(10);
   }
 
   return (

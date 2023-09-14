@@ -28,18 +28,11 @@ function NewPokemon() {
     if (p === null) return null;
     return JSON.parse(p);
   });
-  const [pokeList, setPokeList] = useState(() => {
-    const list = localStorage.getItem("captureList");
-    if (list === null) return [];
-    return JSON.parse(list);
-  });
 
   //UPDATE ANY CHANGES FROM STORAGE AND RENDER ON SCREEN
   useEffect(() => {
     const newPokemonInfo = localStorage.getItem("pokemon");
     setPokemon(JSON.parse(newPokemonInfo));
-    const newPokemonList = localStorage.getItem("captureList");
-    setPokeList(JSON.parse(newPokemonList));
     localStorage.setItem("pokeballCount", pokeBallCount);
     const isCap = localStorage.getItem("pokemon");
     if (isCap !== null) {
@@ -96,7 +89,7 @@ function NewPokemon() {
           setBallHit(false);
           setBallSpin(false);
         }
-      }, [2000]);
+      }, [1000]);
     }
   }
   //FUNCTION FOR GETTING MORE POKEBALLS

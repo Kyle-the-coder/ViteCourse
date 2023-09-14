@@ -15,7 +15,7 @@ function NewPokemon() {
   const [isBallThrown, setIsBallThrown] = useState(false);
   const [ballHit, setBallHit] = useState(null);
   const [ballSpin, setBallSpin] = useState(false);
-  const [isPokeballShown, setIsPokeballShown] = useState(false);
+  const [isPokeballShown, setIsPokeballShown] = useState(true);
   const [catchMessage, setCatchMessage] = useState("");
   //LOCAL STORAGE STATES
   const [pokeBallCount, setPokeBallCount] = useState(() => {

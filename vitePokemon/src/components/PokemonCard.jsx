@@ -10,6 +10,7 @@ import twoStar from "../assets/2Star.png";
 import threeStar from "../assets/3Star.png";
 import ballOpen from "../assets/pokeballOpen.png";
 import ballClosed from "../assets/pokeballClosed2.png";
+import { bugIcon } from "../svg/icons";
 
 export function PokemonCard({
   pokemon,
@@ -79,6 +80,7 @@ export function PokemonCard({
                 {pokemon?.stats[0].base_stat}
 
                 {pokemon?.stats[0].stat.name}
+
                 <img
                   className="starImg"
                   src={

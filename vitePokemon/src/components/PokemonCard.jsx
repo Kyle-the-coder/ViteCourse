@@ -10,7 +10,21 @@ import twoStar from "../assets/2Star.png";
 import threeStar from "../assets/3Star.png";
 import ballOpen from "../assets/pokeballOpen.png";
 import ballClosed from "../assets/pokeballClosed2.png";
-import { bugIcon } from "../svg/icons";
+import {
+  bugIcon,
+  darkIcon,
+  dragonIcon,
+  electricIcon,
+  fairyIcon,
+  fightingIcon,
+  fireIcon,
+  flyingIcon,
+  ghostIcon,
+  grassIcon,
+  groundIcon,
+  iceIcon,
+  normalIcon,
+} from "../svg/icons";
 
 export function PokemonCard({
   pokemon,
@@ -64,7 +78,7 @@ export function PokemonCard({
   useEffect(() => {
     setIsCaptured(captured);
   }, [state, captureInfo, starRating]);
-  console.log(isPokeballShown);
+
   return (
     <>
       {pokemon !== null ? (
@@ -80,7 +94,7 @@ export function PokemonCard({
                 {pokemon?.stats[0].base_stat}
 
                 {pokemon?.stats[0].stat.name}
-
+                {fireIcon}
                 <img
                   className="starImg"
                   src={

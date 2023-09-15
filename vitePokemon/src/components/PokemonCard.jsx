@@ -1,37 +1,22 @@
 import { useEffect, useMemo, useState } from "react";
 import { handleRelease } from "../functions/handleRelease";
+import { typeList } from "../svg/typeList";
 import axios from "axios";
 import background from "../assets/bg.webp";
 import pokeBallEmpty from "../assets/pokeballEmpty.png";
 import pokeBallFull from "../assets/pokeballFull.png";
-import "../styles/pokemonCard.css";
 import oneStar from "../assets/1Star.png";
 import twoStar from "../assets/2Star.png";
 import threeStar from "../assets/3Star.png";
 import ballOpen from "../assets/pokeballOpen.png";
 import ballClosed from "../assets/pokeballClosed2.png";
-import {
-  bugIcon,
-  darkIcon,
-  dragonIcon,
-  electricIcon,
-  fairyIcon,
-  fightingIcon,
-  fireIcon,
-  flyingIcon,
-  ghostIcon,
-  grassIcon,
-  groundIcon,
-  iceIcon,
-  normalIcon,
-} from "../svg/icons";
+import "../styles/pokemonCard.css";
 
 export function PokemonCard({
   pokemon,
   state,
   captured,
   setIsCaptured,
-  isBallThrown,
   isShiny,
   pokeKey,
   isReleased,
@@ -40,7 +25,6 @@ export function PokemonCard({
   ballSpin,
   ballHit,
   isPokeballShown,
-  setIsPokeballShown,
 }) {
   const [captureInfo, setCaptureInfo] = useState([]);
   const [moveList, setMoveList] = useState(() => {
@@ -48,6 +32,7 @@ export function PokemonCard({
   });
   const [moveDetailList1, setMoveDetailList1] = useState([]);
   const [moveDetailList2, setMoveDetailList2] = useState([]);
+  const types = pokemon.types.map((type, index) => type.type.name);
 
   useMemo(() => {
     const moves = moveList?.splice(0, 2);
@@ -85,16 +70,7 @@ export function PokemonCard({
         <>
           <div className="cardContainer">
             <div className="titleContainer">
-              {pokemon
-                ? `${pokemon?.name?.charAt(0).toUpperCase()}${pokemon?.name
-                    ?.slice(1)
-                    .toLowerCase()}`
-                : "Loading..."}
-              <div className="hpContainer">
-                {pokemon?.stats[0].base_stat}
-
-                {pokemon?.stats[0].stat.name}
-                {fireIcon}
+              <div className="nameStarContainer">
                 <img
                   className="starImg"
                   src={
@@ -105,6 +81,20 @@ export function PokemonCard({
                   width="40"
                   height="40"
                 />
+                {pokemon
+                  ? `${pokemon?.name?.charAt(0).toUpperCase()}${pokemon?.name
+                      ?.slice(1)
+                      .toLowerCase()}`
+                  : "Loading..."}
+              </div>
+              <div className="hpContainer">
+                {typeList.filter((type) =>
+                  types.includes(type.props.className)
+                )}
+                <div className="hpContainer">
+                  {pokemon?.stats[0].base_stat}
+                  {pokemon?.stats[0].stat.name}
+                </div>
               </div>
             </div>
 
@@ -148,13 +138,13 @@ export function PokemonCard({
               <div className="pokemonNameContainer">
                 <div className="pokemonMovesContainer">
                   {moveDetailList1?.map((move) => (
-                    <div className="moves" key={move.id}>
+                    <div className="moves" key={`move_1_id_${move.id}`}>
                       <div>{move.name}</div>
                       PP: {move.pp}
                     </div>
                   ))}
                   {moveDetailList2?.map((move) => (
-                    <div className="moves" key={move.id}>
+                    <div className="moves" key={`move_2_id_${move.id}`}>
                       <div>{move.name}</div>
                       PP: {move.pp}
                     </div>

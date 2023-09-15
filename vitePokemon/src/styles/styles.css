@@ -132,6 +132,9 @@ body {
 .redText {
   color: rgb(255, 86, 86);
 }
+.greenText {
+  color: rgb(40, 199, 40);
+}
 
 .errorContainer {
   width: 100%;

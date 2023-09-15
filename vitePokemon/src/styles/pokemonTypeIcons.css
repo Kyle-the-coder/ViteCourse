@@ -1,4 +1,4 @@
-.bugIcon {
+.bug {
   background-color: rgb(29, 147, 29);
   border-radius: 50%;
   width: 35px;
@@ -7,13 +7,13 @@
   align-items: center;
   justify-content: center;
   padding: 7px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
   box-shadow: 0 0 10px rgba(29, 135, 85, 0.7), 0 0 20px rgba(13, 255, 0, 0.5),
     inset 0 0 10px rgba(16, 164, 63, 0.5);
 }
 
-.darkIcon {
+.dark {
   background-color: rgb(53, 53, 53);
   border-radius: 50%;
   width: 35px;
@@ -22,13 +22,13 @@
   align-items: center;
   justify-content: center;
   padding: 7px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
   box-shadow: 0 0 10px rgba(120, 120, 120, 0.7),
     0 0 20px rgba(104, 104, 104, 0.5), inset 0 0 10px rgba(130, 130, 130, 0.5);
 }
 
-.dragonIcon {
+.dragon {
   background-color: rgb(9, 66, 223);
   border-radius: 50%;
   width: 35px;
@@ -37,13 +37,13 @@
   align-items: center;
   justify-content: center;
   padding: 7px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
   box-shadow: 0 0 10px rgba(29, 93, 135, 0.7), 0 0 20px rgba(0, 81, 255, 0.5),
     inset 0 0 10px rgba(16, 58, 164, 0.5);
 }
 
-.electricIcon {
+.electric {
   background-color: rgb(248, 244, 35);
   border-radius: 50%;
   width: 35px;
@@ -52,13 +52,13 @@
   align-items: center;
   justify-content: center;
   padding: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
   box-shadow: 0 0 10px rgba(251, 243, 0, 0.7), 0 0 20px rgba(255, 251, 0, 0.5),
     inset 0 0 10px rgba(232, 248, 6, 0.5);
 }
 
-.fairyIcon {
+.fairy {
   background-color: rgb(248, 0, 236);
   border-radius: 50%;
   width: 35px;
@@ -67,13 +67,13 @@
   align-items: center;
   justify-content: center;
   padding: 6px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
   box-shadow: 0 0 10px rgba(248, 23, 211, 0.7), 0 0 20px rgba(230, 0, 255, 0.5),
     inset 0 0 10px rgba(234, 0, 255, 0.5);
 }
 
-.fightingIcon {
+.fighting {
   background-color: rgb(199, 9, 9);
   border-radius: 50%;
   width: 35px;
@@ -82,13 +82,13 @@
   align-items: center;
   justify-content: center;
   padding: 7px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
   box-shadow: 0 0 10px rgba(135, 29, 29, 0.7), 0 0 20px rgba(255, 0, 0, 0.5),
     inset 0 0 10px rgba(231, 13, 13, 0.5);
 }
 
-.fireIcon {
+.fire {
   background-color: rgb(245, 135, 0);
   border-radius: 50%;
   width: 35px;
@@ -97,13 +97,13 @@
   align-items: center;
   justify-content: center;
   padding: 7px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
   box-shadow: 0 0 10px rgba(255, 175, 3, 0.659),
     0 0 20px rgba(255, 166, 0, 0.803), inset 0 0 10px rgba(255, 170, 0, 0.66);
 }
 
-.flyingIcon {
+.flying {
   background-color: rgb(149, 195, 232);
   border-radius: 50%;
   width: 35px;
@@ -112,13 +112,13 @@
   align-items: center;
   justify-content: center;
   padding: 6px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
   box-shadow: 0 0 10px rgba(123, 108, 207, 0.532),
     0 0 20px rgba(143, 127, 224, 0.5), inset 0 0 10px rgba(137, 135, 204, 0.5);
 }
 
-.ghostIcon {
+.ghost {
   background-color: rgb(96, 76, 151);
   border-radius: 50%;
   width: 35px;
@@ -127,13 +127,13 @@
   align-items: center;
   justify-content: center;
   padding: 7px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
   box-shadow: 0 0 10px rgba(80, 29, 135, 0.7), 0 0 20px rgba(93, 0, 255, 0.5),
     inset 0 0 10px rgba(95, 16, 164, 0.5);
 }
 
-.grassIcon {
+.grass {
   background-color: rgb(21, 183, 21);
   border-radius: 50%;
   width: 35px;
@@ -142,13 +142,13 @@
   align-items: center;
   justify-content: center;
   padding: 7px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
   box-shadow: 0 0 10px rgba(29, 135, 85, 0.7), 0 0 20px rgba(13, 255, 0, 0.5),
     inset 0 0 10px rgba(16, 164, 63, 0.5);
 }
 
-.groundIcon {
+.ground {
   background-color: rgb(235, 133, 16);
   border-radius: 50%;
   width: 35px;
@@ -157,13 +157,13 @@
   align-items: center;
   justify-content: center;
   padding: 7px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
   box-shadow: 0 0 10px rgba(238, 131, 24, 0.7),
     0 0 20px rgba(255, 145, 0, 0.581), inset 0 0 10px rgba(212, 171, 23, 0.5);
 }
 
-.iceIcon {
+.ice {
   background-color: rgb(10, 230, 212);
   border-radius: 50%;
   width: 35px;
@@ -172,13 +172,13 @@
   align-items: center;
   justify-content: center;
   padding: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
   box-shadow: 0 0 10px rgba(25, 216, 200, 0.7), 0 0 20px rgba(0, 255, 217, 0.5),
     inset 0 0 10px rgba(37, 216, 183, 0.5);
 }
 
-.normalIcon {
+.normal {
   background-color: rgb(157, 157, 157);
   border-radius: 50%;
   width: 35px;
@@ -187,8 +187,83 @@
   align-items: center;
   justify-content: center;
   padding: 7px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 4px;
+  margin-right: 4px;
   box-shadow: 0 0 10px rgba(165, 165, 165, 0.7),
     0 0 20px rgba(193, 193, 193, 0.5), inset 0 0 10px rgba(220, 220, 220, 0.5);
+}
+
+.poison {
+  background-color: rgb(156, 24, 196);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+  margin-left: 4px;
+  margin-right: 4px;
+  box-shadow: 0 0 10px rgba(85, 29, 135, 0.7), 0 0 20px rgba(221, 0, 255, 0.5),
+    inset 0 0 10px rgba(100, 16, 164, 0.5);
+}
+
+.psychic {
+  background-color: rgb(247, 94, 127);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+  margin-left: 4px;
+  margin-right: 4px;
+  box-shadow: 0 0 10px rgba(243, 121, 147, 0.7),
+    0 0 20px rgba(203, 63, 128, 0.5), inset 0 0 10px rgba(225, 130, 203, 0.5);
+}
+
+.rock {
+  background-color: rgb(194, 166, 99);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+  margin-left: 4px;
+  margin-right: 4px;
+  box-shadow: 0 0 10px rgba(228, 222, 134, 0.7),
+    0 0 20px rgba(215, 211, 96, 0.5), inset 0 0 10px rgba(212, 207, 105, 0.5);
+}
+
+.steel {
+  background-color: rgb(61, 122, 153);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+  margin-left: 4px;
+  margin-right: 4px;
+  box-shadow: 0 0 10px rgba(109, 161, 196, 0.7),
+    0 0 20px rgba(16, 169, 245, 0.5), inset 0 0 10px rgba(104, 154, 188, 0.5);
+}
+
+.water {
+  background-color: rgb(78, 137, 232);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+  margin-left: 4px;
+  margin-right: 4px;
+  box-shadow: 0 0 10px rgba(25, 150, 233, 0.7), 0 0 20px rgba(16, 169, 245, 0.5),
+    inset 0 0 10px rgba(53, 201, 238, 0.5);
 }

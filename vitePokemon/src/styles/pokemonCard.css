@@ -15,7 +15,6 @@
   display: flex;
   justify-content: space-between;
   color: black;
-
   align-items: center;
   margin-bottom: 8px;
 }
@@ -23,7 +22,14 @@
   background-color: rgb(49, 49, 49);
   border-radius: 0.3rem;
   padding: 3px;
-  margin-left: 3px;
+  margin-right: 5px;
+}
+.hpContainer {
+  margin-left: 5px;
+}
+.nameStarContainer {
+  display: flex;
+  align-items: center;
 }
 
 .gridContainer {

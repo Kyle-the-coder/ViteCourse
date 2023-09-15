@@ -166,11 +166,9 @@ function NewPokemon() {
                 setIsCaptured={setIsCaptured}
                 isCaptured={isCaptured}
                 ballSpin={ballSpin}
-                isBallThrown={isBallThrown}
                 isShiny={pokemon.shiny}
                 starRating={pokemon.starRating}
                 ballHit={ballHit}
-                setIsPokeballShown={setIsPokeballShown}
                 isPokeballShown={isPokeballShown}
               />
               <div className="captureContainer">
@@ -194,11 +192,13 @@ function NewPokemon() {
                 <p>
                   Capture Status:{" "}
                   <span className="captureStatus">
-                    {isCaptured
-                      ? "captured!"
-                      : ballHit === true && ballSpin === false
-                      ? "pokemon got out"
-                      : "not captured"}
+                    {isCaptured ? (
+                      <span className="greenText">captured!</span>
+                    ) : ballHit === true && ballSpin === false ? (
+                      "pokemon got out"
+                    ) : (
+                      "not captured"
+                    )}
                   </span>
                 </p>
                 <p>Pokeball Count: {pokeBallCount}</p>

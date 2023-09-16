@@ -11,6 +11,7 @@ import threeStar from "../assets/3Star.png";
 import ballOpen from "../assets/pokeballOpen.png";
 import ballClosed from "../assets/pokeballClosed2.png";
 import "../styles/pokemonCard.css";
+import { hoverInfo } from "./HoverInfo";
 
 export function PokemonCard({
   pokemon,
@@ -63,6 +64,10 @@ export function PokemonCard({
   useEffect(() => {
     setIsCaptured(captured);
   }, [state, captureInfo, starRating]);
+
+  function handleHoverDiv(type) {
+    return <div>{hoverInfo(type)}</div>;
+  }
 
   return (
     <>

@@ -33,6 +33,7 @@ export function PokemonCard({
   });
   const [moveDetailList1, setMoveDetailList1] = useState([]);
   const [moveDetailList2, setMoveDetailList2] = useState([]);
+  const [isInfoDivShown, setIsInfoDivShown] = useState(false);
   const types = pokemon.types.map((type, index) => type.type.name);
 
   useMemo(() => {
@@ -65,10 +66,6 @@ export function PokemonCard({
     setIsCaptured(captured);
   }, [state, captureInfo, starRating]);
 
-  function handleHoverDiv(type) {
-    return <div>{hoverInfo(type)}</div>;
-  }
-
   return (
     <>
       {pokemon !== null ? (
@@ -93,9 +90,42 @@ export function PokemonCard({
                   : "Loading..."}
               </div>
               <div className="hpContainer">
-                {typeList.filter((type) =>
-                  types.includes(type.props.className)
-                )}
+                <div
+                  className="typeContainer"
+                  onMouseEnter={() => setIsInfoDivShown(true)}
+                  onMouseLeave={() => setIsInfoDivShown(false)}
+                >
+                  {typeList.filter((type) =>
+                    types.includes(type.props.className)
+                  )}
+                  <div
+                    className={` ${
+                      isInfoDivShown
+                        ? "typeInfoContainer"
+                        : "invisTypeInfoContainer"
+                    }`}
+                  >
+                    {isInfoDivShown && (
+                      <>
+                        <p>
+                          {types.map((value, index, array) => {
+                            if (index === array.length - 1) {
+                              return value;
+                            } else {
+                              return value + "/";
+                            }
+                          })}
+                        </p>
+                        <span>&nbsp;</span>
+                        <p>type</p>
+
+                        <div
+                          className={`${isInfoDivShown ? "triangle" : ""}`}
+                        ></div>
+                      </>
+                    )}
+                  </div>
+                </div>
                 <div className="hpContainer">
                   {pokemon?.stats[0].base_stat}
                   {pokemon?.stats[0].stat.name}

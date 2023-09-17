@@ -5,13 +5,12 @@ export function Navbar() {
   return (
     <nav className="top-nav">
       <div className="nav-text-large">
-        Pokemon Storage
-        <img src={pokeBall} className="nav-Img" />
+        <Link to="/" className="home-button">
+          Pokemon Stay Home
+          <img src={pokeBall} className="nav-Img" />
+        </Link>
       </div>
       <ul className="nav-list">
-        <li>
-          <Link to="/">Home</Link>
-        </li>
         <li>
           <Link to="/storage">Your Storage</Link>
         </li>

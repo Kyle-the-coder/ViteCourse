@@ -12,7 +12,7 @@ export function Navbar() {
       </div>
       <ul className="nav-list">
         <li>
-          <Link to="/storage">Your Storage</Link>
+          <Link to="/storage">Your Pokemon</Link>
         </li>
         <li>
           <Link to="/newpokemon">New Pokemon</Link>

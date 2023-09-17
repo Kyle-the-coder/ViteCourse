@@ -66,6 +66,7 @@ function reducer(pokeInfo, { type }) {
 function Storage() {
   const { state } = useNavigation();
   const filterRef = useRef();
+  const [isChecked, setIsChecked] = useState(false);
   const [isCaptured, setIsCaptured] = useState(false);
   const [isReleased, setIsReleased] = useState(false);
   const [isShiny, setIsShiny] = useState(false);
@@ -80,34 +81,78 @@ function Storage() {
 
     if (filterRef.current === "shinys") {
       dispatch({ type: FILTERS.SHINY });
+      if (isChecked) {
+        dispatch({ type: FILTERS.SHINY });
+      }
     }
     if (filterRef.current === "hpHigh") {
       dispatch({ type: FILTERS.HPHIGH });
+      if (isChecked) {
+        dispatch({ type: FILTERS.SHINY });
+      }
     }
     if (filterRef.current === "hpLow") {
       dispatch({ type: FILTERS.HPLOW });
+      if (isChecked) {
+        dispatch({ type: FILTERS.SHINY });
+      }
     }
     if (filterRef.current === "original") {
       dispatch({ type: FILTERS.ORIGINAL });
+      if (isChecked) {
+        dispatch({ type: FILTERS.SHINY });
+      }
     }
     if (filterRef.current === "mostRecent") {
       dispatch({ type: FILTERS.MOST_RECENT });
+      if (isChecked) {
+        dispatch({ type: FILTERS.SHINY });
+      }
     }
   };
 
+  function handleShinyFilter() {
+    setIsChecked(!isChecked);
+    console.log(isChecked);
+    if (!isChecked) {
+      dispatch({ type: FILTERS.SHINY });
+    } else if (isChecked) {
+      if (filterRef.current === "hpHigh") {
+        dispatch({ type: FILTERS.HPHIGH });
+      }
+      if (filterRef.current === "hpLow") {
+        dispatch({ type: FILTERS.HPLOW });
+      }
+      if (filterRef.current === "original") {
+        dispatch({ type: FILTERS.ORIGINAL });
+      }
+      if (filterRef.current === "mostRecent") {
+        dispatch({ type: FILTERS.MOST_RECENT });
+      }
+    }
+  }
   return (
     <>
       <div className="container">
         <div className="storageTitleContainer">
           <h1>Storage</h1>
-          <select onChange={handleSelectChange}>
-            <option value="">Select an option</option>
-            <option value="mostRecent">Most Recent</option>
-            <option value="shinys">Shiny's</option>
-            <option value="hpHigh">HP High</option>
-            <option value="hpLow">HP Low</option>
-            <option value="original">Original</option>
-          </select>
+          <div className="filteredContainer">
+            <div className="checkboxContainer">
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={() => handleShinyFilter()}
+              />
+              <label>Shiny's only</label>
+            </div>
+            <select onChange={handleSelectChange}>
+              <option value="">Select an option</option>
+              <option value="mostRecent">Most Recent</option>
+              <option value="hpHigh">HP High</option>
+              <option value="hpLow">HP Low</option>
+              <option value="original">Original</option>
+            </select>
+          </div>
         </div>
         <PokeList
           pokeList={pokeList}

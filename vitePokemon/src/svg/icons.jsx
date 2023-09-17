@@ -1,9 +1,5 @@
-import { hoverInfo } from "../components/HoverInfo";
 import "../styles/pokemonTypeIcons.css";
 
-function handleHoverDiv(type) {
-  return <div>{hoverInfo(type)}</div>;
-}
 export const bugIcon = (
   <div className="bug">
     <svg
@@ -80,7 +76,7 @@ export const electricIcon = (
 );
 
 export const fairyIcon = (
-  <div className="fairy" onClick={() => handleHoverDiv("Fairy")}>
+  <div className="fairy">
     <svg
       width="30"
       height="30"

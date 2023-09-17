@@ -162,6 +162,50 @@ body {
   display: flex;
   align-items: center;
 }
+.typeContainer {
+  display: flex;
+  position: relative;
+}
+.typeInfoContainer {
+  position: absolute;
+  background-color: rgb(213, 213, 213);
+  display: flex;
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+  top: 43px;
+  left: 0px;
+  z-index: 1000;
+  padding: 3px;
+  transition: all 0.5s ease-in;
+  opacity: 100;
+  border: 1px solid black;
+}
+.invisTypeInfoContainer {
+  opacity: 0;
+  position: absolute;
+  background-color: rgb(213, 213, 213);
+  display: flex;
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+  top: 43px;
+  left: 0px;
+  z-index: 1000;
+  padding: 3px;
+}
+.triangle {
+  background-color: rgb(213, 213, 213);
+  position: absolute;
+  z-index: 1000;
+  width: 10px;
+  height: 10px;
+  top: -5px;
+  left: 17px;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  transform: rotate(45deg);
+}
 
 /* Mobile styles */
 @media (max-width: 767px) {

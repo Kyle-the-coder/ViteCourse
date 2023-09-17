@@ -1,5 +1,4 @@
 import {
-  bugIcon as bug,
   darkIcon as dark,
   dragonIcon as dragon,
   fairyIcon as fairy,
@@ -17,6 +16,7 @@ import {
   rockIcon as rock,
   steelIcon as steel,
   waterIcon as water,
+  bugIcon as bug,
 } from "../svg/icons";
 
 export const typeList = [

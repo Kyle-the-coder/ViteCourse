@@ -5,7 +5,7 @@ function handleHoverDiv(type) {
   return <div>{hoverInfo(type)}</div>;
 }
 export const bugIcon = (
-  <div className="bug" onMouseOver={() => handleHoverDiv("Bug")}>
+  <div className="bug">
     <svg
       fill="none"
       height="30"
@@ -22,7 +22,6 @@ export const bugIcon = (
     </svg>
   </div>
 );
-
 export const darkIcon = (
   <div className="dark">
     <svg

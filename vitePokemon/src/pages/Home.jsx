@@ -8,11 +8,12 @@ function Home() {
       <div className="container">
         <div className="welcomeContainer">
           <div className="welcomeTitle">
-            <h1>Welcome to Pokemon Storage!</h1>
+            <h1>Welcome to Pokemon Stay Home!</h1>
             <p>
-              Here you can store, view info, and search for your favorite
-              pokemon!
+              A digital card collector game where you have to actually catch the
+              cards in the wild!
             </p>
+            <p>Find pokemon, catch pokemon, collect them all!</p>
             <button onClick={() => navigate("/newpokemon")} className="btn">
               Get Started
             </button>

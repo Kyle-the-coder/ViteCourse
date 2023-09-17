@@ -4,3 +4,15 @@
   justify-content: space-between;
   margin-bottom: 30px;
 }
+
+.filteredContainer {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  justify-content: space-evenly;
+}
+.checkboxContainer {
+  width: 120px;
+  display: flex;
+  justify-content: space-evenly;
+}

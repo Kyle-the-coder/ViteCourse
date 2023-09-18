@@ -293,10 +293,13 @@ body.dark-mode {
     width: 190px;
     justify-content: space-between;
   }
+
+  .home-button {
+    justify-content: space-evenly;
+  }
   .nav-Img {
     width: 30px;
     height: 30px;
-    margin-left: 10px;
   }
 
   .container {
@@ -311,7 +314,9 @@ body.dark-mode {
 
   .welcomeContainer {
     width: 100%;
+    height: 420px;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
   }
 
@@ -320,6 +325,15 @@ body.dark-mode {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    justify-content: space-between;
+    height: 200px;
+  }
+  .welcomeTitle > h1 {
+    font-size: 1.4rem;
+  }
+  .welcomeTitle > p {
+    font-size: 0.8rem;
   }
   .title {
     margin-bottom: 20px;

@@ -10,6 +10,7 @@
   align-items: center;
   width: 300px;
   justify-content: space-evenly;
+  margin-bottom: 20px;
 }
 .checkboxContainer {
   width: 120px;

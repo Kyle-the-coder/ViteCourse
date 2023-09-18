@@ -9,6 +9,7 @@ export function ThemeProvider({ children }) {
   const toggleDarkMode = () => {
     document.body.classList.toggle("dark-mode", darkMode);
     setDarkMode(!darkMode);
+    localStorage.setItem("isDarkMode", darkMode);
   };
 
   return (

@@ -6,6 +6,7 @@ import "../styles/toggle.css";
 
 export function Navbar() {
   const { darkMode, toggleDarkMode } = useTheme();
+  console.log(darkMode);
 
   return (
     <nav className={darkMode ? "top-nav-dark" : "top-nav-light"}>

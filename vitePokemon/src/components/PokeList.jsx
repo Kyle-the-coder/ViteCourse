@@ -1,4 +1,4 @@
-import { createContext, useReducer, useRef, useState } from "react";
+import { createContext, useEffect, useReducer, useRef, useState } from "react";
 import { useNavigation } from "react-router-dom";
 import { PokemonCard } from "./PokemonCard";
 import "../styles/storage.css";
@@ -79,6 +79,8 @@ export function PokeList({
     return JSON.parse(list);
   });
 
+  useEffect(() => {}, [pokeList]);
+
   const handleSelectChange = (event) => {
     filterRef.current = event.target.value;
 
@@ -130,6 +132,9 @@ export function PokeList({
       }
       if (filterRef.current === "mostRecent") {
         dispatch({ type: FILTERS.MOST_RECENT });
+      }
+      if (filterRef.current === undefined) {
+        dispatch({ type: FILTERS.ORIGINAL });
       }
     }
   }

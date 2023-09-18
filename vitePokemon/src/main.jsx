@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
+import { ThemeProvider } from "./components/ThemeContext";
 import { router } from "./routes/router";
 import "./styles/styles.css";
 
-function Main() {
-  return (
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <ThemeProvider>
     <React.StrictMode>
       <RouterProvider router={router} />
     </React.StrictMode>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById("root")).render(<Main />);
+  </ThemeProvider>
+);

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import pokeBall from "../assets/pokeball.png";
 import { useTheme } from "./ThemeContext";
+import "../styles/toggle.css";
 
 export function Navbar() {
   const { darkMode, toggleDarkMode } = useTheme();
@@ -21,8 +22,13 @@ export function Navbar() {
         <li>
           <Link to="/newpokemon">New Pokemon</Link>
         </li>
+        <li>
+          <label class="switch">
+            <input type="checkbox" onChange={toggleDarkMode} />
+            <span class="slider"></span>
+          </label>
+        </li>
       </ul>
-      <button onClick={toggleDarkMode}>Toggle Dark Mode</button>
     </nav>
   );
 }

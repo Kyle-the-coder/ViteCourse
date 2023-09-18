@@ -1,16 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import pokeBall from "../assets/pokeball.png";
+import { useTheme } from "./ThemeContext";
 
 export function Navbar() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode, toggleDarkMode } = useTheme();
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.body.classList.toggle("dark-mode", darkMode);
-  };
   return (
-    <nav className="top-nav">
+    <nav className={darkMode ? "top-nav-dark" : "top-nav-light"}>
       <div className="nav-text-large">
         <Link to="/" className="home-button">
           Pokemon Stay Home

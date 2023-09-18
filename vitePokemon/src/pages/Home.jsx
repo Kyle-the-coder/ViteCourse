@@ -1,15 +1,9 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import pokemonStorageImg from "../assets/pokemonStorage.webp";
 
 function Home() {
   const navigate = useNavigate();
-  const [darkMode, setDarkMode] = useState(false);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.body.classList.toggle("dark-mode", darkMode);
-  };
   return (
     <>
       <div className="container">
@@ -24,7 +18,6 @@ function Home() {
             <button onClick={() => navigate("/newpokemon")} className="btn">
               Get Started
             </button>
-            <button onClick={toggleDarkMode}>Toggle Dark Mode</button>
           </div>
           <div className="welcomeImage">
             <img src={pokemonStorageImg} width="400" height="200" />

@@ -23,9 +23,9 @@ export function Navbar() {
           <Link to="/newpokemon">New Pokemon</Link>
         </li>
         <li>
-          <label class="switch">
+          <label className="switch">
             <input type="checkbox" onChange={toggleDarkMode} />
-            <span class="slider"></span>
+            <span className="slider"></span>
           </label>
         </li>
       </ul>

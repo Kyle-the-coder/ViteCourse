@@ -1,4 +1,4 @@
-import { createContext, useReducer, useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigation } from "react-router-dom";
 import { PokeList } from "../components/PokeList";
 import "../styles/storage.css";

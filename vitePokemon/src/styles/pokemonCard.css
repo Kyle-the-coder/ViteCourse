@@ -176,7 +176,7 @@
 /* Mobile styles */
 @media (max-width: 767px) {
   .titleContainer {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   .pokemonMovesContainer {
     font-size: 0.9rem;

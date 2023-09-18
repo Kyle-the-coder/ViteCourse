@@ -9,7 +9,7 @@ export function Navbar() {
   console.log(darkMode);
 
   return (
-    <nav className={darkMode ? "top-nav-dark" : "top-nav-light"}>
+    <nav className={!darkMode ? "top-nav-dark" : "top-nav-light"}>
       <div className="nav-text-large">
         <Link to="/" className="home-button">
           Pokemon Stay Home
@@ -25,7 +25,11 @@ export function Navbar() {
         </li>
         <li>
           <label className="switch">
-            <input type="checkbox" onChange={toggleDarkMode} />
+            <input
+              type="checkbox"
+              checked={darkMode}
+              onChange={toggleDarkMode}
+            />
             <span className="slider"></span>
           </label>
         </li>

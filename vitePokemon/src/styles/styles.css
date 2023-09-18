@@ -3,12 +3,27 @@
   margin: 0;
   padding: 0;
 }
-body {
-  width: 100vw;
-  background-color: rgb(48, 48, 48);
-  color: white;
+:root {
+  --background-color: #ffffff; /* default light mode background color */
+  --text-color: #000000; /* default light mode text color */
 }
 
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Define styles for dark mode */
+body.dark-mode {
+  --background-color: #000000; /* dark mode background color */
+  --text-color: #ffffff; /* dark mode text color */
+}
+
+.page {
+  background-color: rgb(133, 109, 109);
+  width: 100vw;
+  height: 100%;
+}
 .top-nav {
   width: 100%;
   color: hsl(200, 20%, 95%);

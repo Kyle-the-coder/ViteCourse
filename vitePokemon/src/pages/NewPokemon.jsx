@@ -182,7 +182,7 @@ function NewPokemon() {
                       (ballHit === null ? (
                         "ball is not thrown..."
                       ) : ballHit === true ? (
-                        "ball hit!"
+                        <span className="greenText">ball hit!</span>
                       ) : (
                         <span className="redText">ball missed</span>
                       ))

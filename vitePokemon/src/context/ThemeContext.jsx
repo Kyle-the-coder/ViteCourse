@@ -29,7 +29,6 @@ export function ThemeProvider({ children }) {
     localStorage.setItem("isDarkMode", !darkMode);
   };
 
-  console.log("them", darkMode);
   return (
     <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
       {children}

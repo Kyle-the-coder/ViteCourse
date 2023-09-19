@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import pokeBall from "../assets/pokeball.png";
-import { useTheme } from "./ThemeContext";
+import { useTheme } from "../context/ThemeContext";
 import "../styles/toggle.css";
 
 export function Navbar() {

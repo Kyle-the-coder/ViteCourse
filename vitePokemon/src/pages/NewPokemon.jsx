@@ -195,7 +195,7 @@ function NewPokemon() {
                     {isCaptured ? (
                       <span className="greenText">captured!</span>
                     ) : ballHit === true && ballSpin === false ? (
-                      "pokemon got out"
+                      <span className="redText">Pokemon got out!</span>
                     ) : (
                       "not captured"
                     )}

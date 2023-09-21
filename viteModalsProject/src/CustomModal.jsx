@@ -1,9 +1,9 @@
 import { createPortal } from "react-dom";
 
-function CustomModal() {
+export function CustomModal() {
   return createPortal(
-    <div class="modal-overlay">
-      <div class="modal">
+    <div className="modal-overlay">
+      <div className="modal">
         <p>
           This is a <strong>CUSTOM</strong> modal
         </p>

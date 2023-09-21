@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState, useRef, forwardRef } from "react";
+import { CustomInput } from "./CustomInput";
 
 function App() {
   const inputRef = useRef();
@@ -9,7 +10,7 @@ function App() {
   }
   return (
     <form onSubmit={handleSubmit}>
-      <input ref={inputRef} style={{ border: "2px solid green" }} />
+      <CustomInput ref={inputRef} />
       <button type="submit">Submit</button>
     </form>
   );

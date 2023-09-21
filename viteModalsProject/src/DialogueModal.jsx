@@ -1,5 +1,7 @@
+import { createPortal } from "react-dom";
+
 export function DialogueModal({ isDialogueShown, setIsDialogueShown }) {
-  return (
+  return createPortal(
     <div className={`modal-overlay ${isDialogueShown && "show"}`}>
       <dialog className="modal" open>
         <p>
@@ -7,6 +9,7 @@ export function DialogueModal({ isDialogueShown, setIsDialogueShown }) {
         </p>
         <button onClick={() => setIsDialogueShown(false)}>Close</button>
       </dialog>
-    </div>
+    </div>,
+    document.querySelector("#modalSection")
   );
 }

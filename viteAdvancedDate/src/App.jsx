@@ -4,7 +4,10 @@ import { DatePicker } from "./DatePicker";
 function App() {
   return (
     <>
-      <DatePicker />
+      <div class="date-picker-container">
+        <button class="date-picker-button">June 26th, 2023</button>
+        <DatePicker />
+      </div>
     </>
   );
 }

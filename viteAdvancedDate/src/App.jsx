@@ -6,7 +6,7 @@ function App() {
   const [isCalendarShown, setIsCalendarShown] = useState(false);
   const newDate = new Date();
   const [currentDate, setCurrentDate] = useState(newDate);
-  const formattedDate = format(currentDate, "MMMM d'nd', yyyy");
+  const formattedDate = format(currentDate, "MMM do, yyyy");
 
   return (
     <>

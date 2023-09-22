@@ -6,7 +6,7 @@ function HomePage() {
   const [isCustomShown, setIsCustomShown] = useState(false);
   const [isDialogueShown, setIsDialogueShown] = useState(false);
   return (
-    <div>
+    <div style={{ position: "relative", marginTop: "100px" }}>
       <button onClick={() => setIsCustomShown(!isCustomShown)}>
         Show Custom Modal
       </button>
@@ -17,7 +17,13 @@ function HomePage() {
       <CustomModal
         isCustomShown={isCustomShown}
         setIsCustomShown={setIsCustomShown}
-      />
+      >
+        {" "}
+        <p>
+          This is a <strong>cUSTOM</strong> modal
+        </p>
+        <button onClick={() => setIsCustomShown(false)}>Close</button>
+      </CustomModal>
       {isDialogueShown ? (
         <DialogueModal
           setIsDialogueShown={setIsDialogueShown}

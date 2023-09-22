@@ -1,10 +1,4 @@
-import {
-  eachDayOfInterval,
-  startOfMonth,
-  endOfMonth,
-  format,
-  parseISO,
-} from "date-fns";
+import { eachDayOfInterval, startOfMonth, endOfMonth, format } from "date-fns";
 
 export function DatePicker({ currentDate, setCurrentDate }) {
   const currentMonthDateFormat = format(currentDate, "MMMM - yyyy");

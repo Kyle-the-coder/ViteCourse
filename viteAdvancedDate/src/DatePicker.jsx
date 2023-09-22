@@ -4,6 +4,11 @@ import {
   endOfMonth,
   format,
   addMonths,
+  startOfWeek,
+  endOfWeek,
+  isSameMonth,
+  isSameDay,
+  isToday,
 } from "date-fns";
 import { useState } from "react";
 
@@ -11,11 +16,10 @@ export function DatePicker({ currentDate, setCurrentDate }) {
   const [isSelected, setIsSelected] = useState(false);
   const [visibleMonth, setVisibleMonth] = useState(currentDate || new Date());
 
-  const year = format(currentDate, "yyyy");
-  const month = format(currentDate, "MM");
-  const startDate = startOfMonth(new Date(year, month - 1, 1));
-  const endDate = endOfMonth(new Date(year, month - 1, 1));
-  const daysInMonth = eachDayOfInterval({ start: startDate, end: endDate });
+  const daysInMonth = eachDayOfInterval({
+    start: startOfWeek(startOfMonth(visibleMonth)),
+    end: endOfWeek(endOfMonth(visibleMonth)),
+  });
 
   function handlePreviousMonth() {
     setVisibleMonth((currentMonth) => {
@@ -58,17 +62,18 @@ export function DatePicker({ currentDate, setCurrentDate }) {
       </div>
       <div className="date-picker-grid-dates date-picker-grid">
         {daysInMonth.map((date) => {
-          const dayOfMonth = date.getDate();
-
           return (
             <button
-              key={dayOfMonth}
-              className={`date ${isSelected ? "selected" : ""}`}
-              onClick={() => {
-                setCurrentDate(date), handleDateClick(date);
-              }}
+              onClick={() => setCurrentDate(date)}
+              key={date.toDateString()}
+              className={`date ${
+                !isSameMonth(date, visibleMonth) &&
+                "date-picker-other-month-date"
+              } ${isSameDay(date, currentDate) && "selected"} ${
+                isToday(date) && "today"
+              }`}
             >
-              {dayOfMonth}
+              {date.getDate()}
             </button>
           );
         })}

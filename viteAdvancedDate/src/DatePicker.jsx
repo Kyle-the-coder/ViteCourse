@@ -13,7 +13,6 @@ import {
 import { useState } from "react";
 
 export function DatePicker({ currentDate, setCurrentDate }) {
-  const [isSelected, setIsSelected] = useState(false);
   const [visibleMonth, setVisibleMonth] = useState(currentDate || new Date());
 
   const daysInMonth = eachDayOfInterval({

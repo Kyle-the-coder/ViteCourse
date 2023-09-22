@@ -5,8 +5,8 @@ import { format } from "date-fns";
 function App() {
   const [isCalendarShown, setIsCalendarShown] = useState(false);
   const newDate = new Date();
-  const formattedDate = format(newDate, "MMMM d'nd', yyyy");
-  const [currentDate, setCurrentDate] = useState(formattedDate);
+  const [currentDate, setCurrentDate] = useState(newDate);
+  const formattedDate = format(currentDate, "MMMM d'nd', yyyy");
 
   return (
     <>
@@ -15,9 +15,14 @@ function App() {
           className="date-picker-button"
           onClick={() => setIsCalendarShown(!isCalendarShown)}
         >
-          {currentDate}
+          {formattedDate}
         </button>
-        {isCalendarShown && <DatePicker setCurrentDate={setCurrentDate} />}
+        {isCalendarShown && (
+          <DatePicker
+            setCurrentDate={setCurrentDate}
+            currentDate={currentDate}
+          />
+        )}
       </div>
     </>
   );

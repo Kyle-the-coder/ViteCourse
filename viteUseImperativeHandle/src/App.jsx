@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <button onClick={() => inputRef.current.input2.focus()}>Focus</button>
+      <button onClick={() => console.log(inputRef.current.value)}>Focus</button>
       <Input type="text" ref={inputRef} />
     </>
   );

@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <div className="cardContainer">
-        <div className="card">This is first Card</div>
+        <div className="card ">This is first Card</div>
         <div className="card">Card</div>
         <div className="card">Card</div>
         <div className="card">Card</div>

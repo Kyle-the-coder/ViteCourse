@@ -1,12 +1,16 @@
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 
 function Inner(props, ref) {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("");
   const inputRef = useRef();
   const input2Ref = useRef();
-  useImperativeHandle(ref, () => {
-    return { input1: inputRef.current, input2: input2Ref.current };
-  });
+  useImperativeHandle(
+    ref,
+    () => {
+      return { value };
+    },
+    [value]
+  );
   return (
     <>
       <input

@@ -1,9 +1,14 @@
-import "./App.css";
+import { Child } from "./Child";
+import styled from "styled-components";
 
 export default function App() {
+  const RedHOne = styled.h1`
+    color: blue;
+  `;
   return (
     <div>
-      <h1 className="header">App</h1>
+      <RedHOne>App</RedHOne>
+      <Child />
     </div>
   );
 }

@@ -2,17 +2,18 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ChangeButton } from "./ChangeButton";
 
+const RedHOne = styled.h1`
+  color: ${(props) => props.color};
+`;
+
 export function Child() {
-  const [color, setColor] = useState("red");
+  const [color, setColor] = useState("");
   const [isColor, setIsColor] = useState(false);
   useEffect(() => {
     if (color === "red") {
       setColor("pink");
     }
   }, []);
-  const RedHOne = styled.h1`
-    color: ${(props) => props.color};
-  `;
 
   function noColor() {
     setIsColor(!isColor);
@@ -26,6 +27,8 @@ export function Child() {
   return (
     <>
       <RedHOne color={color}>Child</RedHOne>
+      <label>enter a color:</label>
+      <input type="text" onChange={(e) => setColor(e.target.value)} />
       <ChangeButton onClick={() => noColor()}>Change Color</ChangeButton>
     </>
   );

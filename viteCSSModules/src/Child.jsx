@@ -1,4 +1,4 @@
-import "./child.css";
+import styles from "./child.module.css";
 export function Child() {
-  return <div className="header">Child</div>;
+  return <div className={styles.header}>Child</div>;
 }

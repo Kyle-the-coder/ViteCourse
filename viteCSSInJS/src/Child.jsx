@@ -1,4 +1,7 @@
-import "./child.css";
+import styled from "styled-components";
 export function Child() {
-  return <div className="header">child</div>;
+  const RedHOne = styled.h1`
+    color: red;
+  `;
+  return <RedHOne>Child</RedHOne>;
 }

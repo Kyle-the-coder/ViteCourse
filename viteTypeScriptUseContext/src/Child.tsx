@@ -1,6 +1,5 @@
 import React from "react";
-import { useContext } from "react";
-import { Context, useUsers } from "./App";
+import { useUsers } from "./App";
 
 export function Child() {
   const { users } = useUsers();

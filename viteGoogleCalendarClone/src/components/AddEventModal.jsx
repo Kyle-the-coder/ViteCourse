@@ -19,6 +19,7 @@ export default function AddEventModal({
   function handleEventInfo(e) {
     e.preventDefault();
     const eventInfo = {
+      key: crypto.randomUUID(),
       eventName: eventName,
       isAllDay: isAllDay,
       startTime: startTime,

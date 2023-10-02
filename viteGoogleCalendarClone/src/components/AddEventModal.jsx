@@ -24,15 +24,19 @@ export default function AddEventModal({
       startTime: startTime,
       endTime: endTime,
       eventColor: eventColor,
+      dateOfEvent: dateOfEvent,
     };
     const storeEventInfo = JSON.stringify(eventInfo);
-    localStorage.setItem(dateOfEvent, storeEventInfo);
+    const getInfo = localStorage.getItem(dateOfEvent);
 
-    console.log(eventName);
-    console.log(isAllDay);
-    console.log(startTime);
-    console.log(endTime);
-    console.log(eventColor);
+    if (getInfo === null) {
+      const newArray = [storeEventInfo];
+      localStorage.setItem(dateOfEvent, JSON.stringify(newArray));
+    } else {
+      const newArray = JSON.parse(getInfo);
+      newArray.push(storeEventInfo);
+      localStorage.setItem(dateOfEvent, JSON.stringify(newArray));
+    }
     setIsAddEventShown(false);
     setIsSubmitted(!isSubmitted);
   }
@@ -43,7 +47,12 @@ export default function AddEventModal({
         <div className="modal-title">
           <div>Add Event</div>
           <small>6/8/23</small>
-          <button className="close-btn">&times;</button>
+          <button
+            className="close-btn"
+            onClick={() => setIsAddEventShown(false)}
+          >
+            &times;
+          </button>
         </div>
         <form onSubmit={handleEventInfo}>
           <div className="form-group">

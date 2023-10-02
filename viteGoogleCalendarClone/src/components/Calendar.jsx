@@ -71,8 +71,9 @@ export default function Calendar({ currentDate, setCurrentDate }) {
   function handleCurrentDay() {
     setVisibleMonth(currentDate);
   }
-  function handleEditEvent(parsedInfo) {
+  function handleEditEvent(parsedInfo, date) {
     setIsEditEventShown(true);
+    setDateOfEvent(date);
     setSingleEventInfo(parsedInfo);
   }
 
@@ -148,7 +149,9 @@ export default function Calendar({ currentDate, setCurrentDate }) {
                                 ) : (
                                   <button
                                     className="event mb-2"
-                                    onClick={() => handleEditEvent(parsedInfo)}
+                                    onClick={() =>
+                                      handleEditEvent(parsedInfo, date)
+                                    }
                                   >
                                     <div
                                       className={`color-dot ${parsedInfo.eventColor}`}
@@ -208,6 +211,11 @@ export default function Calendar({ currentDate, setCurrentDate }) {
             setStartTime={setStartTime}
             setEndTime={setEndTime}
             setEventColor={setEventColor}
+            eventName={eventName}
+            startTime={startTime}
+            eventColor={eventColor}
+            endTime={endTime}
+            dateOfEvent={dateOfEvent}
           />
         )}
 

@@ -9,7 +9,6 @@ import {
   isSameMonth,
   isSameDay,
   isToday,
-  parseISO,
 } from "date-fns";
 import { useEffect, useState } from "react";
 import AddEventModal from "./AddEventModal";
@@ -42,18 +41,16 @@ export default function Calendar({ currentDate, setCurrentDate }) {
   });
 
   useEffect(() => {
-    // Function to search for the target value in localStorage
     const searchLocalStorage = () => {
       const keys = [];
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         keys.push(key);
-
-        setFoundKey(keys); // Set the found key in state
+        setFoundKey(keys);
       }
     };
 
-    searchLocalStorage(); // Call the search function when the component mounts
+    searchLocalStorage();
   }, [isSubmitted]);
 
   function handlePreviousMonth() {
@@ -129,7 +126,7 @@ export default function Calendar({ currentDate, setCurrentDate }) {
                           {parsedInfo.map((info) => {
                             return (
                               <button
-                                className={`all-day-event ${
+                                className={`all-day-event mb-2 ${
                                   JSON.parse(info).eventColor
                                 } event`}
                               >

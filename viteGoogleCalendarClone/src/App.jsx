@@ -4,11 +4,7 @@ import Calendar from "./components/Calendar.jsx";
 function App() {
   const newDate = new Date();
   const [currentDate, setCurrentDate] = useState(newDate);
-  return (
-    <div>
-      <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} />
-    </div>
-  );
+  return <Calendar currentDate={currentDate} setCurrentDate={setCurrentDate} />;
 }
 
 export default App;

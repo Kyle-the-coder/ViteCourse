@@ -12,6 +12,7 @@ import {
 } from "date-fns";
 import { Fragment, useEffect, useState } from "react";
 import AddEventModal from "./AddEventModal";
+import EditEventModal from "./EditEventModal";
 import EventsModal from "./EventsModal";
 
 export default function Calendar({ currentDate, setCurrentDate }) {
@@ -27,6 +28,7 @@ export default function Calendar({ currentDate, setCurrentDate }) {
   const [visibleMonth, setVisibleMonth] = useState(currentDate);
   const [isAddEventShown, setIsAddEventShown] = useState(false);
   const [isEventListShown, setIsEventListShown] = useState(false);
+  const [isEditEventShown, setIsEditEventShown] = useState(false);
   //FORM STATES
   const [dateOfEvent, setDateOfEvent] = useState("");
   const [eventName, setEventName] = useState("");
@@ -36,6 +38,7 @@ export default function Calendar({ currentDate, setCurrentDate }) {
   const [eventColor, setEventColor] = useState("");
   //DISPLAY INFO
   const [eventInfo, setEventInfo] = useState({});
+  const [singleEventInfo, setSingleEventInfo] = useState({});
   const formattedDate = format(visibleMonth, "MMMM yyyy");
   const daysInMonth = eachDayOfInterval({
     start: startOfWeek(startOfMonth(visibleMonth)),
@@ -67,6 +70,10 @@ export default function Calendar({ currentDate, setCurrentDate }) {
   }
   function handleCurrentDay() {
     setVisibleMonth(currentDate);
+  }
+  function handleEditEvent(parsedInfo) {
+    setIsEditEventShown(true);
+    setSingleEventInfo(parsedInfo);
   }
 
   return (
@@ -139,7 +146,10 @@ export default function Calendar({ currentDate, setCurrentDate }) {
                                     </div>
                                   </button>
                                 ) : (
-                                  <button className="event mb-2">
+                                  <button
+                                    className="event mb-2"
+                                    onClick={() => handleEditEvent(parsedInfo)}
+                                  >
                                     <div
                                       className={`color-dot ${parsedInfo.eventColor}`}
                                     ></div>
@@ -186,6 +196,18 @@ export default function Calendar({ currentDate, setCurrentDate }) {
           <EventsModal
             setIsEventListShown={setIsEventListShown}
             dateObjects={dateObjects}
+          />
+        )}
+        {isEditEventShown && (
+          <EditEventModal
+            singleEventInfo={singleEventInfo}
+            isAllDay={isAllDay}
+            setIsEditEventShown={setIsEditEventShown}
+            setEventName={setEventName}
+            setIsAllDay={setIsAllDay}
+            setStartTime={setStartTime}
+            setEndTime={setEndTime}
+            setEventColor={setEventColor}
           />
         )}
 

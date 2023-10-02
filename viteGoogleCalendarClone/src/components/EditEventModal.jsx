@@ -1,51 +1,20 @@
 export default function EditEventModal({
-  setIsAddEventShown,
-  eventName,
-  setEventName,
-  isAllDay,
-  setIsAllDay,
-  startTime,
-  setStartTime,
-  endTime,
-  setEndTime,
-  eventColor,
-  setEventColor,
-  dateOfEvent,
-  setDateOfEvent,
+  dateObjects,
+  setIsEditEventShown,
   setIsSubmitted,
   isSubmitted,
+  setEventName,
+  setIsAllDay,
+  setStartTime,
+  setEndTime,
+  setEventColor,
+  isAllDay,
+  parsedInfo,
 }) {
   function handleEventInfo(e) {
     e.preventDefault();
-    const eventInfo = {
-      eventName: eventName,
-      isAllDay: isAllDay,
-      startTime: startTime,
-      endTime: endTime,
-      eventColor: eventColor,
-      dateOfEvent: dateOfEvent,
-    };
-    const storeEventInfo = JSON.stringify(eventInfo);
-    const getInfo = localStorage.getItem(dateOfEvent);
-
-    if (getInfo === null) {
-      const newArray = [storeEventInfo];
-      localStorage.setItem(dateOfEvent, JSON.stringify(newArray));
-    } else {
-      const newArray = JSON.parse(getInfo);
-      newArray.push(storeEventInfo);
-      localStorage.setItem(dateOfEvent, JSON.stringify(newArray));
-    }
-
-    setEventName("");
-    setDateOfEvent("");
-    setIsAllDay(false);
-    setStartTime(null);
-    setEndTime(null);
-    setEventColor("");
-    setIsAddEventShown(false);
-    setIsSubmitted(!isSubmitted);
   }
+  console.log(parsedInfo);
   return (
     <div className="modal">
       <div className="overlay"></div>
@@ -55,7 +24,7 @@ export default function EditEventModal({
           <small>6/8/23</small>
           <button
             className="close-btn"
-            onClick={() => setIsAddEventShown(false)}
+            onClick={() => setIsEditEventShown(false)}
           >
             &times;
           </button>

@@ -122,17 +122,24 @@ export default function Calendar({ currentDate, setCurrentDate }) {
                 {dateObjects.map((eventDate, index) => {
                   const info = localStorage.getItem(eventDate);
                   const parsedInfo = JSON.parse(info);
-                  console.log(JSON.parse(info));
                   return (
                     <div key={index}>
                       {isSameDay(date, eventDate) && (
-                        <button
-                          className={`all-day-event ${parsedInfo.eventColor}  event`}
-                        >
-                          <div className="event-name">
-                            {parsedInfo.eventName}
-                          </div>
-                        </button>
+                        <>
+                          {parsedInfo.map((info) => {
+                            return (
+                              <button
+                                className={`all-day-event ${
+                                  JSON.parse(info).eventColor
+                                } event`}
+                              >
+                                <div className="event-name">
+                                  {JSON.parse(info).eventName}
+                                </div>
+                              </button>
+                            );
+                          })}
+                        </>
                       )}
                     </div>
                   );

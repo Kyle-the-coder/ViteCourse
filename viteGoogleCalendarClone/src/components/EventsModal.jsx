@@ -1,11 +1,16 @@
-export default function EventsModal() {
+export default function EventsModal({ setIsEventListShown }) {
   return (
     <div className="modal">
       <div className="overlay"></div>
       <div className="modal-body">
         <div className="modal-title">
           6/8/23
-          <button className="close-btn">&times;</button>
+          <button
+            className="close-btn"
+            onClick={() => setIsEventListShown(false)}
+          >
+            &times;
+          </button>
         </div>
         <div className="events">
           <button className="all-day-event green event">

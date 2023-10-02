@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { format } from "date-fns";
 export default function AddEventModal({
   setIsAddEventShown,
   eventName,
@@ -54,7 +53,7 @@ export default function AddEventModal({
       <div className="modal-body">
         <div className="modal-title">
           <div>Add Event</div>
-          <small>6/8/23</small>
+          <small>{format(dateOfEvent, "MM/dd/yy")}</small>
           <button
             className="close-btn"
             onClick={() => setIsAddEventShown(false)}

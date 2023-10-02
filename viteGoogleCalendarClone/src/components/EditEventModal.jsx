@@ -1,10 +1,7 @@
 import { useEffect } from "react";
 
 export default function EditEventModal({
-  dateObjects,
   setIsEditEventShown,
-  setIsSubmitted,
-  isSubmitted,
   setEventName,
   setIsAllDay,
   setStartTime,
@@ -32,7 +29,6 @@ export default function EditEventModal({
     };
     const getInfo = localStorage.getItem(dateOfEvent);
     const newArray = JSON.parse(getInfo);
-    console.log(newArray);
     const updatedArray = newArray.map((item) => {
       let parsedInfo = JSON.parse(item);
       if (parsedInfo.key === singleEventInfo.key) {
@@ -50,7 +46,17 @@ export default function EditEventModal({
     setStartTime(singleEventInfo.startTime);
     setEndTime(singleEventInfo.endTime);
   }, []);
-  console.log(singleEventInfo);
+  function handleClose() {
+    const element = document.querySelector(".overlay");
+    if (element) {
+      element.classList.add("closing");
+    }
+    setTimeout(() => {
+      setIsEditEventShown(false);
+      // Perform additional actions after the timeout
+    }, 2000);
+  }
+
   return (
     <div className="modal">
       <div className="overlay"></div>
@@ -58,10 +64,7 @@ export default function EditEventModal({
         <div className="modal-title">
           <div>Edit Event</div>
           <small>6/8/23</small>
-          <button
-            className="close-btn"
-            onClick={() => setIsEditEventShown(false)}
-          >
+          <button className="close-btn" onClick={() => handleClose()}>
             &times;
           </button>
         </div>

@@ -159,6 +159,7 @@ export default function Calendar({ currentDate, setCurrentDate }) {
             endTime={endTime}
             eventColor={eventColor}
             dateOfEvent={dateOfEvent}
+            setDateOfEvent={setDateOfEvent}
             setIsSubmitted={setIsSubmitted}
             isSubmitted={isSubmitted}
           />

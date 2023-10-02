@@ -13,6 +13,7 @@ export default function AddEventModal({
   eventColor,
   setEventColor,
   dateOfEvent,
+  setDateOfEvent,
   setIsSubmitted,
   isSubmitted,
 }) {
@@ -37,6 +38,13 @@ export default function AddEventModal({
       newArray.push(storeEventInfo);
       localStorage.setItem(dateOfEvent, JSON.stringify(newArray));
     }
+
+    setEventName("");
+    setDateOfEvent("");
+    setIsAllDay(false);
+    setStartTime(null);
+    setEndTime(null);
+    setEventColor("");
     setIsAddEventShown(false);
     setIsSubmitted(!isSubmitted);
   }

@@ -453,3 +453,7 @@ body {
 .color-radio[value="green"] + label::before {
   background-color: var(--green-background);
 }
+
+.mb-2 {
+  margin-bottom: 10px;
+}

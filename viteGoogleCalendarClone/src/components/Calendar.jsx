@@ -10,8 +10,9 @@ import {
   isSameDay,
   isToday,
 } from "date-fns";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import AddEventModal from "./AddEventModal";
+import EventsModal from "./EventsModal";
 
 export default function Calendar({ currentDate, setCurrentDate }) {
   //PAGE REFRESH STATE
@@ -25,6 +26,7 @@ export default function Calendar({ currentDate, setCurrentDate }) {
   //MONTH INFO AND MODAL
   const [visibleMonth, setVisibleMonth] = useState(currentDate);
   const [isAddEventShown, setIsAddEventShown] = useState(false);
+  const [isEventListShown, setIsEventListShown] = useState(false);
   //FORM STATES
   const [dateOfEvent, setDateOfEvent] = useState("");
   const [eventName, setEventName] = useState("");
@@ -123,17 +125,33 @@ export default function Calendar({ currentDate, setCurrentDate }) {
                     <div key={index}>
                       {isSameDay(date, eventDate) && (
                         <>
-                          {parsedInfo.map((info) => {
+                          {parsedInfo.map((info, index) => {
+                            const parsedInfo = JSON.parse(info);
                             return (
-                              <button
-                                className={`all-day-event mb-2 ${
-                                  JSON.parse(info).eventColor
-                                } event`}
-                              >
-                                <div className="event-name">
-                                  {JSON.parse(info).eventName}
-                                </div>
-                              </button>
+                              <Fragment key={index}>
+                                {parsedInfo.isAllDay ? (
+                                  <button
+                                    className={`all-day-event mb-2 ${parsedInfo.eventColor} event`}
+                                    onClick={() => setIsEventListShown(true)}
+                                  >
+                                    <div className="event-name">
+                                      {parsedInfo.eventName}
+                                    </div>
+                                  </button>
+                                ) : (
+                                  <button className="event mb-2">
+                                    <div
+                                      className={`color-dot ${parsedInfo.eventColor}`}
+                                    ></div>
+                                    <div className="event-time">
+                                      {parsedInfo.startTime}
+                                    </div>
+                                    <div className="event-name">
+                                      {parsedInfo.eventName}
+                                    </div>
+                                  </button>
+                                )}
+                              </Fragment>
                             );
                           })}
                         </>
@@ -162,6 +180,12 @@ export default function Calendar({ currentDate, setCurrentDate }) {
             setDateOfEvent={setDateOfEvent}
             setIsSubmitted={setIsSubmitted}
             isSubmitted={isSubmitted}
+          />
+        )}
+        {isEventListShown && (
+          <EventsModal
+            setIsEventListShown={setIsEventListShown}
+            dateObjects={dateObjects}
           />
         )}
 

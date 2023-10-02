@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export default function EditEventModal({
   dateObjects,
   setIsEditEventShown,
@@ -9,12 +11,46 @@ export default function EditEventModal({
   setEndTime,
   setEventColor,
   isAllDay,
-  parsedInfo,
+  singleEventInfo,
+  eventName,
+  startTime,
+  endTime,
+  eventColor,
+  dateOfEvent,
 }) {
   function handleEventInfo(e) {
     e.preventDefault();
+
+    const eventInfo = {
+      key: singleEventInfo.key,
+      eventName: eventName,
+      isAllDay: isAllDay,
+      startTime: startTime,
+      endTime: endTime,
+      eventColor: eventColor,
+      dateOfEvent: dateOfEvent,
+    };
+    const getInfo = localStorage.getItem(dateOfEvent);
+    const newArray = JSON.parse(getInfo);
+    console.log(newArray);
+    const updatedArray = newArray.map((item) => {
+      let parsedInfo = JSON.parse(item);
+      if (parsedInfo.key === singleEventInfo.key) {
+        parsedInfo = eventInfo;
+      }
+      return JSON.stringify(parsedInfo);
+    });
+    localStorage.setItem(dateOfEvent, JSON.stringify(updatedArray));
+    setIsEditEventShown(false);
   }
-  console.log(parsedInfo);
+
+  useEffect(() => {
+    setEventColor(singleEventInfo.eventColor);
+    setEventName(singleEventInfo.eventName);
+    setStartTime(singleEventInfo.startTime);
+    setEndTime(singleEventInfo.endTime);
+  }, []);
+  console.log(singleEventInfo);
   return (
     <div className="modal">
       <div className="overlay"></div>
@@ -36,6 +72,7 @@ export default function EditEventModal({
               type="text"
               name="name"
               id="name"
+              defaultValue={eventName}
               onChange={(e) => setEventName(e.target.value)}
             />
           </div>
@@ -56,6 +93,7 @@ export default function EditEventModal({
                 type="time"
                 name="start-time"
                 id="start-time"
+                defaultValue={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
               />
             </div>
@@ -65,6 +103,7 @@ export default function EditEventModal({
                 type="time"
                 name="end-time"
                 id="end-time"
+                defaultValue={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
               />
             </div>
@@ -77,7 +116,7 @@ export default function EditEventModal({
                 name="color"
                 value="blue"
                 id="blue"
-                defaultChecked={false}
+                defaultChecked={singleEventInfo.eventColor === "blue"}
                 className="color-radio"
                 onChange={(e) => setEventColor(e.target.value)}
               />
@@ -90,6 +129,7 @@ export default function EditEventModal({
                 value="red"
                 id="red"
                 className="color-radio"
+                defaultChecked={singleEventInfo.eventColor === "red"}
                 onChange={(e) => setEventColor(e.target.value)}
               />
               <label htmlFor="red">
@@ -101,6 +141,7 @@ export default function EditEventModal({
                 value="green"
                 id="green"
                 className="color-radio"
+                defaultChecked={singleEventInfo.eventColor === "green"}
                 onChange={(e) => setEventColor(e.target.value)}
               />
               <label htmlFor="green">
@@ -110,7 +151,7 @@ export default function EditEventModal({
           </div>
           <div className="row">
             <button className="btn btn-success" type="submit">
-              Add
+              Edit
             </button>
             <button className="btn btn-delete" type="button">
               Delete

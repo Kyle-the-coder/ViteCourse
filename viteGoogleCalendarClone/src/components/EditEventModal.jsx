@@ -154,7 +154,7 @@ export default function EditEventModal({
           </div>
           <div className="row">
             <button className="btn btn-success" type="submit">
-              Edit
+              Submit
             </button>
             <button className="btn btn-delete" type="button">
               Delete

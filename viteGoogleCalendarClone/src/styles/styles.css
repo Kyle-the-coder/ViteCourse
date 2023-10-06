@@ -329,7 +329,7 @@ body {
 }
 
 .modal.closing .modal-body {
-  animation: pop-in 250ms forwards reverse;
+  animation: pop-in 1050ms forwards reverse;
 }
 
 @keyframes pop-in {

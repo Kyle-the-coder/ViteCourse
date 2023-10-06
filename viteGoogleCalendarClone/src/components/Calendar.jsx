@@ -140,7 +140,9 @@ export default function Calendar({ currentDate, setCurrentDate }) {
                                 {parsedInfo.isAllDay ? (
                                   <button
                                     className={`all-day-event mb-2 ${parsedInfo.eventColor} event`}
-                                    onClick={() => setIsEventListShown(true)}
+                                    onClick={() =>
+                                      handleEditEvent(parsedInfo, date)
+                                    }
                                   >
                                     <div className="event-name">
                                       {parsedInfo.eventName}

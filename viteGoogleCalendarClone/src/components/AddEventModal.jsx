@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { useState } from "react";
 export default function AddEventModal({
   setIsAddEventShown,
   eventName,
@@ -16,8 +17,13 @@ export default function AddEventModal({
   setIsSubmitted,
   isSubmitted,
 }) {
+  const [isNameFilled, setIsNameFilled] = useState(false);
   function handleEventInfo(e) {
     e.preventDefault();
+    if (eventName === "") {
+      setIsNameFilled(true);
+      return;
+    }
     const eventInfo = {
       key: crypto.randomUUID(),
       eventName: eventName,
@@ -69,8 +75,12 @@ export default function AddEventModal({
               type="text"
               name="name"
               id="name"
-              onChange={(e) => setEventName(e.target.value)}
+              onChange={(e) => {
+                setEventName(e.target.value);
+                setIsNameFilled(false);
+              }}
             />
+            {isNameFilled && <div className="red-text">Name is required</div>}
           </div>
           <div className="form-group checkbox">
             <input
@@ -89,6 +99,7 @@ export default function AddEventModal({
                 type="time"
                 name="start-time"
                 id="start-time"
+                disabled={isAllDay}
                 onChange={(e) => setStartTime(e.target.value)}
               />
             </div>
@@ -98,6 +109,7 @@ export default function AddEventModal({
                 type="time"
                 name="end-time"
                 id="end-time"
+                disabled={isAllDay}
                 onChange={(e) => setEndTime(e.target.value)}
               />
             </div>

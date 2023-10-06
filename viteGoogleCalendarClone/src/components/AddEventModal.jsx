@@ -18,10 +18,22 @@ export default function AddEventModal({
   isSubmitted,
 }) {
   const [isNameFilled, setIsNameFilled] = useState(false);
+  const [timeError, setTimeError] = useState(false);
   function handleEventInfo(e) {
     e.preventDefault();
     if (eventName === "") {
       setIsNameFilled(true);
+      return;
+    }
+    if (startTime > endTime) {
+      console.log("yes");
+      setTimeError(true);
+      return;
+    } else if (
+      (startTime === null && isAllDay === false) ||
+      (endTime === null && isAllDay === false)
+    ) {
+      setTimeError(true);
       return;
     }
     const eventInfo = {
@@ -80,7 +92,13 @@ export default function AddEventModal({
                 setIsNameFilled(false);
               }}
             />
-            {isNameFilled && <div className="red-text">Name is required</div>}
+            {isNameFilled ? (
+              <div className="red-text form-group">Name is required</div>
+            ) : (
+              <div className="red-text form-group not-seen">
+                Name is required
+              </div>
+            )}
           </div>
           <div className="form-group checkbox">
             <input
@@ -100,7 +118,9 @@ export default function AddEventModal({
                 name="start-time"
                 id="start-time"
                 disabled={isAllDay}
-                onChange={(e) => setStartTime(e.target.value)}
+                onChange={(e) => {
+                  setStartTime(e.target.value), setTimeError(false);
+                }}
               />
             </div>
             <div className="form-group">
@@ -110,10 +130,22 @@ export default function AddEventModal({
                 name="end-time"
                 id="end-time"
                 disabled={isAllDay}
-                onChange={(e) => setEndTime(e.target.value)}
+                onChange={(e) => {
+                  setEndTime(e.target.value);
+                  setTimeError(false);
+                }}
               />
             </div>
           </div>
+          {timeError ? (
+            <div className="red-text form-group">
+              Start time must be before End time and both are required
+            </div>
+          ) : (
+            <div className="red-text form-group not-seen">
+              Start time must be before End time and both are required
+            </div>
+          )}
           <div className="form-group">
             <label>Color</label>
             <div className="row left">

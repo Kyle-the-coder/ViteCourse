@@ -457,3 +457,6 @@ body {
 .mb-2 {
   margin-bottom: 10px;
 }
+.red-text {
+  color: rgb(255, 39, 39);
+}

@@ -104,6 +104,7 @@ export default function EditEventModal({
                 name="start-time"
                 id="start-time"
                 defaultValue={startTime}
+                disabled={singleEventInfo.isAllDay}
                 onChange={(e) => setStartTime(e.target.value)}
               />
             </div>

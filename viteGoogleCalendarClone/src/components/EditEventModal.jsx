@@ -115,6 +115,7 @@ export default function EditEventModal({
                 name="end-time"
                 id="end-time"
                 defaultValue={endTime}
+                disabled={singleEventInfo.isAllDay}
                 onChange={(e) => setEndTime(e.target.value)}
               />
             </div>

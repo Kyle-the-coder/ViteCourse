@@ -56,15 +56,6 @@ export default function Calendar({ currentDate, setCurrentDate }) {
     };
 
     searchLocalStorage();
-    dateObjects.sort((a, b) => {
-      console.log(a, b);
-      // Convert boolean values to numbers (false becomes 0, true becomes 1)
-      const aIsAllDay = JSON.parse(a).isAllDay ? 1 : 0;
-      const bIsAllDay = JSON.parse(b).isAllDay ? 1 : 0;
-
-      // Compare the numeric values
-      return bIsAllDay - aIsAllDay;
-    });
   }, [isSubmitted]);
 
   function handlePreviousMonth() {

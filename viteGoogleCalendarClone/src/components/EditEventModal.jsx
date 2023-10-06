@@ -15,28 +15,35 @@ export default function EditEventModal({
   eventColor,
   dateOfEvent,
 }) {
+  const [isNameFilled, setIsNameFilled] = useState(false);
   function handleEventInfo(e) {
     e.preventDefault();
-    const eventInfo = {
-      key: singleEventInfo.key,
-      eventName: eventName,
-      isAllDay: isAllDay,
-      startTime: startTime,
-      endTime: endTime,
-      eventColor: eventColor,
-      dateOfEvent: dateOfEvent,
-    };
-    const getInfo = localStorage.getItem(dateOfEvent);
-    const newArray = JSON.parse(getInfo);
-    const updatedArray = newArray.map((item) => {
-      let parsedInfo = JSON.parse(item);
-      if (parsedInfo.key === singleEventInfo.key) {
-        parsedInfo = eventInfo;
-      }
-      return JSON.stringify(parsedInfo);
-    });
-    localStorage.setItem(dateOfEvent, JSON.stringify(updatedArray));
-    setIsEditEventShown(false);
+    console.log("name", eventName);
+    if (eventName === "") {
+      setIsNameFilled(true);
+      return;
+    } else if (eventName !== "") {
+      const eventInfo = {
+        key: singleEventInfo.key,
+        eventName: eventName,
+        isAllDay: isAllDay,
+        startTime: startTime,
+        endTime: endTime,
+        eventColor: eventColor,
+        dateOfEvent: dateOfEvent,
+      };
+      const getInfo = localStorage.getItem(dateOfEvent);
+      const newArray = JSON.parse(getInfo);
+      const updatedArray = newArray.map((item) => {
+        let parsedInfo = JSON.parse(item);
+        if (parsedInfo.key === singleEventInfo.key) {
+          parsedInfo = eventInfo;
+        }
+        return JSON.stringify(parsedInfo);
+      });
+      localStorage.setItem(dateOfEvent, JSON.stringify(updatedArray));
+      setIsEditEventShown(false);
+    }
   }
 
   useEffect(() => {
@@ -56,6 +63,7 @@ export default function EditEventModal({
     //   // Perform additional actions after the timeout
     // }, 2000);
   }
+  console.log(isNameFilled);
 
   return (
     <div className="modal">

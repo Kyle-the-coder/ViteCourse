@@ -17,7 +17,6 @@ export default function EditEventModal({
 }) {
   function handleEventInfo(e) {
     e.preventDefault();
-
     const eventInfo = {
       key: singleEventInfo.key,
       eventName: eventName,
@@ -46,15 +45,16 @@ export default function EditEventModal({
     setStartTime(singleEventInfo.startTime);
     setEndTime(singleEventInfo.endTime);
   }, []);
+
   function handleClose() {
     const element = document.querySelector(".overlay");
     if (element) {
       element.classList.add("closing");
     }
-    setTimeout(() => {
-      setIsEditEventShown(false);
-      // Perform additional actions after the timeout
-    }, 2000);
+    setIsEditEventShown(false);
+    // setTimeout(() => {
+    //   // Perform additional actions after the timeout
+    // }, 2000);
   }
 
   return (

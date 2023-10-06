@@ -64,6 +64,21 @@ export default function EditEventModal({
     // }, 2000);
   }
 
+  function handleDeleteEvent(key) {
+    const allEvents = localStorage.getItem(dateOfEvent);
+    console.log(allEvents);
+    if (allEvents === null) return;
+    if (allEvents !== null) {
+      const parsedEvents = JSON.parse(allEvents);
+      console.log("p", parsedEvents);
+      const newArray = parsedEvents.filter(
+        (item) => JSON.parse(item).key !== key
+      );
+      localStorage.setItem(dateOfEvent, JSON.stringify(newArray));
+      setIsEditEventShown(false);
+    }
+  }
+
   return (
     <div className="modal">
       <div className="overlay"></div>
@@ -165,7 +180,11 @@ export default function EditEventModal({
             <button className="btn btn-success" type="submit">
               Submit
             </button>
-            <button className="btn btn-delete" type="button">
+            <button
+              onClick={() => handleDeleteEvent(singleEventInfo.key)}
+              className="btn btn-delete"
+              type="button"
+            >
               Delete
             </button>
           </div>

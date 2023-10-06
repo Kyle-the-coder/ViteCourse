@@ -66,6 +66,16 @@ export default function AddEventModal({
     setIsAddEventShown(false);
     setIsSubmitted(!isSubmitted);
   }
+
+  function handleClose() {
+    const element = document.querySelector(".modal");
+    if (element) {
+      element.classList.add("closing");
+    }
+    setTimeout(() => {
+      setIsAddEventShown(false);
+    }, 300);
+  }
   return (
     <div className="modal">
       <div className="overlay"></div>
@@ -73,10 +83,7 @@ export default function AddEventModal({
         <div className="modal-title">
           <div>Add Event</div>
           <small>{format(dateOfEvent, "MM/dd/yy")}</small>
-          <button
-            className="close-btn"
-            onClick={() => setIsAddEventShown(false)}
-          >
+          <button className="close-btn" onClick={() => handleClose()}>
             &times;
           </button>
         </div>

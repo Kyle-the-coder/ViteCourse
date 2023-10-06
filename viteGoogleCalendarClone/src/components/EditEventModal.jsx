@@ -54,14 +54,13 @@ export default function EditEventModal({
   }, []);
 
   function handleClose() {
-    const element = document.querySelector(".overlay");
+    const element = document.querySelector(".modal");
     if (element) {
       element.classList.add("closing");
     }
-    setIsEditEventShown(false);
-    // setTimeout(() => {
-    //   // Perform additional actions after the timeout
-    // }, 2000);
+    setTimeout(() => {
+      setIsEditEventShown(false);
+    }, 300);
   }
 
   function handleDeleteEvent(key) {

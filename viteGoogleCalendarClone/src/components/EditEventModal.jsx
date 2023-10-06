@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function EditEventModal({
   setIsEditEventShown,
@@ -63,7 +63,6 @@ export default function EditEventModal({
     //   // Perform additional actions after the timeout
     // }, 2000);
   }
-  console.log(isNameFilled);
 
   return (
     <div className="modal">
@@ -92,7 +91,7 @@ export default function EditEventModal({
               type="checkbox"
               name="all-day"
               id="all-day"
-              defaultChecked={isAllDay}
+              defaultChecked={singleEventInfo.isAllDay}
               onChange={(e) => setIsAllDay(e.target.checked)}
             />
             <label htmlFor="all-day">All Day?</label>

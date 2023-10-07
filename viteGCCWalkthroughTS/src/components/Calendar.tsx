@@ -323,14 +323,28 @@ export function Calendar() {
   );
 }
 
-function CalendarDay() {
+function CalendarDay({ day, showWeekName, selectedMonth }) {
   return (
-    <div className="day non-month-day old-month-day">
+    <div className="day old-month-day">
       <div className="day-header">
-        <div className="week-name">Sun</div>
-        <div className="day-number">28</div>
+        <div className="day-number">8</div>
         <button className="add-event-btn">+</button>
       </div>
+      {/* <div className="events">
+        <button className="all-day-event blue event">
+          <div className="event-name">Short</div>
+        </button>
+        <button className="all-day-event red event">
+          <div className="event-name">
+            Long Event Name That Just Keeps Going
+          </div>
+        </button>
+        <button className="event">
+          <div className="color-dot red"></div>
+          <div className="event-time">7am</div>
+          <div className="event-name">Event Name</div>
+        </button>
+      </div> */}
     </div>
   );
 }

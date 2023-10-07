@@ -1,13 +1,17 @@
 import { endOfMonth, endOfWeek, startOfMonth } from "date-fns";
-import { startOfWeek } from "date-fns/esm";
-import React, { useState } from "react";
+import { eachDayOfInterval, startOfWeek } from "date-fns/esm";
+import React, { useMemo, useState } from "react";
 
 export function Calendar() {
   const [selectedMonth, setSelectedMonth] = useState(new Date());
-  const calendarDays = null;
-  const firstWeekStart = startOfWeek(startOfMonth(selectedMonth));
-  const lastWeekEnd = endOfWeek(endOfMonth(selectedMonth));
-
+  const calendarDays = useMemo(() => {
+    const firstWeekStart = startOfWeek(startOfMonth(selectedMonth));
+    const lastWeekEnd = endOfWeek(endOfMonth(selectedMonth));
+    return eachDayOfInterval({
+      start: firstWeekStart,
+      end: lastWeekEnd,
+    });
+  }, [selectedMonth]);
   return (
     <div className="calendar">
       <div className="header">
@@ -19,7 +23,10 @@ export function Calendar() {
         <span className="month-title">June 2023</span>
       </div>
       <div className="days">
-        <div className="day non-month-day old-month-day">
+        {calendarDays.map((day) => (
+          <CalendarDay key={day.getTime()} />
+        ))}
+        {/* <div className="day non-month-day old-month-day">
           <div className="day-header">
             <div className="week-name">Sun</div>
             <div className="day-number">28</div>
@@ -310,12 +317,20 @@ export function Calendar() {
             <div className="day-number">1</div>
             <button className="add-event-btn">+</button>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
 }
 
 function CalendarDay() {
-  return <div></div>;
+  return (
+    <div className="day non-month-day old-month-day">
+      <div className="day-header">
+        <div className="week-name">Sun</div>
+        <div className="day-number">28</div>
+        <button className="add-event-btn">+</button>
+      </div>
+    </div>
+  );
 }

@@ -1,6 +1,13 @@
-import React from "react";
+import { endOfMonth, endOfWeek, startOfMonth } from "date-fns";
+import { startOfWeek } from "date-fns/esm";
+import React, { useState } from "react";
 
 export function Calendar() {
+  const [selectedMonth, setSelectedMonth] = useState(new Date());
+  const calendarDays = null;
+  const firstWeekStart = startOfWeek(startOfMonth(selectedMonth));
+  const lastWeekEnd = endOfWeek(endOfMonth(selectedMonth));
+
   return (
     <div className="calendar">
       <div className="header">
@@ -307,4 +314,8 @@ export function Calendar() {
       </div>
     </div>
   );
+}
+
+function CalendarDay() {
+  return <div></div>;
 }

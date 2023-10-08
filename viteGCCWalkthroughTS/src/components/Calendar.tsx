@@ -11,6 +11,7 @@ import {
 } from "date-fns";
 import { eachDayOfInterval, startOfWeek } from "date-fns/esm";
 import React, { useMemo, useState } from "react";
+import { useEvents } from "../context/useEvent";
 import { cc } from "../utils/cc";
 import { formatDate } from "../utils/formatDate";
 
@@ -73,6 +74,7 @@ type CalendarDayProps = {
 };
 
 function CalendarDay({ day, showWeekName, selectedMonth }: CalendarDayProps) {
+  const { addEvent } = useEvents();
   return (
     <div
       className={cc(

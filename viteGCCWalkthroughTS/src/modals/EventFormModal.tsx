@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, ModalProps } from "../components/Modal";
+import { Event } from "../context/Events";
 import { UnionOmit } from "../utils/types";
 
 type EventFormModalProps = {

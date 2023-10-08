@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createContext, ReactNode, useState } from "react";
 import { UnionOmit } from "../utils/types";
 
@@ -34,4 +34,12 @@ export function EventsProvider({ children }: EventsProviderProps) {
   return (
     <Context.Provider value={{ events, addEvent }}>{children}</Context.Provider>
   );
+}
+
+export function useEvents() {
+  const value = useContext(Context);
+  if (value == null) {
+    throw new Error("useEvents must be used within the EventsProvider");
+  }
+  return value;
 }

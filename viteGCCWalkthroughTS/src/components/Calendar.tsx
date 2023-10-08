@@ -11,7 +11,9 @@ import {
 } from "date-fns";
 import { eachDayOfInterval, startOfWeek } from "date-fns/esm";
 import React, { useMemo, useState } from "react";
+import { useAsyncError } from "react-router-dom";
 import { useEvents } from "../context/useEvent";
+import { EventFormModal } from "../modals/EventFormModal";
 import { cc } from "../utils/cc";
 import { formatDate } from "../utils/formatDate";
 
@@ -74,6 +76,7 @@ type CalendarDayProps = {
 };
 
 function CalendarDay({ day, showWeekName, selectedMonth }: CalendarDayProps) {
+  const [isNewEventModalOpen, setIsNewEventModalOpen] = useState(false);
   const { addEvent } = useEvents();
   return (
     <div
@@ -92,7 +95,12 @@ function CalendarDay({ day, showWeekName, selectedMonth }: CalendarDayProps) {
         <div className={cc("day-number", isToday(day) && "today")}>
           {formatDate(day, { day: "numeric" })}
         </div>
-        <button className="add-event-btn">+</button>
+        <button
+          className="add-event-btn"
+          onClick={() => setIsNewEventModalOpen(true)}
+        >
+          +
+        </button>
       </div>
       {/* <div className="events">
             <button className="all-day-event blue event">
@@ -109,6 +117,12 @@ function CalendarDay({ day, showWeekName, selectedMonth }: CalendarDayProps) {
               <div className="event-name">Event Name</div>
             </button>
           </div> */}
+      <EventFormModal
+        date={day}
+        isOpen={isNewEventModalOpen}
+        onClose={() => setIsNewEventModalOpen(false)}
+        onSubmit={() => null}
+      />
     </div>
   );
 }

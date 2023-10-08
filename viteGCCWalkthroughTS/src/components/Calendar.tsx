@@ -1,4 +1,5 @@
 import {
+  addMonths,
   endOfDay,
   endOfMonth,
   endOfWeek,
@@ -6,6 +7,7 @@ import {
   isSameMonth,
   isToday,
   startOfMonth,
+  subMonths,
 } from "date-fns";
 import { eachDayOfInterval, startOfWeek } from "date-fns/esm";
 import React, { useMemo, useState } from "react";
@@ -25,12 +27,30 @@ export function Calendar() {
   return (
     <div className="calendar">
       <div className="header">
-        <button className="btn">Today</button>
+        <button className="btn" onClick={() => setSelectedMonth(new Date())}>
+          Today
+        </button>
         <div>
-          <button className="month-change-btn">&lt;</button>
-          <button className="month-change-btn">&gt;</button>
+          <button
+            className="month-change-btn"
+            onClick={() => {
+              setSelectedMonth((m) => subMonths(m, 1));
+            }}
+          >
+            &lt;
+          </button>
+          <button
+            className="month-change-btn"
+            onClick={() => {
+              setSelectedMonth((m) => addMonths(m, 1));
+            }}
+          >
+            &gt;
+          </button>
         </div>
-        <span className="month-title">June 2023</span>
+        <span className="month-title">
+          {formatDate(selectedMonth, { month: "long", year: "numeric" })}
+        </span>
       </div>
       <div className="days">
         {calendarDays.map((day, index) => (

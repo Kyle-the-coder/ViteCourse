@@ -11,7 +11,6 @@ import {
 } from "date-fns";
 import { eachDayOfInterval, startOfWeek } from "date-fns/esm";
 import React, { useMemo, useState } from "react";
-import { useAsyncError } from "react-router-dom";
 import { useEvents } from "../context/useEvent";
 import { EventFormModal } from "../modals/EventFormModal";
 import { cc } from "../utils/cc";
@@ -121,7 +120,7 @@ function CalendarDay({ day, showWeekName, selectedMonth }: CalendarDayProps) {
         date={day}
         isOpen={isNewEventModalOpen}
         onClose={() => setIsNewEventModalOpen(false)}
-        onSubmit={() => null}
+        onSubmit={addEvent}
       />
     </div>
   );

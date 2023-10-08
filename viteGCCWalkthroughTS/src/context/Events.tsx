@@ -35,11 +35,3 @@ export function EventsProvider({ children }: EventsProviderProps) {
     <Context.Provider value={{ events, addEvent }}>{children}</Context.Provider>
   );
 }
-
-export function useEvents() {
-  const value = useContext(Context);
-  if (value == null) {
-    throw new Error("useEvents must be used within the EventsProvider");
-  }
-  return value;
-}

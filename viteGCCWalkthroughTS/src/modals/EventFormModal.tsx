@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, ModalProps } from "../components/Modal";
 import { Event } from "../context/Events";
+import { formatDate } from "../utils/formatDate";
 import { UnionOmit } from "../utils/types";
 
 type EventFormModalProps = {
@@ -18,11 +19,12 @@ export function EventFormModal({
   date,
   ...modalProps
 }: EventFormModalProps) {
+  const isNew = event == null;
   return (
     <Modal {...modalProps}>
       <div className="modal-title">
-        <div>Add Event</div>
-        <small>6/8/23</small>
+        <div>{isNew ? "Add" : "Edit"} Event</div>
+        <small>{formatDate(date || event.date, { dateStyle: "short" })}</small>
         <button className="close-btn">&times;</button>
       </div>
       <form>

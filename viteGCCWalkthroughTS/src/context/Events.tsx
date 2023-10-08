@@ -1,8 +1,6 @@
-import React, { useContext } from "react";
-import { createContext, ReactNode, useState } from "react";
+import React, { createContext, ReactNode, useState } from "react";
 import { UnionOmit } from "../utils/types";
-
-const EVENT_COLORS = ["red", "green", "blue"] as const;
+import { EVENT_COLORS } from "./useEvent";
 
 type Event = {
   id: string;
@@ -19,7 +17,7 @@ type EventsContext = {
   addEvent: (event: UnionOmit<Event, "id">) => void;
 };
 
-const Context = createContext<EventsContext | null>(null);
+export const Context = createContext<EventsContext | null>(null);
 
 type EventsProviderProps = {
   children: ReactNode;

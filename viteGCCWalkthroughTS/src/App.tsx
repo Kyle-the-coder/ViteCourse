@@ -1,6 +1,11 @@
 import React from "react";
 import { Calendar } from "./components/Calendar";
+import { EventsProvider } from "./context/Events";
 
 export default function App() {
-  return <Calendar />;
+  return (
+    <EventsProvider>
+      <Calendar />
+    </EventsProvider>
+  );
 }

@@ -7,6 +7,7 @@ import {
   isSameDay,
   isSameMonth,
   isToday,
+  parse,
   startOfMonth,
   subMonths,
 } from "date-fns";
@@ -28,6 +29,7 @@ export function Calendar() {
     });
   }, [selectedMonth]);
   const { events } = useEvents();
+  console.log(events);
 
   return (
     <div className="calendar">
@@ -129,19 +131,9 @@ function CalendarDay({
       </div>
       {sortedEvents.length > 0 && (
         <div className="events">
-          <button className="all-day-event blue event">
-            <div className="event-name">Short</div>
-          </button>
-          <button className="all-day-event green event">
-            <div className="event-name">
-              Long Event Name That Just Keeps Going
-            </div>
-          </button>
-          <button className="event">
-            <div className="color-dot blue"></div>
-            <div className="event-time">7am</div>
-            <div className="event-name">Event Name</div>
-          </button>
+          {sortedEvents.map((event) => (
+            <CalendarEvent key={event.id} event={event} />
+          ))}
         </div>
       )}
 
@@ -157,8 +149,22 @@ function CalendarDay({
 
 function CalendarEvent({ event }: { event: Event }) {
   return (
-    <button className="all-day-event blue event">
-      <div className="event-name">Short</div>
+    <button
+      className={cc("event", event.color, event.allDay && "all-day-event")}
+    >
+      {event.allDay ? (
+        <div className="event-name">{event.name}</div>
+      ) : (
+        <>
+          <div className={`color-dot ${event.color}`}></div>
+          <div className="event-time">
+            {formatDate(parse(event.startTime, "HH:mm", event.date), {
+              timeStyle: "short",
+            })}
+          </div>
+          <div className="event-name">{event.name}</div>
+        </>
+      )}
     </button>
   );
 }

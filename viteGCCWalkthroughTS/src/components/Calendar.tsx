@@ -30,7 +30,6 @@ export function Calendar() {
     });
   }, [selectedMonth]);
   const { events } = useEvents();
-  console.log(events);
 
   return (
     <div className="calendar">

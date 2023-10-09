@@ -154,6 +154,7 @@ function CalendarEvent({ event }: { event: Event }) {
   return (
     <>
       <button
+        onClick={() => setIsEditModalOpen(true)}
         className={cc("event", event.color, event.allDay && "all-day-event")}
       >
         {event.allDay ? (

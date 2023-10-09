@@ -1,4 +1,4 @@
-import React, { Fragment, useId } from "react";
+import React, { FormEvent, Fragment, useId, useRef, useState } from "react";
 import { Modal, ModalProps } from "../components/Modal";
 import { Event } from "../context/Events";
 import { EVENT_COLORS } from "../context/useEvent";
@@ -22,6 +22,54 @@ export function EventFormModal({
 }: EventFormModalProps) {
   const isNew = event == null;
   const formId = useId();
+  const [selectedColor, setSelectedColor] = useState(
+    event?.color || EVENT_COLORS[0]
+  );
+  const [isAllDayChecked, setIsAllDayChecked] = useState(
+    event?.allDay || false
+  );
+  const [startTime, setStartTime] = useState(event?.startTime || "");
+  const endTimeRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    const name = nameRef.current?.value ?? "";
+    const endTime = endTimeRef.current?.value;
+    if (name === null || name === "") return;
+
+    const commonProps = {
+      name,
+      date: date || (event ? event.date : new Date()),
+      color: selectedColor,
+    };
+    let newEvent: UnionOmit<Event, "id">;
+
+    if (isAllDayChecked) {
+      newEvent = {
+        ...commonProps,
+        allDay: true,
+      };
+    } else {
+      if (
+        startTime === null ||
+        startTime === "" ||
+        endTime === null ||
+        endTime === ""
+      ) {
+        return;
+      }
+      newEvent = {
+        ...commonProps,
+        allDay: false,
+        startTime,
+        endTime,
+      };
+    }
+    modalProps.onClose();
+    onSubmit(newEvent);
+  }
+
   return (
     <Modal {...modalProps}>
       <div className="modal-title">
@@ -31,23 +79,42 @@ export function EventFormModal({
           &times;
         </button>
       </div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor={`${formId}-name`}>Name</label>
-          <input type="text" name="name" id={`${formId}-name`} />
+          <input required type="text" ref={nameRef} id={`${formId}-name`} />
         </div>
         <div className="form-group checkbox">
-          <input type="checkbox" name="all-day" id={`${formId}-all-day`} />
+          <input
+            type="checkbox"
+            checked={isAllDayChecked}
+            onChange={(e) => setIsAllDayChecked(e.target.checked)}
+            id={`${formId}-all-day`}
+          />
           <label htmlFor={`${formId}-all-day`}>All Day?</label>
         </div>
         <div className="row">
           <div className="form-group">
             <label htmlFor={`${formId}-start-time`}>Start Time</label>
-            <input type="time" id={`${formId}-start-time`} name="start-time" />
+            <input
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+              type="time"
+              required={!isAllDayChecked}
+              disabled={isAllDayChecked}
+              id={`${formId}-start-time`}
+            />
           </div>
           <div className="form-group">
             <label htmlFor={`${formId}-end-time`}>End Time</label>
-            <input type="time" id={`${formId}-end-time`} name="end-time" />
+            <input
+              ref={endTimeRef}
+              min={startTime}
+              type="time"
+              required={!isAllDayChecked}
+              disabled={isAllDayChecked}
+              id={`${formId}-end-time`}
+            />
           </div>
         </div>
         <div className="form-group">
@@ -57,9 +124,10 @@ export function EventFormModal({
               <Fragment key={color}>
                 <input
                   type="radio"
-                  name="color"
                   value={color}
                   id={`${formId}-${color}`}
+                  checked={selectedColor === color}
+                  onChange={() => setSelectedColor(color)}
                   className="color-radio"
                 />
                 <label htmlFor={`${formId}-${color}`}>

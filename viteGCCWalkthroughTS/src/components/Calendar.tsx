@@ -13,6 +13,7 @@ import {
 } from "date-fns";
 import { eachDayOfInterval, startOfWeek } from "date-fns/esm";
 import React, { useMemo, useState } from "react";
+import { Event } from "../context/Events";
 import { useEvents } from "../context/useEvent";
 import { EventFormModal } from "../modals/EventFormModal";
 import { cc } from "../utils/cc";
@@ -173,8 +174,8 @@ function CalendarEvent({ event }: { event: Event }) {
         event={event}
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
-        onSubmit={updateEvent}
-        onDelete={deleteEvent}
+        onSubmit={(e) => updateEvent(event.id, e)}
+        onDelete={() => deleteEvent(event.id)}
       />
     </>
   );

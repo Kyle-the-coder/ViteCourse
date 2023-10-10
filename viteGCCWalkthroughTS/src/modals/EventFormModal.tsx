@@ -37,7 +37,7 @@ export function EventFormModal({
     const name = nameRef.current?.value ?? "";
     const endTime = endTimeRef.current?.value;
     if (name === null || name === "") return;
-    console.log("yes");
+
     const commonProps = {
       name,
       date: date || event.date,

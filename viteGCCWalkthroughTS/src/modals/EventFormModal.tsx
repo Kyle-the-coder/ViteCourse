@@ -37,7 +37,7 @@ export function EventFormModal({
     const name = nameRef.current?.value ?? "";
     const endTime = endTimeRef.current?.value;
     if (name === null || name === "") return;
-
+    console.log(endTime);
     const commonProps = {
       name,
       date: date || (event ? event.date : new Date()),
@@ -82,7 +82,13 @@ export function EventFormModal({
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor={`${formId}-name`}>Name</label>
-          <input required type="text" ref={nameRef} id={`${formId}-name`} />
+          <input
+            required
+            type="text"
+            defaultValue={event?.name}
+            ref={nameRef}
+            id={`${formId}-name`}
+          />
         </div>
         <div className="form-group checkbox">
           <input
@@ -111,6 +117,7 @@ export function EventFormModal({
               ref={endTimeRef}
               min={startTime}
               type="time"
+              defaultValue={event?.endTime}
               required={!isAllDayChecked}
               disabled={isAllDayChecked}
               id={`${formId}-end-time`}

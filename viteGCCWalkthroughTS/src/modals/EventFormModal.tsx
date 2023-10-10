@@ -37,10 +37,10 @@ export function EventFormModal({
     const name = nameRef.current?.value ?? "";
     const endTime = endTimeRef.current?.value;
     if (name === null || name === "") return;
-    console.log(endTime);
+    console.log("yes");
     const commonProps = {
       name,
-      date: date || (event ? event.date : new Date()),
+      date: date || event.date,
       color: selectedColor,
     };
     let newEvent: UnionOmit<Event, "id">;

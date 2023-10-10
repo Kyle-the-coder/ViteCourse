@@ -34,7 +34,7 @@ export function EventsProvider({ children }: EventsProviderProps) {
   function updateEvent(id: string, eventDetails: UnionOmit<Event, "id">) {
     setEvents((e) => {
       return e.map((event) => {
-        event.id === id ? { id, ...eventDetails } : event;
+        return event.id === id ? { id, ...eventDetails } : event;
       });
     });
   }

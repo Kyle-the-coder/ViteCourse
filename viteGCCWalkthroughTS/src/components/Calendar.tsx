@@ -66,7 +66,10 @@ export function Calendar() {
             day={day}
             showWeekName={index < 7}
             selectedMonth={selectedMonth}
-            events={events.filter((event) => isSameDay(day, event.date))}
+            events={events.filter((event) => {
+              console.log(event);
+              return isSameDay(day, event.date);
+            })}
           />
         ))}
       </div>

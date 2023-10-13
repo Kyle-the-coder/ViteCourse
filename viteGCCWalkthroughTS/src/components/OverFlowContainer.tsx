@@ -29,7 +29,26 @@ export function OverFlowContainer<T>({
     const observer = new ResizeObserver((entries) => {
       const containerElement = entries[0]?.target;
       if (containerElement === null) return;
-      console.log(containerElement);
+      const children =
+        containerElement.querySelectorAll<HTMLElement>("[data-item]");
+      const overflowElement =
+        containerElement.parentElement?.querySelector<HTMLElement>(
+          "[data-overflow]"
+        );
+
+      if (overflowElement != null) overflowElement.style.display = "none";
+      children.forEach((child) => child.style.removeProperty("display"));
+      let amount = 0;
+      for (let i = children.length - 1; i >= 0; i--) {
+        const child = children[i];
+        if (containerElement.scrollHeight <= containerElement.clientHeight) {
+          break;
+        }
+        amount = children.length - i;
+        child.style.display = "none";
+        overflowElement?.style.removeProperty("display");
+      }
+      setOverflowAmout(amount);
     });
 
     observer.observe(containerRef.current);

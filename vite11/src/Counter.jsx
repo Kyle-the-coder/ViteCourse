@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 
-export default function Counter({ intialCount }) {
+function Component({ intialCount, otherProp }) {
   const [count, setCount] = useState(intialCount);
   function handleAdd() {
     return setCount(count + 1);
@@ -10,9 +10,14 @@ export default function Counter({ intialCount }) {
   }
   return (
     <>
+      <div>{otherProp}</div>
       <button onClick={() => handleMinus()}>-</button>
       {count}
       <button onClick={() => handleAdd()}>+</button>
     </>
   );
 }
+
+export const Counter = memo(Component, (prevProps, newPorps) => {
+  return prevProps.otherProp === newPorps.otherProp;
+});

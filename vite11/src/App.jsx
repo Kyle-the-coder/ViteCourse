@@ -1,3 +1,6 @@
+import { useState } from "react";
+import Counter from "./Counter";
+
 export default function App() {
   const [name, setName] = useState("");
   return (

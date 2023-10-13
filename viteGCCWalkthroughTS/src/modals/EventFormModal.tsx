@@ -148,7 +148,7 @@ export function EventFormModal({
           <button className="btn btn-success" type="submit">
             {isNew ? "Add" : "Edit"}
           </button>
-          {onDelete === null && (
+          {onDelete !== undefined && (
             <button className="btn btn-delete" onClick={onDelete} type="button">
               Delete
             </button>

@@ -4,6 +4,7 @@ import { Counter } from "./Counter";
 export default function App() {
   const [name, setName] = useState("");
   const [intialCount, setInitialCount] = useState(0);
+  const [count, setCount] = useState();
 
   return (
     <>
